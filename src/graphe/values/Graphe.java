@@ -232,8 +232,7 @@ public class Graphe{
     }
 
     public int plusCourtChemin(int a, int b){
-        int chemin = 0;
-        return chemin;
+        return this.matFloydWarshall.matrice[a][b];
     }
 
     public int ordre(){
