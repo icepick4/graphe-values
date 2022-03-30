@@ -10,7 +10,9 @@ import javax.swing.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.nio.file.Files;
 import java.util.Scanner;
+import java.util.stream.Stream;
 /**
  *
  * @author Remi
@@ -31,11 +33,14 @@ public class GrapheApp {
             DataInputStream in = new DataInputStream(fstream);
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
             String strLine;
-            //read file line by line
+            //read file line by line+
+            int n = 0;
+            
             while ((strLine = br.readLine()) != null)   {
                 //print the content on the console
-                //System.out.println (strLine);
+                System.out.println(strLine);
             }
+            System.out.println(n);
             //close the input stream
             in.close();
         }
@@ -80,8 +85,13 @@ public class GrapheApp {
         String[] E = {"V", "E"};
         noeuds.add(E);
         Graphe graphe = new Graphe(matriceBool, matriceVal, Liens, noeuds);
-        
+        // System.out.println(graphe.getNbAutoroutes());
+        // System.out.println(Arrays.deepToString(graphe.getVille().toArray()));
+        // graphe.getAutoroutes().afficher();
+        // graphe.floydWarshall().afficher();
+        // graphe.getMatVal().afficher();
 
     }
+
     
 }
