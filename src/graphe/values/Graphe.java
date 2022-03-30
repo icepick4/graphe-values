@@ -594,7 +594,7 @@ public class Graphe{
             valid = 0;
         }
         return clique;
-    }
+    }/*
     public int nbStable(){
         if (!this.estSimple()){
             // System.err.println("[ERROR] - LE GRAPHE N'EST PAS SIMPLE");
@@ -609,7 +609,8 @@ public class Graphe{
                 }
             }
         return nbStable;
-    }
+    }*/
+    /*
     public ArrayList<Integer> stable(int sommet){
         Graphe gComplem;
         gComplem = this.versComplementaire();
@@ -629,7 +630,7 @@ public class Graphe{
         }
         // System.out.println(stable);
         return stable;
-    }
+    }*/
     public int[][] dsat(){
         int[][] dsatTable;
         dsatTable = this.initDsat();
