@@ -7,6 +7,9 @@ import java.io.*;
 import java.util.Arrays;
 import javax.swing.*;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 /**
  *
  * @author Remi
