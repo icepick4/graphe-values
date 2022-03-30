@@ -16,7 +16,6 @@ public class Graphe{
     public Matrice matVal;
     public MatriceString matLiens;
     public ArrayList<String[]> noeuds;
-    private final Matrice matFloydWarshall;
     Graphe(Matrice matriceBool, Matrice matriceValuations, MatriceString matriceLiens, ArrayList<String[]> noeuds){
         this.matBool = matriceBool;
         this.matVal = matriceValuations;
@@ -24,7 +23,6 @@ public class Graphe{
         this.noeuds = noeuds;
         this.sommets = matriceBool.lignes();
         this.aretes = 0;
-        this.matFloydWarshall = floydWarshall();
         for(int[] ligne : this.matBool.matrice){
             for(int colonne : ligne){
                 this.aretes+=colonne;
@@ -595,41 +593,7 @@ public class Graphe{
         }
         return clique;
     }
-    public int nbStable(){
-        if (!this.estSimple()){
-            // System.err.println("[ERROR] - LE GRAPHE N'EST PAS SIMPLE");
-            return -1;
-        }
-        int nbStable= 0;
-        int tempNb;
-            for (int i=0; i<this.ordre();i++) {
-                tempNb = this.stable(i).size();
-                if (nbStable < tempNb){
-                    nbStable = tempNb;
-                }
-            }
-        return nbStable;
-    }
-    public ArrayList<Integer> stable(int sommet){
-        Graphe gComplem;
-        gComplem = this.versComplementaire();
-        ArrayList<Integer> stable = new ArrayList<>();
-        stable.add(sommet);
-        int valid = 0;     
-        for(int j = sommet+1 ; j < gComplem.ordre(); j++){
-            for(int i = 0; i < stable.size(); i++){
-                if (gComplem.verifSuccesseur(stable.get(i), j) && gComplem.verifSuccesseur(j, stable.get(i)) && !(stable.contains(j))){
-                    valid++;
-                }
-            }
-            if(valid == stable.size()){
-                stable.add(j);
-            }
-            valid = 0;
-        }
-        // System.out.println(stable);
-        return stable;
-    }
+
     public int[][] dsat(){
         int[][] dsatTable;
         dsatTable = this.initDsat();
