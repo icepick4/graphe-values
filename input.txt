@@ -1,30 +1,39 @@
-Nœud:lien1::voisin;
-Nœud:lien1::voisin;
-Nœud:lien1::voisin;
-Nœud:lien1::voisin;
-Nœud:lien1::voisin;
-Nœud:lien1::voisin;
-Nœud:lien1::voisin;
-Nœud:lien1::voisin;
-Nœud:lien1::voisin;
-Nœud:lien1::voisin;
-Nœud:lien1::voisin;
-Nœud:lien1::voisin;
-Nœud:lien1::voisin;
-Nœud:lien1::voisin;
-Nœud:lien1::voisin;
-Nœud:lien1::voisin;
-Nœud:lien1::voisin;
-Nœud:lien1::voisin;
-Nœud:lien1::voisin;
-Nœud:lien1::voisin;
-Nœud:lien1::voisin;
-Nœud:lien1::voisin;
-Nœud:lien1::voisin;
-Nœud:lien1::voisin;
-Nœud:lien1::voisin;
-Nœud:lien1::voisin;
-Nœud:lien1::voisin;
-Nœud:lien1::voisin;
-Nœud:lien1::voisin;
-Nœud:lien1::voisin;
+V,Villefontaine:A,17::V,Heryieux;A,3::V,Diemoz;;
+V,Heryieux:A,17::V,Villefontaine;D,6::V,Saint-Pierre de Chandieu;A,22::V,Saint-Priest;A,23::L,Eurexpo;D,8::V,Frontonas;;
+V,Diemoz:A,3::V,Villefontaine;N,35::V,Oullins;;
+V,Saint-Priest:A,22::V,Heryieux;D,5::V,Corbas;N,14::V,Vénissieux;N,18::L,Parc de la tête d'or;N,11::V,Décines-Charpieu;D,4::L,Eurexpo;;
+V,Saint-Piere de Chandieu:D,6::V,Heryieux;D,12::V,Corbas;A,24::R,Le Bateau Bellona;D,8::V,Chaponnay;;
+V,Corbas:D,12::V,Saint-Pierre de Chandieu;D,5::V,Saint-Priest;;
+V,Chaponnay:D,8::V,Saint-Piere de Chandieu;A,20::V,Pierre-Bénite;N,37::V,Bron;;
+V,Frontonas:D,8::Heryieux;N,30::V,Décines-Charpieu;;
+V,Décines-Charpieu:N,30::V,Frontonas;N,11::V,Saint-Priest;N,10::L,Parc de la tête d'or;A,3::V,Vaulx-en-Velin;;
+V,Vaulx-en-Velin:N,8::L,Groupama Stadium;A,3::V,Décines-Charpieu;N,4::V,Villeurbanne;;
+V,Villeurbanne:N,4::V,Vaulx-en-Velin;D,3::R,La Marinade;D,3::V,Lyon;A,11::R,Rock'nEat;;
+V,Caluire-et-Cuire:D,5::R,Rock'nEat;;
+V,Bron:N,5::V,Vénissieux;N,37::V,Chaponnay;;
+V,Vénissieux:N,14::V,Saint-Priest;N,5::V,Bron;N,10::L,Parc sergent Blandan;D,0.6::R,Le Bateau Bellona;N,12::V,Pierre-Bénite;;
+V,Pierre-Bénite:N,12::V,Vénissieux;A,20::V,Chaponnay;D,3::L,Aquarium de Lyon;D,3::V,Oullins;;
+V,Oullins:N,35::V,Diemoz;D,3::V,Pierre-Bénite;D,2::L,Aquarium de Lyon;A,11::V,Ecully;;
+V,Ecully:A,11::V,Oullins;A,7::L,Théatre Gallo Romain;N,7::V,Lyon;D,3::R,Rock'nEat;;
+V,Lyon:D,1::R,Pitaya;N,7::V,Ecully;D,O.1::R,Poupées Russes;D,3::V,Villeurbanne;;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
