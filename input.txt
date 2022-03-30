@@ -16,6 +16,18 @@ V,Pierre-Bénite:N,12::V,Vénissieux;A,20::V,Chaponnay;D,3::L,Aquarium de Lyon;D
 V,Oullins:N,35::V,Diemoz;D,3::V,Pierre-Bénite;D,2::L,Aquarium de Lyon;A,11::V,Ecully;;
 V,Ecully:A,11::V,Oullins;A,7::L,Théatre Gallo Romain;N,7::V,Lyon;D,3::R,Rock'nEat;;
 V,Lyon:D,1::R,Pitaya;N,7::V,Ecully;D,O.1::R,Poupées Russes;D,3::V,Villeurbanne;;
+L,Parc de la tête d'or:A,3::Parc sergent Blandan;N,18::Saint-Priest;N,10::Décines-Charpieu;;
+L,Théatre Gallo Romain:A,6::Le bateau Bellona;A,8::Poupées Russes;A,7::Ecully;D,3::Pitaya;;
+L,Aquarium de Lyon:D,2::Oullins;D,3::Pierre-Bénite;N,8::Le bateau Bellona;;
+L,Groupama Stadium:N,7::Eurexpo;N,8::Vaulx-en-Velin;;
+L,Eurexpo:A,23::Heyrieux;D,4::Saint-Priest;N,7::Groupama Stadium;;
+L,Parc sergent Blandan:N,10::Vénissieux;A,3::Parc de la tête d'or;D,3::Pitaya;;
+R,Rock'nEat:D,3::Ecully;D,4::Poupées Russes;D,5::Les Platanes;D,5::Caluire-et-Cuire;A,11:Villeurbanne;;
+R,Poupées Russes:D,0.1::Lyon;A,8::Théatre Gallo Romain;D,4::Rock'nEat;;
+R,Pitaya:D,3::Théatre Gallo Romain;A,5::Le Bateau Bellona;D,3::Parc sergent Blandan;D,1::Lyon;
+R,Le Bateau Bellona:N,8::Aquarium de Lyon;A,24::Saint-Pierre de Chandieu;D,0.6::Vénissieux;A,5::Pitaya;A,6::Théatre Gallo Romain;;
+R,La Marinade:D,3::Villeurbanne;
+
 
 
 

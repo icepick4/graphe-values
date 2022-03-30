@@ -5,44 +5,237 @@
 package graphe.values;
 import java.util.ArrayList;
 import java.util.Arrays;
-
 /**
  *
  * @author Remi
  */
 public class Graphe{
-    private static final int[][] tabk33 = {{0,0,0,1,1,1},
-                                          {0,0,0,1,1,1},
-                                          {0,0,0,1,1,1},
-                                          {1,1,1,0,0,0},
-                                          {1,1,1,0,0,0},
-                                          {1,1,1,0,0,0}};
-    private static final Matrice k33Mat = new Matrice(tabk33);
-
     private final int sommets;
     private int aretes;
-    public Matrice mat;
-    
-    Graphe(Matrice matrice){
-        this.mat = matrice;
-        this.sommets = matrice.lignes();
+    public Matrice matBool;
+    public Matrice matVal;
+    public MatriceString matLiens;
+    public ArrayList<String[]> noeuds;
+    private final Matrice matFloydWarshall;
+    Graphe(Matrice matriceBool, Matrice matriceValuations, MatriceString matriceLiens, ArrayList<String[]> noeuds){
+        this.matBool = matriceBool;
+        this.matVal = matriceValuations;
+        this.matLiens = matriceLiens;
+        this.noeuds = noeuds;
+        this.sommets = matriceBool.lignes();
         this.aretes = 0;
-        for(int[] ligne : this.mat.matrice){
+        this.matFloydWarshall = floydWarshall();
+        for(int[] ligne : this.matBool.matrice){
             for(int colonne : ligne){
                 this.aretes+=colonne;
             }
         }
-        if(this.mat.estSymetrique()){
+        if(this.matBool.estSymetrique()){
             this.aretes /= 2;
         }
         
-        if(matrice.lignes() != matrice.colonnes()){
+        if(matriceBool.lignes() != matriceBool.colonnes()){
             throw new IllegalArgumentException("Graphe non valide : colonnes!=lignes");
         }
     }
     
-    private static final Graphe K33 = new Graphe(k33Mat);
+    public ArrayList<String[]> getVille(){
+        ArrayList<String[]> villes = new ArrayList<String[]>();
+        for(String[] noeud : this.noeuds){
+            if(noeud[0] == "V"){
+                villes.add(noeud);
+            }
+        }
+        return villes;
+    }
+
+    public ArrayList<String[]> getLoisir(){
+        ArrayList<String[]> loisirs = new ArrayList<String[]>();
+        for(String[] noeud : this.noeuds){
+            if(noeud[0] == "L"){
+                loisirs.add(noeud);
+            }
+        }
+        return loisirs;
+    }
+
+    public ArrayList<String[]> getRestaurant(){
+        ArrayList<String[]> restaurants = new ArrayList<String[]>();
+        for(String[] noeud : this.noeuds){
+            if(noeud[0] == "R"){
+                restaurants.add(noeud);
+            }
+        }
+        return restaurants;
+    }
+
+    public int getNbVille(){
+        return getVille().size();
+    }
+
+    public int getNbLoisir(){
+        return getLoisir().size();
+    }
+
+    public int getNbRestaurant(){
+        return getRestaurant().size();
+    }
+
+    public int getNbAutoroutes(){
+        int ctr = 0;
+        for(int i = 0; i < this.matLiens.lignes(); i++){
+            for(int j = 0; j < this.matLiens.colonnes(); j++){
+                if(this.matLiens.matrice[i][j] == "A"){
+                    ctr++;
+                }
+            }
+        }
+        return ctr;
+    }
+
+    public int getNbDepartementales(){
+        int ctr = 0;
+        for(int i = 0; i < this.matLiens.lignes(); i++){
+            for(int j = 0; j < this.matLiens.colonnes(); j++){
+                if(this.matLiens.matrice[i][j] == "D"){
+                    ctr++;
+                }
+            }
+        }
+        return ctr;
+    }
+
+    public int getNbNationnales(){
+        int ctr = 0;
+        for(int i = 0; i < this.matLiens.lignes(); i++){
+            for(int j = 0; j < this.matLiens.colonnes(); j++){
+                if(this.matLiens.matrice[i][j] == "N"){
+                    ctr++;
+                }
+            }
+        }
+        return ctr;
+    }
+
+    public MatriceString getAutoroutes(){
+        MatriceString autoroutes = new MatriceString(this.matLiens.matrice);
+        for(int i = 0; i < autoroutes.lignes(); i++){
+            for(int j = 0; j < autoroutes.colonnes(); j++){
+                if(autoroutes.matrice[i][j] != "A"){
+                    autoroutes.matrice[i][j] = "";
+                }
+            }
+        }
+        return autoroutes;
+    }
     
+    public MatriceString getDepartementales(){
+        MatriceString departementales = new MatriceString(this.matLiens.matrice);
+        for(int i = 0; i < departementales.lignes(); i++){
+            for(int j = 0; j < departementales.colonnes(); j++){
+                if(departementales.matrice[i][j] != "A"){
+                    departementales.matrice[i][j] = "";
+                }
+            }
+        }
+        return departementales;
+    }
+
+    public MatriceString getNationales(){
+        MatriceString nationales = new MatriceString(this.matLiens.matrice);
+        for(int i = 0; i < nationales.lignes(); i++){
+            for(int j = 0; j < nationales.colonnes(); j++){
+                if(nationales.matrice[i][j] != "A"){
+                    nationales.matrice[i][j] = "";
+                }
+            }
+        }
+        return nationales;
+    }
+
+    /**
+     * 
+     * @param a
+     * @param b
+     * @return true si a est plus ouverte que b, sinon false
+     */
+    public boolean plusOuverte(int a, int b){
+        int nbVillesA = 0;
+        int nbVillesB = 0;
+        for(int i = 0; i < this.matBool.lignes(); i++){
+            if (existeChemin(2, a, i) && this.noeuds.get(i)[0] == "V"){
+                nbVillesA++;
+            }
+        }
+        for(int i = 0; i < this.matBool.lignes(); i++){
+            if (existeChemin(2, b, i) && this.noeuds.get(i)[0] == "V"){
+                nbVillesB++;
+            }
+        }
+        if (nbVillesB < nbVillesA){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean plusGastronomique(int a, int b){
+        int nbVillesA = 0;
+        int nbVillesB = 0;
+        for(int i = 0; i < this.matBool.lignes(); i++){
+            if (existeChemin(2, a, i) && this.noeuds.get(i)[0] == "R"){
+                nbVillesA++;
+            }
+        }
+        for(int i = 0; i < this.matBool.lignes(); i++){
+            if (existeChemin(2, b, i) && this.noeuds.get(i)[0] == "R"){
+                nbVillesB++;
+            }
+        }
+        if (nbVillesB < nbVillesA){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean plusCulturelle(int a, int b){
+        int nbVillesA = 0;
+        int nbVillesB = 0;
+        for(int i = 0; i < this.matBool.lignes(); i++){
+            if (existeChemin(2, a, i) && this.noeuds.get(i)[0] == "L"){
+                nbVillesA++;
+            }
+        }
+        for(int i = 0; i < this.matBool.lignes(); i++){
+            if (existeChemin(2, b, i) && this.noeuds.get(i)[0] == "L"){
+                nbVillesB++;
+            }
+        }
+        if (nbVillesB < nbVillesA){
+            return false;
+        }
+        return true;
+    }
+
+    public Matrice floydWarshall() {
+        Matrice tempMat = new Matrice(this.matVal.matrice);
+        int n = tempMat.matrice.length;
+        for (int k = 0; k < n; k++) {
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    if (tempMat.matrice[i][k] + tempMat.matrice[k][j] < tempMat.matrice[i][j]) {
+                        tempMat.matrice[i][j] = tempMat.matrice[i][k] + tempMat.matrice[k][j];
+                    }
+                }
+            }
+        }
+        return tempMat;
+    }
+
+    public int plusCourtChemin(int a, int b){
+        int chemin = 0;
+        return chemin;
+    }
+
     public int ordre(){
         return this.sommets;
     }
@@ -52,36 +245,23 @@ public class Graphe{
     }
     
     public String type(){
-        int p = this.pGraphe();
         String check = "";
-        if(!(this.mat.estSymetrique())){
+        if(!(this.matBool.estSymetrique())){
             check = "non-";
         }
         if (this.estSimple()){
             return "Ce graphe est simple et "+check+"orienté";
         }
         else if(this.estElementaire()){
-            return "Ce graphe est un "+p+"-graphe élémentaire"+check+"orienté";
+            return "Ce graphe est un 1-graphe élémentaire"+check+"orienté";
         }
-        return "Ce graphe est un "+p+"graphe"+check+"orienté";
-    }
-    
-    public int pGraphe(){
-        int max = 0;
-        for (int[] ligne : this.mat.matrice) {
-            for (int j = 0; j < this.ordre(); j++) {
-                if (ligne[j] > max) {
-                    max = ligne[j];
-                }
-            }
-        }
-        return max;
+        return "Ce graphe est un 1-graphe"+check+"orienté";
     }
     
     public boolean estElementaire(){
         for(int i = 0; i < this.ordre(); i++){
             for(int j = 0; j < this.ordre(); j++){
-                if(i == j && this.mat.matrice[i][j] == 1){
+                if(i == j && this.matBool.matrice[i][j] == 1){
                     return false;
                 }
             }
@@ -90,7 +270,7 @@ public class Graphe{
     }
     
     public boolean estSimple(){
-        return this.pGraphe() == 1 && this.estElementaire();
+        return this.estElementaire();
     }
     /**
      * 
@@ -101,7 +281,7 @@ public class Graphe{
      */
     public int[] degre(int sommet){
         int checkOriente;
-        if (this.mat.estSymetrique()){
+        if (this.matBool.estSymetrique()){
             checkOriente = 1;
         } 
         else{
@@ -109,17 +289,17 @@ public class Graphe{
         }
         int[] degres = new int[checkOriente];
         for(int i = 0; i<this.ordre(); i++){
-            if (this.mat.matrice[sommet][i] != 0){
-                degres[0]+=this.mat.matrice[sommet][i];
+            if (this.matBool.matrice[sommet][i] != 0){
+                degres[0]+=this.matBool.matrice[sommet][i];
                 if(degres.length > 1){
-                    degres[1]+=this.mat.matrice[sommet][i];
+                    degres[1]+=this.matBool.matrice[sommet][i];
                 }
                 
             }
-            if (this.mat.matrice[i][sommet] != 0){
+            if (this.matBool.matrice[i][sommet] != 0){
                 if(degres.length > 1){
-                    degres[0]+=this.mat.matrice[i][sommet];
-                    degres[2]+=this.mat.matrice[i][sommet];
+                    degres[0]+=this.matBool.matrice[i][sommet];
+                    degres[2]+=this.matBool.matrice[i][sommet];
                 }
             }
         }
@@ -162,6 +342,11 @@ public class Graphe{
     public int sommeDegre(){
         return this.aretes*2;
     }
+
+    public int poidMinim(int sommet1, int sommet2){
+        // return le poid minim entre deux sommet s'il existe un chemin sinon + infini
+        return 0;
+    }
     /**
      * 
      * @param sommet sommet auquel on récupère les successeurs
@@ -169,7 +354,7 @@ public class Graphe{
      */
     public int[] suivants(int sommet){
         int checkOriente;
-        if (this.mat.estSymetrique()){
+        if (this.matBool.estSymetrique()){
             checkOriente = 0;
         } 
         else{
@@ -178,7 +363,7 @@ public class Graphe{
         int[] suivants = new int[this.degre(sommet)[checkOriente]];
         int ctr = 0;
         for(int i = 0; i < this.ordre(); i++){
-            if(this.mat.matrice[sommet][i] != 0){
+            if(this.matBool.matrice[sommet][i] != 0){
                 suivants[ctr] = i;
                 ctr+=1;
             }
@@ -192,7 +377,7 @@ public class Graphe{
      */
     public int[] precedents(int sommet){
         int checkOriente;
-        if (this.mat.estSymetrique()){
+        if (this.matBool.estSymetrique()){
             checkOriente = 0;
         } 
         else{
@@ -201,7 +386,7 @@ public class Graphe{
         int[] precedents = new int[this.degre(sommet)[checkOriente]];
         int ctr = 0;
         for(int i = 0; i < this.ordre(); i++){
-            if(this.mat.matrice[i][sommet] != 0){
+            if(this.matBool.matrice[i][sommet] != 0){
                 precedents[ctr] = i;
                 ctr+=1;
             }
@@ -242,7 +427,7 @@ public class Graphe{
     public boolean estComplet(){
         for(int i = 0; i < this.ordre(); i++){
             for(int j = 0; j < this.ordre(); j++){
-                if(i != j && this.mat.matrice[i][j] != 1){
+                if(i != j && this.matBool.matrice[i][j] != 1){
                     return false;
                 }
             }
@@ -259,7 +444,7 @@ public class Graphe{
     public int[] welshPowell(){
         int[] SommetsColores = new int[this.sommets];
         int[] Sommets = initWelshPowell();
-        if(!(this.mat.estSymetrique()) || !(this.estSimple())){
+        if(!(this.matBool.estSymetrique()) || !(this.estSimple())){
             return SommetsColores;
         }
         int ctr = 1;
@@ -378,35 +563,6 @@ public class Graphe{
             }
         }
         return false;
-    }
-    public Graphe versComplet(){
-        Matrice matComp = new Matrice(new int [this.sommets][this.sommets]);
-        Graphe gComplet = new Graphe(matComp);
-        for(int i = 0 ; i < gComplet.ordre();i++){
-            for(int j = 0 ; j < gComplet.ordre() ; j++){
-                if( i != j){
-                    gComplet.mat.matrice[i][j] = 1; // on remplit la matrice de 1 sauf pour la diagonale.
-                } 
-            }
-        }
-        return gComplet;
-    }
-    public static Graphe versComplet(int coeff){
-        Matrice matComp = new Matrice(new int [coeff][coeff]);
-        Graphe gComplet = new Graphe(matComp);
-        for(int i = 0 ; i < gComplet.ordre();i++){
-            for(int j = 0 ; j < gComplet.ordre() ; j++){
-                if( i != j){
-                    gComplet.mat.matrice[i][j] = 1; // on remplit la matrice de 1 sauf pour la diagonale.
-                } 
-            }
-        }
-        return gComplet;
-    }
-
-    public Graphe versComplementaire(){
-        Graphe gComplem = new Graphe(this.versComplet().mat.sousMat(this.mat));
-        return gComplem;
     }
 
     public int nbClique(){
@@ -593,8 +749,8 @@ public class Graphe{
         return dsatNb;
     }    
     public void afficher(){
-        for(int i = 0; i < this.mat.lignes(); i++){
-            System.out.println(Arrays.toString(this.mat.matrice[i]));
+        for(int i = 0; i < this.matBool.lignes(); i++){
+            System.out.println(Arrays.toString(this.matBool.matrice[i]));
         }
         System.out.println();
         
@@ -608,11 +764,11 @@ public class Graphe{
      * @return la longueur du chemin le plus court entre deux sommets, 0 s'il y en a pas.
      */
     public int cheminMinim(int sommet1, int sommet2){
-        if (this.mat.estVide()){
+        if (this.matBool.estVide()){
             return 0;
         }
         for(int i = 1; i < this.ordre()-1; i++){
-            Matrice matrice = this.mat.powMat(i);
+            Matrice matrice = this.matBool.powMat(i);
             if (matrice.matrice[sommet1][sommet2] != 0){
                 return i;
             }
@@ -621,73 +777,17 @@ public class Graphe{
     }
 
     public boolean existeChemin(int longueur,int sommet1, int sommet2){
-        if (this.mat.estVide()){
+        if (this.matBool.estVide()){
             return false;
         }
-        Matrice matrice = this.mat.powMat(longueur);
-        Graphe graphe = new Graphe(matrice);
+        Matrice matrice = this.matBool.powMat(longueur);
+        ArrayList<String[]> noeuds = new ArrayList<String[]>();
+        Graphe graphe = new Graphe(matrice,this.matVal, this.matLiens,noeuds);
         return graphe.relies(sommet1, sommet2);
     }
 
-    public boolean contient(Graphe gTested){
-        if ((gTested.estComplet() && this.nbClique() == gTested.ordre()) || (gTested == this)){
-            return true;
-        }
-        if(this.ordre()>=gTested.ordre()){
-            for (int i = 0; i < this.ordre()-gTested.ordre()+1;i++){
-                for(int j = 0; j < this.ordre()-gTested.ordre()+1;j++){
-                    if(Arrays.deepEquals(this.extractGraphe(i, j ,gTested.ordre()).mat.matrice,gTested.mat.matrice)){
-                        return true;
-                    } 
-                }
-            }
-        }
-        return false;
-    }
-
-    public Graphe extractGraphe(int posDepX,int posDepY,int size){
-        int[][] tabExtract = new int[size][size];
-        for(int i = 0; i < size; i++){
-            for(int j = 0;j < size; j++){
-                tabExtract[i][j] = this.mat.matrice[i+posDepX][j+posDepY];
-            }
-        }
-        Matrice matExtract = new Matrice(tabExtract);
-        Graphe gExtracted = new Graphe(matExtract);
-        return gExtracted;
-    }
-
-    public boolean estPlanaire(){
-        return (!(this.aretes > 3*this.sommets - 6) && !(this.contient(Graphe.versComplet(5))) && !(this.contient(Graphe.K33)));
-    }
-
-    public int[] encadrementChromatique(){
-        int[] encChro = new int[2];
-        int nClique = this.nbClique();
-        int nStable = this.nbStable();
-        if(this.estComplet()){
-            encChro[0] = this.sommets;
-            encChro[1] = this.sommets;
-            return encChro;
-        }
-        if(this.estSimple() && this.mat.estSymetrique()){
-            if(nClique > 0){
-                encChro[0] = nClique;
-            }
-            if(nClique<(this.sommets/nStable)){
-                encChro[0] = this.sommets/nStable;
-            }
-            encChro[1]=this.degMax()+1;         
-            if(encChro[1]>4 && this.estPlanaire()){
-                encChro[1] = 4;
-            }
-            
-        }
-        return encChro;
-    }
-
     public boolean estConnexe(){
-        if(this.mat.estVide() && this.ordre() > 1){
+        if(this.matBool.estVide() && this.ordre() > 1){
             return false;
         }
         int[][] sommet = new int[(this.ordre()*(this.ordre()-1)/2)][2];
@@ -705,11 +805,5 @@ public class Graphe{
             }
         }
         return true;
-    }
-    public int nbFaces(){
-        if(!(this.estConnexe() && this.estPlanaire())){
-            return 0;
-        }
-        return (2- this.sommets +this.aretes);        
     }
 }
