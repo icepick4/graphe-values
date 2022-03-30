@@ -606,8 +606,48 @@ public class Graphe{
             valid = 0;
         }
         return clique;
+<<<<<<< HEAD
+    }/*
+    public int nbStable(){
+        if (!this.estSimple()){
+            // System.err.println("[ERROR] - LE GRAPHE N'EST PAS SIMPLE");
+            return -1;
+        }
+        int nbStable= 0;
+        int tempNb;
+            for (int i=0; i<this.ordre();i++) {
+                tempNb = this.stable(i).size();
+                if (nbStable < tempNb){
+                    nbStable = tempNb;
+                }
+            }
+        return nbStable;
+    }*/
+    /*
+    public ArrayList<Integer> stable(int sommet){
+        Graphe gComplem;
+        gComplem = this.versComplementaire();
+        ArrayList<Integer> stable = new ArrayList<>();
+        stable.add(sommet);
+        int valid = 0;     
+        for(int j = sommet+1 ; j < gComplem.ordre(); j++){
+            for(int i = 0; i < stable.size(); i++){
+                if (gComplem.verifSuccesseur(stable.get(i), j) && gComplem.verifSuccesseur(j, stable.get(i)) && !(stable.contains(j))){
+                    valid++;
+                }
+            }
+            if(valid == stable.size()){
+                stable.add(j);
+            }
+            valid = 0;
+        }
+        // System.out.println(stable);
+        return stable;
+    }*/
+=======
     }
 
+>>>>>>> 6a9d2ce1ccfd4c2d6dd5b39521ff56f985d28e14
     public int[][] dsat(){
         int[][] dsatTable;
         dsatTable = this.initDsat();
