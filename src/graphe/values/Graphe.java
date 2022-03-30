@@ -12,11 +12,10 @@ import java.util.Arrays;
 public class Graphe{
     private final int sommets;
     private int aretes;
-    public Matrice matBool;
-    public Matrice matVal;
-    public MatriceString matLiens;
-    public ArrayList<String[]> noeuds;
-    private final Matrice matFloydWarshall;
+    private final Matrice matBool;
+    private final Matrice matVal;
+    private final MatriceString matLiens;
+    private final ArrayList<String[]> noeuds;
     Graphe(Matrice matriceBool, Matrice matriceValuations, MatriceString matriceLiens, ArrayList<String[]> noeuds){
         this.matBool = matriceBool;
         this.matVal = matriceValuations;
@@ -24,7 +23,6 @@ public class Graphe{
         this.noeuds = noeuds;
         this.sommets = matriceBool.lignes();
         this.aretes = 0;
-        this.matFloydWarshall = floydWarshall();
         for(int[] ligne : this.matBool.matrice){
             for(int colonne : ligne){
                 this.aretes+=colonne;
@@ -39,6 +37,9 @@ public class Graphe{
         }
     }
     
+    public Matrice getMatVal(){
+        return this.matVal;
+    }
     public ArrayList<String[]> getVille(){
         ArrayList<String[]> villes = new ArrayList<String[]>();
         for(String[] noeud : this.noeuds){
@@ -217,23 +218,34 @@ public class Graphe{
     }
 
     public Matrice floydWarshall() {
-        Matrice tempMat = new Matrice(this.matVal.matrice);
-        int n = tempMat.matrice.length;
+        int n = this.matVal.matrice.length;
+        int[][] temp = new int[n][n];
+        for(int h = 0; h < n; h++){
+            for(int j = 0; j < n; j++){
+                temp[h][j] = this.matVal.matrice[h][j];
+            }
+        }
         for (int k = 0; k < n; k++) {
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < n; j++) {
-                    if (tempMat.matrice[i][k] + tempMat.matrice[k][j] < tempMat.matrice[i][j]) {
-                        tempMat.matrice[i][j] = tempMat.matrice[i][k] + tempMat.matrice[k][j];
+                    if (temp[i][k] + temp[k][j] < temp[i][j] && i != j) {
+                        temp[i][j] = temp[i][k] + temp[k][j];
                     }
                 }
             }
         }
-        return tempMat;
+        Matrice finalMat = new Matrice(temp);
+        return finalMat;
     }
 
     public int plusCourtChemin(int a, int b){
-        return this.matFloydWarshall.matrice[a][b];
+        return this.floydWarshall().matrice[a][b];
     }
+
+    // public Chemin (String ville){
+    //     Chemin chemin = new Chemin(0);
+    //     return chemin;
+    // }
 
     public int ordre(){
         return this.sommets;
@@ -594,6 +606,7 @@ public class Graphe{
             valid = 0;
         }
         return clique;
+<<<<<<< HEAD
     }/*
     public int nbStable(){
         if (!this.estSimple()){
@@ -631,6 +644,10 @@ public class Graphe{
         // System.out.println(stable);
         return stable;
     }*/
+=======
+    }
+
+>>>>>>> 6a9d2ce1ccfd4c2d6dd5b39521ff56f985d28e14
     public int[][] dsat(){
         int[][] dsatTable;
         dsatTable = this.initDsat();

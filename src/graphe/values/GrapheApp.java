@@ -4,12 +4,15 @@
  */
 package graphe.values;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.nio.file.Files;
 import java.util.Scanner;
+import java.util.stream.Stream;
 /**
  *
  * @author Remi
@@ -30,18 +33,65 @@ public class GrapheApp {
             DataInputStream in = new DataInputStream(fstream);
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
             String strLine;
-            //read file line by line
+            //read file line by line+
+            int n = 0;
+            
             while ((strLine = br.readLine()) != null)   {
                 //print the content on the console
-                System.out.println (strLine);
+                System.out.println(strLine);
             }
+            System.out.println(n);
             //close the input stream
             in.close();
         }
         catch (Exception e){//Catch exception if any
             System.err.println("Error: " + e.getMessage());
         }
+        int inf = 999;
+        int[][] matval = {
+            {inf,10,inf,inf,5},
+            {inf,inf,1,inf,2},
+            {inf,inf,inf,4,inf},
+            {7,inf,6,inf,inf},
+            {inf,3,9,2,inf}
+        };
+        int[][] matbool = {
+            {0,1,0,0,1},
+            {0,0,1,0,1},
+            {0,0,0,1,0},
+            {1,0,1,0,0},
+            {0,1,1,1,0}
+        };
+        String[][] lies = {
+            {"","A","","","N"},
+            {"","","N","","D"},
+            {"","","","D",""},
+            {"A","","D","",""},
+            {"","A","D","N",""}
+        };
+        Matrice matriceBool = new Matrice(matbool);
+        Matrice matriceVal = new Matrice(matval);
+        MatriceString Liens = new MatriceString(lies);
+
+        ArrayList<String[]> noeuds = new ArrayList<String[]>();
+        String[] A = {"V", "A"};
+        noeuds.add(A);
+        String[] B = {"R", "B"};
+        noeuds.add(B);
+        String[] C = {"L", "C"};
+        noeuds.add(C);
+        String[] D = {"V", "D"};
+        noeuds.add(D);
+        String[] E = {"V", "E"};
+        noeuds.add(E);
+        Graphe graphe = new Graphe(matriceBool, matriceVal, Liens, noeuds);
+        // System.out.println(graphe.getNbAutoroutes());
+        // System.out.println(Arrays.deepToString(graphe.getVille().toArray()));
+        // graphe.getAutoroutes().afficher();
+        // graphe.floydWarshall().afficher();
+        // graphe.getMatVal().afficher();
 
     }
+
     
 }

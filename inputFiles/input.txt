@@ -27,25 +27,4 @@ R,Poupées Russes:D,0.1::Lyon;A,8::Théatre Gallo Romain;D,4::Rock'nEat;;
 R,Pitaya:D,3::Théatre Gallo Romain;A,5::Le Bateau Bellona;D,3::Parc sergent Blandan;D,1::Lyon;
 R,Le Bateau Bellona:N,8::Aquarium de Lyon;A,24::Saint-Pierre de Chandieu;D,0.6::Vénissieux;A,5::Pitaya;A,6::Théatre Gallo Romain;;
 R,La Marinade:D,3::Villeurbanne;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+R,Les Platanes:D,5::Rock'nEat;;
