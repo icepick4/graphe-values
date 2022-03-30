@@ -10,6 +10,7 @@ import javax.swing.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Scanner;
 import java.util.stream.Stream;
@@ -31,16 +32,40 @@ public class GrapheApp {
         try{
             FileInputStream fstream = new FileInputStream("input.txt");
             DataInputStream in = new DataInputStream(fstream);
-            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            BufferedReader br = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8));
             String strLine;
             //read file line by line+
-            int n = 0;
+            ArrayList<int[]> bool = new ArrayList<int[]>();
+            ArrayList<int[]> val = new ArrayList<int[]>();
+            ArrayList<String[]> lien = new ArrayList<String[]>();
+            ArrayList<String[]> noeud = new ArrayList<String[]>();
             
             while ((strLine = br.readLine()) != null)   {
                 //print the content on the console
-                System.out.println(strLine);
+                //System.out.println(strLine);
+                int n = 0;
+                
+                try{
+                    char ch = '\000';
+                    String point = "";
+                    while (ch != ':'){
+                        ch = getCharFromString(strLine, n);
+                        //System.out.print(ch);
+                        n++;
+                        point  = point + ch;
+                    }
+                    System.out.println(point);
+                }
+                catch(Exception Error){
+                    //next line
+                }
+                
+                
             }
-            System.out.println(n);
+            // bool.add(bools);
+            // val.add(vals);
+            // lien.add(liens);
+            // noeud.add(noeuds);
             //close the input stream
             in.close();
         }
@@ -85,13 +110,15 @@ public class GrapheApp {
         String[] E = {"V", "E"};
         noeuds.add(E);
         Graphe graphe = new Graphe(matriceBool, matriceVal, Liens, noeuds);
-        // System.out.println(graphe.getNbAutoroutes());
-        // System.out.println(Arrays.deepToString(graphe.getVille().toArray()));
-        // graphe.getAutoroutes().afficher();
-        // graphe.floydWarshall().afficher();
-        // graphe.getMatVal().afficher();
+        System.out.println(graphe.getNbAutoroutes());
+        System.out.println(Arrays.deepToString(graphe.getVille().toArray()));
+        graphe.getAutoroutes().afficher();
+        graphe.floydWarshall().afficher();
+        graphe.getMatVal().afficher();
 
     }
-
+    public static char getCharFromString(String str, int index){
+        return str.charAt(index);
+    }
     
 }
