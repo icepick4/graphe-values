@@ -5,6 +5,7 @@
 package graphe.values;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 /**
  *
  * @author Remi
@@ -13,15 +14,15 @@ public class Graphe{
     private final int sommets;
     private int aretes;
     private final Matrice matBool;
-    private final Matrice matVal;
+    private final MatriceDouble matVal;
     private final MatriceString matLiens;
     private final ArrayList<String[]> noeuds;
-    Graphe(Matrice matriceBool, Matrice matriceValuations, MatriceString matriceLiens, ArrayList<String[]> noeuds){
-        this.matBool = matriceBool;
+    Graphe(Matrice matriceBool, MatriceDouble matriceValuations, MatriceString matriceLiens, ArrayList<String[]> noeuds){
         this.matVal = matriceValuations;
+        this.matBool = matriceBool;
         this.matLiens = matriceLiens;
         this.noeuds = noeuds;
-        this.sommets = matriceBool.lignes();
+        this.sommets = matriceValuations.lignes();
         this.aretes = 0;
         for(int[] ligne : this.matBool.matrice){
             for(int colonne : ligne){
@@ -37,13 +38,16 @@ public class Graphe{
         }
     }
     
-    public Matrice getMatVal(){
+    public MatriceDouble getMatVal(){
         return this.matVal;
+    }
+    public MatriceString getMatLiens(){
+        return this.matLiens;
     }
     public ArrayList<String[]> getVille(){
         ArrayList<String[]> villes = new ArrayList<String[]>();
         for(String[] noeud : this.noeuds){
-            if(noeud[0] == "V"){
+            if(Objects.equals(noeud[0],"V")){
                 villes.add(noeud);
             }
         }
@@ -53,7 +57,7 @@ public class Graphe{
     public ArrayList<String[]> getLoisir(){
         ArrayList<String[]> loisirs = new ArrayList<String[]>();
         for(String[] noeud : this.noeuds){
-            if(noeud[0] == "L"){
+            if(Objects.equals(noeud[0],"L")){
                 loisirs.add(noeud);
             }
         }
@@ -63,13 +67,14 @@ public class Graphe{
     public ArrayList<String[]> getRestaurant(){
         ArrayList<String[]> restaurants = new ArrayList<String[]>();
         for(String[] noeud : this.noeuds){
-            if(noeud[0] == "R"){
+            if(Objects.equals(noeud[0],"R")){
                 restaurants.add(noeud);
             }
         }
         return restaurants;
     }
 
+        
     public int getNbVille(){
         return getVille().size();
     }
@@ -85,43 +90,44 @@ public class Graphe{
     public int getNbAutoroutes(){
         int ctr = 0;
         for(int i = 0; i < this.matLiens.lignes(); i++){
-            for(int j = 0; j < this.matLiens.colonnes(); j++){
-                if(this.matLiens.matrice[i][j] == "A"){
+            for(int j = 0; j < this.matLiens.colonnes(); j++){                
+                if(Objects.equals(this.matLiens.matrice[i][j],"A")){
                     ctr++;
                 }
             }
         }
-        return ctr;
+        return ctr / 2;
     }
 
     public int getNbDepartementales(){
         int ctr = 0;
         for(int i = 0; i < this.matLiens.lignes(); i++){
             for(int j = 0; j < this.matLiens.colonnes(); j++){
-                if(this.matLiens.matrice[i][j] == "D"){
+                if(Objects.equals(this.matLiens.matrice[i][j],"D")){
                     ctr++;
                 }
             }
         }
-        return ctr;
+        return ctr/2;
     }
 
     public int getNbNationnales(){
         int ctr = 0;
         for(int i = 0; i < this.matLiens.lignes(); i++){
             for(int j = 0; j < this.matLiens.colonnes(); j++){
-                if(this.matLiens.matrice[i][j] == "N"){
+                if(Objects.equals(this.matLiens.matrice[i][j],"N")){
                     ctr++;
                 }
             }
         }
-        return ctr;
+        return ctr/2;
     }
 
     public MatriceString getAutoroutes(){
         MatriceString autoroutes = new MatriceString(this.matLiens.matrice);
         for(int i = 0; i < autoroutes.lignes(); i++){
             for(int j = 0; j < autoroutes.colonnes(); j++){
+
                 if(autoroutes.matrice[i][j] != "A"){
                     autoroutes.matrice[i][j] = "";
                 }
@@ -216,6 +222,7 @@ public class Graphe{
         }
         return true;
     }
+    //stocker le predeceur du chemin de floydwarshall
 
     public Matrice floydWarshall() {
         int n = this.matVal.matrice.length;
@@ -325,21 +332,21 @@ public class Graphe{
         System.out.println();
         for(int i = 0; i < 3; i++){
             switch (i) {
-                case 0 -> {
+                case 0 : {
                     System.out.print("               Degré : ");
                     for(int j = 0; j < this.ordre(); j++){
                         System.out.print(this.degre(j)[0]+" ");
                     }
                     System.out.println();
                 }
-                case 1 -> {
+                case 1 : {
                     System.out.print("Demi-degré extérieur : ");
                     for(int j = 0; j < this.ordre(); j++){
                         System.out.print(this.degre(j)[1]+" ");
                     }
                     System.out.println();
                 }
-                default -> {
+                default : {
                         System.out.print("Demi-degré intérieur : ");
                         for(int j = 0; j < this.ordre(); j++){
                                 System.out.print(this.degre(j)[2]+" ");
@@ -606,48 +613,7 @@ public class Graphe{
             valid = 0;
         }
         return clique;
-<<<<<<< HEAD
-    }/*
-    public int nbStable(){
-        if (!this.estSimple()){
-            // System.err.println("[ERROR] - LE GRAPHE N'EST PAS SIMPLE");
-            return -1;
-        }
-        int nbStable= 0;
-        int tempNb;
-            for (int i=0; i<this.ordre();i++) {
-                tempNb = this.stable(i).size();
-                if (nbStable < tempNb){
-                    nbStable = tempNb;
-                }
-            }
-        return nbStable;
-    }*/
-    /*
-    public ArrayList<Integer> stable(int sommet){
-        Graphe gComplem;
-        gComplem = this.versComplementaire();
-        ArrayList<Integer> stable = new ArrayList<>();
-        stable.add(sommet);
-        int valid = 0;     
-        for(int j = sommet+1 ; j < gComplem.ordre(); j++){
-            for(int i = 0; i < stable.size(); i++){
-                if (gComplem.verifSuccesseur(stable.get(i), j) && gComplem.verifSuccesseur(j, stable.get(i)) && !(stable.contains(j))){
-                    valid++;
-                }
-            }
-            if(valid == stable.size()){
-                stable.add(j);
-            }
-            valid = 0;
-        }
-        // System.out.println(stable);
-        return stable;
-    }*/
-=======
     }
-
->>>>>>> 6a9d2ce1ccfd4c2d6dd5b39521ff56f985d28e14
     public int[][] dsat(){
         int[][] dsatTable;
         dsatTable = this.initDsat();

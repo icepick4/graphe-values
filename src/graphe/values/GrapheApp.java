@@ -6,6 +6,8 @@ package graphe.values;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
+
 import javax.swing.*;
 
 import java.io.File;
@@ -19,7 +21,7 @@ import java.util.stream.Stream;
  * @author Remi
  */
 public class GrapheApp {
-
+    static GUI gui = new GUI();
     /**
      * @param args the command line arguments
      * @throws IOException
@@ -29,49 +31,93 @@ public class GrapheApp {
         // File f = new File("."+File.separator+"input.txt");
         // System.out.println(f.getAbsolutePath());
         // System.out.println(f.getCanonicalFile().getAbsolutePath());
-        try{
-            FileInputStream fstream = new FileInputStream("input.txt");
-            DataInputStream in = new DataInputStream(fstream);
-            BufferedReader br = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8));
-            String strLine;
-            //read file line by line+
-            ArrayList<int[]> bool = new ArrayList<int[]>();
-            ArrayList<int[]> val = new ArrayList<int[]>();
-            ArrayList<String[]> lien = new ArrayList<String[]>();
-            ArrayList<String[]> noeud = new ArrayList<String[]>();
-            
-            while ((strLine = br.readLine()) != null)   {
-                //print the content on the console
-                //System.out.println(strLine);
-                int n = 0;
-                
-                try{
-                    char ch = '\000';
-                    String point = "";
-                    while (ch != ':'){
-                        ch = getCharFromString(strLine, n);
-                        //System.out.print(ch);
-                        n++;
-                        point  = point + ch;
-                    }
-                    System.out.println(point);
+        // java.awt.EventQueue.invokeLater(new Runnable() {
+        //     public void run() {
+        //         gui.setVisible(true);
+        //     }
+        // });
+        // String file = null;
+        // while (!gui.opened){
+        //     try {
+        //         Thread.sleep(10);
+        //     } catch (InterruptedException e) {
+        //         e.printStackTrace();
+        //     }
+        // }
+        // file = gui.getFileName();
+        FileInputStream fstream = new FileInputStream("inputFiles/input.txt");
+        DataInputStream in = new DataInputStream(fstream);
+        BufferedReader br = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8));
+        String strLine;
+        //read file line by line+
+        ArrayList<String[]> noeud = new ArrayList<String[]>();
+        int nbLines = 0;
+        String[] text;
+        String lines = "";
+        while ((strLine = br.readLine()) != null){
+            lines = lines + strLine;
+            nbLines++;
+        }
+        text = lines.split(";;");
+        for(int i = 0; i < nbLines ; i++){
+            int n = 0;
+            char c = getCharFromString(text[i], n);
+            text[i] = text[i].substring(2);
+            String[] sommet = {Character.toString(c),null};
+            String nomSommet = "";
+            while(c != ':'){
+                c = getCharFromString(text[i], n);
+                if (c != ':'){
+                    nomSommet = nomSommet + c;
                 }
-                catch(Exception Error){
-                    //next line
-                }
-                
-                
+                n++;
             }
-            // bool.add(bools);
-            // val.add(vals);
-            // lien.add(liens);
-            // noeud.add(noeuds);
-            //close the input stream
-            in.close();
+            sommet[1] = nomSommet;
+            noeud.add(sommet);
+            text[i] = text[i].substring(n);
         }
-        catch (Exception e){//Catch exception if any
-            System.err.println("Error: " + e.getMessage());
+        //init matricebool matricevaluations matriceliens size of noeud size
+        int[][] matricebool = new int[noeud.size()][noeud.size()];
+        double[][] matricevaluations = new double[noeud.size()][noeud.size()];
+        String[][] matriceliens = new String[noeud.size()][noeud.size()];
+        ArrayList<String[]> links = new ArrayList<String[]>();
+        for(int i = 0; i < nbLines; i++){
+            links.add(text[i].split(";"));
         }
+        for(int i = 0; i < links.size(); i++){
+            for(int j = 0; j < links.get(i).length; j++){
+                for(int k = 0; k < noeud.size(); k++){
+                    if(links.get(i)[j].split("::")[1].substring(2).toString().equals(noeud.get(k)[1]) && k != i){
+                        matricebool[i][k] = 1;
+                        matricevaluations[i][k] = Double.parseDouble(links.get(i)[j].split("::")[0].split(",")[1]);
+                        matriceliens[i][k] = links.get(i)[j].split("::")[0].split(",")[0];
+                    }
+                }
+            }
+        }
+        //print matricebool
+        for(int i = 0; i < noeud.size(); i++){
+            for(int j = 0; j < noeud.size(); j++){
+                //System.out.print(matricebool[i][j] + " ");
+            }
+            //System.out.println();
+        }
+        //print matricevaluations
+        for(int i = 0; i < noeud.size(); i++){
+            for(int j = 0; j < noeud.size(); j++){
+                // System.out.print(matricevaluations[i][j] + " ");
+            }
+            // System.out.println();
+        }
+        //print matriceliens
+        for(int i = 0; i < noeud.size(); i++){
+            for(int j = 0; j < noeud.size(); j++){
+                // System.out.print(matriceliens[i][j] + " ");
+            }
+            // System.out.println();
+        }
+        in.close();
+        
         int inf = 999;
         int[][] matval = {
             {inf,10,inf,inf,5},
@@ -94,9 +140,9 @@ public class GrapheApp {
             {"A","","D","",""},
             {"","A","D","N",""}
         };
-        Matrice matriceBool = new Matrice(matbool);
-        Matrice matriceVal = new Matrice(matval);
-        MatriceString Liens = new MatriceString(lies);
+        Matrice matriceBool = new Matrice(matricebool);
+        MatriceDouble matriceVal = new MatriceDouble(matricevaluations);
+        MatriceString Liens = new MatriceString(matriceliens);
 
         ArrayList<String[]> noeuds = new ArrayList<String[]>();
         String[] A = {"V", "A"};
@@ -109,12 +155,15 @@ public class GrapheApp {
         noeuds.add(D);
         String[] E = {"V", "E"};
         noeuds.add(E);
-        Graphe graphe = new Graphe(matriceBool, matriceVal, Liens, noeuds);
-        System.out.println(graphe.getNbAutoroutes());
-        System.out.println(Arrays.deepToString(graphe.getVille().toArray()));
-        graphe.getAutoroutes().afficher();
-        graphe.floydWarshall().afficher();
-        graphe.getMatVal().afficher();
+        Graphe graphe = new Graphe(matriceBool, matriceVal, Liens, noeud);
+        // System.out.println(graphe.getNbAutoroutes());
+        // System.out.println(Arrays.deepToString(graphe.getVille().toArray()));
+        //graphe.getMatLiens().afficher();
+        System.out.println(graphe.getNbVille());
+        System.out.println(graphe.getNbRestaurant());
+        System.out.println(graphe.getNbLoisir());
+        // graphe.floydWarshall().afficher();
+        // graphe.getMatVal().afficher();
 
     }
     public static char getCharFromString(String str, int index){

@@ -4,7 +4,7 @@
  */
 package graphe.values;
 
-import com.formdev.flatlaf.FlatLightLaf;
+//import com.formdev.flatlaf.FlatLightLaf;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 import javax.swing.JFrame;
@@ -18,15 +18,19 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class GUI extends javax.swing.JFrame {
     private String fileName;
+    public boolean opened;
     /**
      * Creates new form GUI
      */
     public GUI() {
         initComponents();
+        this.fileName = null;
+        this.opened = false;
     }
     public String getFileName(){
         return this.fileName;
     }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -106,7 +110,9 @@ public class GUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser1ActionPerformed
-        fileName = jFileChooser1.getSelectedFile().getAbsolutePath();
+        this.fileName = jFileChooser1.getSelectedFile().getAbsolutePath();
+        //System.out.println(fileName);
+        this.opened = true;
         jFrame1.dispose();
     }//GEN-LAST:event_jFileChooser1ActionPerformed
 
@@ -120,7 +126,7 @@ public class GUI extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        FlatLightLaf.setup();
+        //FlatLightLaf.setup();
         try {
             UIManager.setLookAndFeel("com.formdev.flatlaf.FlatDarkLaf");
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
@@ -156,11 +162,11 @@ public class GUI extends javax.swing.JFrame {
         // </editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GUI().setVisible(true);
-            }
-        });
+        // java.awt.EventQueue.invokeLater(new Runnable() {
+        //     public void run() {
+        //         new GUI().setVisible(true);
+        //     }
+        // });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
