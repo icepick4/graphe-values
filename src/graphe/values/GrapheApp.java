@@ -80,6 +80,7 @@ public class GrapheApp {
         int[][] matricebool = new int[noeud.size()][noeud.size()];
         double[][] matricevaluations = new double[noeud.size()][noeud.size()];
         String[][] matriceliens = new String[noeud.size()][noeud.size()];
+        
         ArrayList<String[]> links = new ArrayList<String[]>();
         for(int i = 0; i < nbLines; i++){
             links.add(text[i].split(";"));
@@ -95,66 +96,10 @@ public class GrapheApp {
                 }
             }
         }
-        //print matricebool
-        for(int i = 0; i < noeud.size(); i++){
-            for(int j = 0; j < noeud.size(); j++){
-                //System.out.print(matricebool[i][j] + " ");
-            }
-            //System.out.println();
-        }
-        //print matricevaluations
-        for(int i = 0; i < noeud.size(); i++){
-            for(int j = 0; j < noeud.size(); j++){
-                // System.out.print(matricevaluations[i][j] + " ");
-            }
-            // System.out.println();
-        }
-        //print matriceliens
-        for(int i = 0; i < noeud.size(); i++){
-            for(int j = 0; j < noeud.size(); j++){
-                // System.out.print(matriceliens[i][j] + " ");
-            }
-            // System.out.println();
-        }
         in.close();
-        
-        int inf = 999;
-        int[][] matval = {
-            {inf,10,inf,inf,5},
-            {inf,inf,1,inf,2},
-            {inf,inf,inf,4,inf},
-            {7,inf,6,inf,inf},
-            {inf,3,9,2,inf}
-        };
-        int[][] matbool = {
-            {0,1,0,0,1},
-            {0,0,1,0,1},
-            {0,0,0,1,0},
-            {1,0,1,0,0},
-            {0,1,1,1,0}
-        };
-        String[][] lies = {
-            {"","A","","","N"},
-            {"","","N","","D"},
-            {"","","","D",""},
-            {"A","","D","",""},
-            {"","A","D","N",""}
-        };
         Matrice matriceBool = new Matrice(matricebool);
         MatriceDouble matriceVal = new MatriceDouble(matricevaluations);
         MatriceString Liens = new MatriceString(matriceliens);
-
-        ArrayList<String[]> noeuds = new ArrayList<String[]>();
-        String[] A = {"V", "A"};
-        noeuds.add(A);
-        String[] B = {"R", "B"};
-        noeuds.add(B);
-        String[] C = {"L", "C"};
-        noeuds.add(C);
-        String[] D = {"V", "D"};
-        noeuds.add(D);
-        String[] E = {"V", "E"};
-        noeuds.add(E);
         Graphe graphe = new Graphe(matriceBool, matriceVal, Liens, noeud);
         // System.out.println(graphe.getNbAutoroutes());
         // System.out.println(Arrays.deepToString(graphe.getVille().toArray()));
@@ -171,3 +116,59 @@ public class GrapheApp {
     }
     
 }
+
+        // int inf = 999;
+        // int[][] matval = {
+        //     {inf,10,inf,inf,5},
+        //     {inf,inf,1,inf,2},
+        //     {inf,inf,inf,4,inf},
+        //     {7,inf,6,inf,inf},
+        //     {inf,3,9,2,inf}
+        // };
+        // int[][] matbool = {
+        //     {0,1,0,0,1},
+        //     {0,0,1,0,1},
+        //     {0,0,0,1,0},
+        //     {1,0,1,0,0},
+        //     {0,1,1,1,0}
+        // };
+        // String[][] lies = {
+        //     {"","A","","","N"},
+        //     {"","","N","","D"},
+        //     {"","","","D",""},
+        //     {"A","","D","",""},
+        //     {"","A","D","N",""}
+        // };
+
+        // ArrayList<String[]> noeuds = new ArrayList<String[]>();
+        // String[] A = {"V", "A"};
+        // noeuds.add(A);
+        // String[] B = {"R", "B"};
+        // noeuds.add(B);
+        // String[] C = {"L", "C"};
+        // noeuds.add(C);
+        // String[] D = {"V", "D"};
+        // noeuds.add(D);
+        // String[] E = {"V", "E"};
+        // noeuds.add(E);
+        //print matricebool
+        // for(int i = 0; i < noeud.size(); i++){
+        //     for(int j = 0; j < noeud.size(); j++){
+        //         //System.out.print(matricebool[i][j] + " ");
+        //     }
+        //     //System.out.println();
+        // }
+        // //print matricevaluations
+        // for(int i = 0; i < noeud.size(); i++){
+        //     for(int j = 0; j < noeud.size(); j++){
+        //         // System.out.print(matricevaluations[i][j] + " ");
+        //     }
+        //     // System.out.println();
+        // }
+        // //print matriceliens
+        // for(int i = 0; i < noeud.size(); i++){
+        //     for(int j = 0; j < noeud.size(); j++){
+        //         // System.out.print(matriceliens[i][j] + " ");
+        //     }
+        //     // System.out.println();
+        // }
