@@ -28,36 +28,37 @@ public class GrapheApp {
      */
     public static void main(String[] args) throws IOException {
         //open input.txt file
-        // File f = new File("."+File.separator+"input.txt");
-        // System.out.println(f.getAbsolutePath());
-        // System.out.println(f.getCanonicalFile().getAbsolutePath());
-        // java.awt.EventQueue.invokeLater(new Runnable() {
-        //     public void run() {
-        //         gui.setVisible(true);
-        //     }
-        // });
-        // String file = null;
-        // while (!gui.opened){
-        //     try {
-        //         Thread.sleep(10);
-        //     } catch (InterruptedException e) {
-        //         e.printStackTrace();
-        //     }
-        // }
-        // file = gui.getFileName();
-        FileInputStream fstream = new FileInputStream("inputFiles/input.txt");
+         File f = new File("."+File.separator+"input.txt");
+         System.out.println(f.getAbsolutePath());
+         System.out.println(f.getCanonicalFile().getAbsolutePath());
+         java.awt.EventQueue.invokeLater(() -> {
+             gui.setVisible(true);
+         });
+         String file = null;
+         while (!gui.opened){
+             try {
+                 Thread.sleep(10);
+             } catch (InterruptedException e) {
+                 e.printStackTrace();
+             }
+         }
+         file = gui.getFileName();
+        FileInputStream fstream = new FileInputStream(file);
         DataInputStream in = new DataInputStream(fstream);
         BufferedReader br = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8));
         String strLine;
-        //read file line by line+
+
+        //arraylist with nodes
         ArrayList<String[]> noeud = new ArrayList<String[]>();
         int nbLines = 0;
         String[] text;
         String lines = "";
+        //reading the txt file
         while ((strLine = br.readLine()) != null){
             lines = lines + strLine;
             nbLines++;
         }
+
         text = lines.split(";;");
         for(int i = 0; i < nbLines ; i++){
             int n = 0;
@@ -76,15 +77,17 @@ public class GrapheApp {
             noeud.add(sommet);
             text[i] = text[i].substring(n);
         }
-        //init matricebool matricevaluations matriceliens size of noeud size
+        //init matricebool matricevaluations matriceliens to put them in graphe constructor
         int[][] matricebool = new int[noeud.size()][noeud.size()];
         double[][] matricevaluations = new double[noeud.size()][noeud.size()];
         String[][] matriceliens = new String[noeud.size()][noeud.size()];
         
         ArrayList<String[]> links = new ArrayList<String[]>();
+        //put lines into an array list
         for(int i = 0; i < nbLines; i++){
             links.add(text[i].split(";"));
         }
+        //parse those lines into respectives arrays.
         for(int i = 0; i < links.size(); i++){
             for(int j = 0; j < links.get(i).length; j++){
                 for(int k = 0; k < noeud.size(); k++){
@@ -96,6 +99,14 @@ public class GrapheApp {
                 }
             }
         }
+        //browse matriceliens and replace 0 by 999
+        for(int i = 0; i < matricevaluations.length; i++){
+            for(int j = 0; j < matricevaluations.length; j++){
+                if(matricevaluations[i][j] == 0.00){
+                    matricevaluations[i][j] = 999;
+                }
+            }
+        }
         in.close();
         Matrice matriceBool = new Matrice(matricebool);
         MatriceDouble matriceVal = new MatriceDouble(matricevaluations);
@@ -103,11 +114,12 @@ public class GrapheApp {
         Graphe graphe = new Graphe(matriceBool, matriceVal, Liens, noeud);
         // System.out.println(graphe.getNbAutoroutes());
         // System.out.println(Arrays.deepToString(graphe.getVille().toArray()));
-        //graphe.getMatLiens().afficher();
-        System.out.println(graphe.getNbVille());
-        System.out.println(graphe.getNbRestaurant());
-        System.out.println(graphe.getNbLoisir());
-        // graphe.floydWarshall().afficher();
+        //graphe.getMatVal().afficher();
+        // System.out.println(graphe.getNbVille());
+        // System.out.println(graphe.getNbRestaurant());
+        // System.out.println(graphe.getNbLoisir());
+        //graphe.floydWarshall().afficher();
+        System.out.print(graphe.Vdistance1("Aquarium de Lyon"));
         // graphe.getMatVal().afficher();
 
     }

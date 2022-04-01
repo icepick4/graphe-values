@@ -224,9 +224,9 @@ public class Graphe{
     }
     //stocker le predeceur du chemin de floydwarshall
 
-    public Matrice floydWarshall() {
+    public MatriceDouble floydWarshall() {
         int n = this.matVal.matrice.length;
-        int[][] temp = new int[n][n];
+        double[][] temp = new double[n][n];
         for(int h = 0; h < n; h++){
             for(int j = 0; j < n; j++){
                 temp[h][j] = this.matVal.matrice[h][j];
@@ -241,12 +241,76 @@ public class Graphe{
                 }
             }
         }
-        Matrice finalMat = new Matrice(temp);
+        MatriceDouble finalMat = new MatriceDouble(temp);
         return finalMat;
     }
 
-    public int plusCourtChemin(int a, int b){
+    public double plusCourtChemin(int a, int b){
         return this.floydWarshall().matrice[a][b];
+    }
+
+    public ArrayList<String> distance1(String sommet){
+        ArrayList<String> liste = new ArrayList<String>();
+        int indexSommet = -1;
+        for(int i = 0; i < this.noeuds.size(); i++){
+            if (this.noeuds.get(i)[1].equals(sommet)){
+                indexSommet = i;
+            }
+        }
+        for(int k = 0; k < this.noeuds.size(); k++){
+            if(this.existeChemin(1, indexSommet, k)){
+                liste.add(this.noeuds.get(k)[1]);
+            }
+        }
+        return liste;
+    }
+
+    public ArrayList<String> Rdistance1(String sommet){
+        ArrayList<String> liste = new ArrayList<String>();
+        int indexSommet = -1;
+        for(int i = 0; i < this.noeuds.size(); i++){
+            if (this.noeuds.get(i)[1].equals(sommet)){
+                indexSommet = i;
+            }
+        }
+        for(int k = 0; k < this.noeuds.size(); k++){
+            if(this.existeChemin(1, indexSommet, k) && this.noeuds.get(k)[0].equals("R")){
+                liste.add(this.noeuds.get(k)[1]);
+            }
+        }
+        return liste;
+    }
+
+    public ArrayList<String> Vdistance1(String sommet){
+        ArrayList<String> liste = new ArrayList<String>();
+        int indexSommet = -1;
+        for(int i = 0; i < this.noeuds.size(); i++){
+            if (this.noeuds.get(i)[1].equals(sommet)){
+                indexSommet = i;
+            }
+        }
+        for(int k = 0; k < this.noeuds.size(); k++){
+            if(this.existeChemin(1, indexSommet, k) && this.noeuds.get(k)[0].equals("V")){
+                liste.add(this.noeuds.get(k)[1]);
+            }
+        }
+        return liste;
+    }
+
+    public ArrayList<String> Ldistance1(String sommet){
+        ArrayList<String> liste = new ArrayList<String>();
+        int indexSommet = -1;
+        for(int i = 0; i < this.noeuds.size(); i++){
+            if (this.noeuds.get(i)[1].equals(sommet)){
+                indexSommet = i;
+            }
+        }
+        for(int k = 0; k < this.noeuds.size(); k++){
+            if(this.existeChemin(1, indexSommet, k) && this.noeuds.get(k)[0] == "L"){
+                liste.add(this.noeuds.get(k)[1]);
+            }
+        }
+        return liste;
     }
 
     // public Chemin (String ville){

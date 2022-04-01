@@ -4,7 +4,7 @@
  */
 package graphe.values;
 
-//import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 import javax.swing.JFrame;
@@ -49,7 +49,7 @@ public class GUI extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
 
         jFileChooser1.setCurrentDirectory(new java.io.File("./inputFiles"));
-        jFileChooser1.setDialogTitle("Choisissez un fichier dde Graphe");
+        jFileChooser1.setDialogTitle("Choisissez un fichier de Graphe");
         jFileChooser1.setFileFilter(new FileNameExtensionFilter("TXT File","txt"));
         jFileChooser1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -126,47 +126,22 @@ public class GUI extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        //FlatLightLaf.setup();
-        try {
-            UIManager.setLookAndFeel("com.formdev.flatlaf.FlatDarkLaf");
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-                | UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        JFrame.setDefaultLookAndFeelDecorated(true);
         /* Set the Nimbus look and feel */
-        // <editor-fold defaultstate="collapsed" desc=" Look and feel setting code
-        // (optional) ">
         /*
          * If Nimbus (introduced in Java SE 6) is not available, stay with the default
          * look and feel.
          * For details see
          * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
-        // try {
-        //     for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-        //         if ("Nimbus".equals(info.getName())) {
-        //             javax.swing.UIManager.setLookAndFeel(info.getClassName());
-        //             break;
-        //         }
-        //     }
-        // } catch (ClassNotFoundException ex) {
-        //     java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        // } catch (InstantiationException ex) {
-        //     java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        // } catch (IllegalAccessException ex) {
-        //     java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        // } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-        //     java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        // }
-        // </editor-fold>
+        FlatLightLaf.setup();
+        try {
+        UIManager.setLookAndFeel("com.formdev.flatlaf.FlatDarkLaf");
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+                             System.out.print("oui");
 
-        /* Create and display the form */
-        // java.awt.EventQueue.invokeLater(new Runnable() {
-        //     public void run() {
-        //         new GUI().setVisible(true);
-        //     }
-        // });
+        java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        JFrame.setDefaultLookAndFeelDecorated(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
