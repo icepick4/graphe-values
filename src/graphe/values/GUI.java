@@ -1,26 +1,22 @@
+  
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package graphe.values;
 
-// import com.formdev.flatlaf.FlatLightLaf;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import java.awt.*;       // Using AWT's Graphics and Color
-import java.awt.event.*; // Using AWT event classes and listener interfaces
-import javax.swing.*; 
+
 /**
  *
  * @author matis
  */
-public class GUI extends JFrame {
+public class GUI extends javax.swing.JFrame {
     private String fileName;
     public boolean opened;
     /**
@@ -110,14 +106,9 @@ public class GUI extends JFrame {
             .addGap(0, 589, Short.MAX_VALUE)
         );
 
-        //pack();
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    //draw circle in the jFrame 
-    public void drawCircle(Graphics g, int x, int y, int radius) {
-        g.drawOval(x, y, radius, radius);
-    }
-    
     private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser1ActionPerformed
         this.fileName = jFileChooser1.getSelectedFile().getAbsolutePath();
         //System.out.println(fileName);
@@ -129,9 +120,6 @@ public class GUI extends JFrame {
         jFrame1.pack();
         jFrame1.setVisible(true);
     }
-
-
-
 
 
     /**
@@ -153,7 +141,7 @@ public class GUI extends JFrame {
 
         // java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         // }
-        JFrame.setDefaultLookAndFeelDecorated(true);
+        // JFrame.setDefaultLookAndFeelDecorated(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

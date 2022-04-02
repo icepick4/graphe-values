@@ -21,7 +21,7 @@ import java.util.Random;
  * @author Remi
  */
 public class GrapheApp {
-    //static GUI gui = new GUI();
+    static GUI gui = new GUI();
     static GrapheDraw frame = new GrapheDraw("GRAPHE");
     /**
      * @param args the command line arguments
@@ -30,25 +30,26 @@ public class GrapheApp {
     public static void main(String[] args) throws IOException {
         
         frame.setSize(1920,1080);
-        frame.setVisible(true);
 
         //open input.txt file
-        //  File f = new File("."+File.separator+"input.txt");
-        //  System.out.println(f.getAbsolutePath());
-        //  System.out.println(f.getCanonicalFile().getAbsolutePath());
-        //  java.awt.EventQueue.invokeLater(() -> {
-        //      gui.setVisible(true);
-        //  });
-        //  String file = null;
-        //  while (!gui.opened){
-        //      try {
-        //          Thread.sleep(10);
-        //      } catch (InterruptedException e) {
-        //          e.printStackTrace();
-        //      }
-        //  }
-        //  file = gui.getFileName();
-        FileInputStream fstream = new FileInputStream("inputFiles/input.txt");
+        // File f = new File("."+File.separator+"input.txt");
+        // System.out.println(f.getAbsolutePath());
+        // System.out.println(f.getCanonicalFile().getAbsolutePath());
+        java.awt.EventQueue.invokeLater(() -> {
+            gui.setVisible(true);
+        });
+        String file = null;
+        while (!gui.opened){
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        frame.setVisible(true);
+        gui.setVisible(false);
+        file = gui.getFileName();
+        FileInputStream fstream = new FileInputStream(file);
         DataInputStream in = new DataInputStream(fstream);
         BufferedReader br = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8));
         String strLine;
@@ -138,32 +139,20 @@ public class GrapheApp {
     public static void drawGraph(Graphe graphe){
         //draw nodes
         for(int i = 0; i < graphe.getMatVal().colonnes(); i++){
-            // //rand pos for nodes whil not touching each other
-            // int x = (int)(Math.random()*(1920));
-            // int y = (int)(Math.random()*(1080-300));
-            // while((x < 50 || x > 1600 || y < 50 || y > 800)){
-            //     x = (int)(Math.random()*1600 - 100);
-            //     y = (int)(Math.random()*1080 + 100);
-            // }
-            // // browse frame.nodes.get(i) to check if node is not touching others
-            // for(int j = 0; j < frame.nodes.size(); j++){
-            //     if(frame.nodes.get(j).x < x && frame.nodes.get(j).x + 400 > x && frame.nodes.get(j).y < y && frame.nodes.get(j).y + 125 > y){
-            //         //random pos in the screen
-            //         x = (int)(Math.random()*(1920 - 400));
-            //         y = (int)(Math.random()*(1080-100));
-            //         j = 0;
-            //     }
-            // }
             int x;
             int y;
-            if (i < 10){
-                y = 75;
+            int nbNoeuds = graphe.getMatVal().colonnes();
+            if (i < nbNoeuds / 3){
+                //random between 100 and 200
+
+                y = getRandomNumber(50, 150);
             }
-            else if(i > 10 && i < 20){
-                y = 1080 / 2 - 100;
+            else if(i >= nbNoeuds / 3 && i < nbNoeuds / 3 * 2){
+                //random between 1080/2 - 150 and 1080/2
+                y = getRandomNumber(1080/2 - 275, 1080/2 - 125);
             }
             else{
-                y = 1080 - 350;
+                y = getRandomNumber(1080 - 300, 1080 - 500);
             }
             x = (i % 10) * 150+ 75;
             frame.addNode(graphe.getNoeuds().get(i)[1],graphe.getNoeuds().get(i)[0], x,y);
@@ -171,17 +160,13 @@ public class GrapheApp {
         for(int i = 0; i < graphe.getMatVal().colonnes(); i++){
             for(int j = 0; j < graphe.getMatVal().colonnes(); j++){
                 if(graphe.getMatVal().matrice[i][j] != 999){
-                    //get index of graphe.getNoeuds().get(i)[1]
-                    int index = 0;
-                    for(int k = 0; k < graphe.getNoeuds().size(); k++){
-                        if(graphe.getNoeuds().get(k)[1].equals(graphe.getNoeuds().get(i)[1])){
-                            index = k;
-                        }
-                    }
-                    frame.addEdge( graphe.getMatLiens().matrice[i][j], graphe.getMatVal().matrice[i][j],i,j);
+                    frame.addEdge(graphe.getMatLiens().matrice[i][j], graphe.getMatVal().matrice[i][j],i,j);
                 }
             }
         }
+    }
+    public static int getRandomNumber(int min, int max) {
+        return (int) ((Math.random() * (max - min)) + min);
     }
 
 
