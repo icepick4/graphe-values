@@ -138,31 +138,35 @@ public class GrapheApp {
     public static void drawGraph(Graphe graphe){
         //draw nodes
         for(int i = 0; i < graphe.getMatVal().colonnes(); i++){
-            //rand pos for nodes whil not touching each other
-            int x = (int)(Math.random()*(1920));
-            int y = (int)(Math.random()*(1080-300));
-            while((x < 50 || x > 1600 || y < 50 || y > 800)){
-                x = (int)(Math.random()*1600 - 100);
-                y = (int)(Math.random()*1080 + 100);
+            // //rand pos for nodes whil not touching each other
+            // int x = (int)(Math.random()*(1920));
+            // int y = (int)(Math.random()*(1080-300));
+            // while((x < 50 || x > 1600 || y < 50 || y > 800)){
+            //     x = (int)(Math.random()*1600 - 100);
+            //     y = (int)(Math.random()*1080 + 100);
+            // }
+            // // browse frame.nodes.get(i) to check if node is not touching others
+            // for(int j = 0; j < frame.nodes.size(); j++){
+            //     if(frame.nodes.get(j).x < x && frame.nodes.get(j).x + 400 > x && frame.nodes.get(j).y < y && frame.nodes.get(j).y + 125 > y){
+            //         //random pos in the screen
+            //         x = (int)(Math.random()*(1920 - 400));
+            //         y = (int)(Math.random()*(1080-100));
+            //         j = 0;
+            //     }
+            // }
+            int x;
+            int y;
+            if (i < 10){
+                y = 75;
             }
-            //draw the node
-            //browse ArrayList<Node> in GrapheDraw and find their pos
-            
-
-
-
-
-            // browse frame.nodes.get(i) to check if node is not touching others
-            for(int j = 0; j < frame.nodes.size(); j++){
-                if(frame.nodes.get(j).x < x && frame.nodes.get(j).x + 100 > x || frame.nodes.get(j).y < y && frame.nodes.get(j).y + 200 > y){
-                    //random pos in the screen
-                    x = (int)(Math.random()*(1920));
-                    y = (int)(Math.random()*(1080-300));
-                    j = 0;
-                }
+            else if(i > 10 && i < 20){
+                y = 1080 / 2 - 100;
             }
+            else{
+                y = 1080 - 350;
+            }
+            x = (i % 10) * 150+ 75;
             frame.addNode(graphe.getNoeuds().get(i)[1],graphe.getNoeuds().get(i)[0], x,y);
-            System.out.println(frame.nodes.get(i).x);
         }
         for(int i = 0; i < graphe.getMatVal().colonnes(); i++){
             for(int j = 0; j < graphe.getMatVal().colonnes(); j++){
