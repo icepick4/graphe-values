@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package graphe.values;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
@@ -44,6 +45,9 @@ public class Graphe{
     public MatriceString getMatLiens(){
         return this.matLiens;
     }
+    public ArrayList<String[]> getNoeuds(){
+        return this.noeuds;
+    }
     public ArrayList<String[]> getVille(){
         ArrayList<String[]> villes = new ArrayList<String[]>();
         for(String[] noeud : this.noeuds){
@@ -74,6 +78,14 @@ public class Graphe{
         return restaurants;
     }
 
+    public ArrayList<String[]> sortNoeuds(){
+        //sort noeuds by "R" "V" "L"
+        ArrayList<String[]> noeuds = new ArrayList<String[]>();
+        noeuds.addAll(this.getRestaurant());
+        noeuds.addAll(this.getVille());
+        noeuds.addAll(this.getLoisir());
+        return noeuds;
+    }
         
     public int getNbVille(){
         return getVille().size();

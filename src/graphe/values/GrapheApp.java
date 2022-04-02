@@ -9,41 +9,46 @@ import java.util.Arrays;
 import java.util.Objects;
 
 import javax.swing.*;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Scanner;
 import java.util.stream.Stream;
+import java.util.Random;
 /**
  *
  * @author Remi
  */
 public class GrapheApp {
-    static GUI gui = new GUI();
+    //static GUI gui = new GUI();
+    static GrapheDraw frame = new GrapheDraw("GRAPHE");
     /**
      * @param args the command line arguments
      * @throws IOException
      */
     public static void main(String[] args) throws IOException {
+        
+        frame.setSize(1920,1080);
+        frame.setVisible(true);
+
         //open input.txt file
-         File f = new File("."+File.separator+"input.txt");
-         System.out.println(f.getAbsolutePath());
-         System.out.println(f.getCanonicalFile().getAbsolutePath());
-         java.awt.EventQueue.invokeLater(() -> {
-             gui.setVisible(true);
-         });
-         String file = null;
-         while (!gui.opened){
-             try {
-                 Thread.sleep(10);
-             } catch (InterruptedException e) {
-                 e.printStackTrace();
-             }
-         }
-         file = gui.getFileName();
-        FileInputStream fstream = new FileInputStream(file);
+        //  File f = new File("."+File.separator+"input.txt");
+        //  System.out.println(f.getAbsolutePath());
+        //  System.out.println(f.getCanonicalFile().getAbsolutePath());
+        //  java.awt.EventQueue.invokeLater(() -> {
+        //      gui.setVisible(true);
+        //  });
+        //  String file = null;
+        //  while (!gui.opened){
+        //      try {
+        //          Thread.sleep(10);
+        //      } catch (InterruptedException e) {
+        //          e.printStackTrace();
+        //      }
+        //  }
+        //  file = gui.getFileName();
+        FileInputStream fstream = new FileInputStream("inputFiles/input.txt");
         DataInputStream in = new DataInputStream(fstream);
         BufferedReader br = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8));
         String strLine;
@@ -119,13 +124,63 @@ public class GrapheApp {
         // System.out.println(graphe.getNbRestaurant());
         // System.out.println(graphe.getNbLoisir());
         //graphe.floydWarshall().afficher();
-        System.out.print(graphe.Vdistance1("Aquarium de Lyon"));
+        //print return of graphe.sortNoeud();
+        drawGraph(graphe);
+        //System.out.println(Arrays.deepToString(graphe.sortNoeuds().toArray()));
+        //System.out.print(graphe.Vdistance1("Aquarium de Lyon"));
         // graphe.getMatVal().afficher();
 
     }
     public static char getCharFromString(String str, int index){
         return str.charAt(index);
     }
+    //using swing draw nodes and edges with the help of the class graphe
+    public static void drawGraph(Graphe graphe){
+        //draw nodes
+        for(int i = 0; i < graphe.getMatVal().colonnes(); i++){
+            //rand pos for nodes whil not touching each other
+            int x = (int)(Math.random()*(1920));
+            int y = (int)(Math.random()*(1080-300));
+            while((x < 50 || x > 1600 || y < 50 || y > 800)){
+                x = (int)(Math.random()*1600 - 100);
+                y = (int)(Math.random()*1080 + 100);
+            }
+            //draw the node
+            //browse ArrayList<Node> in GrapheDraw and find their pos
+            
+
+
+
+
+            // browse frame.nodes.get(i) to check if node is not touching others
+            for(int j = 0; j < frame.nodes.size(); j++){
+                if(frame.nodes.get(j).x < x && frame.nodes.get(j).x + 100 > x || frame.nodes.get(j).y < y && frame.nodes.get(j).y + 200 > y){
+                    //random pos in the screen
+                    x = (int)(Math.random()*(1920));
+                    y = (int)(Math.random()*(1080-300));
+                    j = 0;
+                }
+            }
+            frame.addNode(graphe.getNoeuds().get(i)[1],graphe.getNoeuds().get(i)[0], x,y);
+            System.out.println(frame.nodes.get(i).x);
+        }
+        for(int i = 0; i < graphe.getMatVal().colonnes(); i++){
+            for(int j = 0; j < graphe.getMatVal().colonnes(); j++){
+                if(graphe.getMatVal().matrice[i][j] != 999){
+                    //get index of graphe.getNoeuds().get(i)[1]
+                    int index = 0;
+                    for(int k = 0; k < graphe.getNoeuds().size(); k++){
+                        if(graphe.getNoeuds().get(k)[1].equals(graphe.getNoeuds().get(i)[1])){
+                            index = k;
+                        }
+                    }
+                    frame.addEdge( graphe.getMatLiens().matrice[i][j], graphe.getMatVal().matrice[i][j],i,j);
+                }
+            }
+        }
+    }
+
+
     
 }
 

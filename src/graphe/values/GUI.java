@@ -4,19 +4,23 @@
  */
 package graphe.values;
 
-import com.formdev.flatlaf.FlatLightLaf;
+// import com.formdev.flatlaf.FlatLightLaf;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
+import java.awt.*;       // Using AWT's Graphics and Color
+import java.awt.event.*; // Using AWT event classes and listener interfaces
+import javax.swing.*; 
 /**
  *
  * @author matis
  */
-public class GUI extends javax.swing.JFrame {
+public class GUI extends JFrame {
     private String fileName;
     public boolean opened;
     /**
@@ -106,9 +110,14 @@ public class GUI extends javax.swing.JFrame {
             .addGap(0, 589, Short.MAX_VALUE)
         );
 
-        pack();
+        //pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //draw circle in the jFrame 
+    public void drawCircle(Graphics g, int x, int y, int radius) {
+        g.drawOval(x, y, radius, radius);
+    }
+    
     private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser1ActionPerformed
         this.fileName = jFileChooser1.getSelectedFile().getAbsolutePath();
         //System.out.println(fileName);
@@ -122,6 +131,9 @@ public class GUI extends javax.swing.JFrame {
     }
 
 
+
+
+
     /**
      * @param args the command line arguments
      */
@@ -133,14 +145,14 @@ public class GUI extends javax.swing.JFrame {
          * For details see
          * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
-        FlatLightLaf.setup();
-        try {
-        UIManager.setLookAndFeel("com.formdev.flatlaf.FlatDarkLaf");
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-                             System.out.print("oui");
+        // FlatLightLaf.setup();
+        // try {
+        // UIManager.setLookAndFeel("com.formdev.flatlaf.FlatDarkLaf");
+        // } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+        //                      System.out.print("oui");
 
-        java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        // java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        // }
         JFrame.setDefaultLookAndFeelDecorated(true);
     }
 
