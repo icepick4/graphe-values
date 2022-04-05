@@ -920,7 +920,6 @@ public class Graphe{
             System.out.println(Arrays.toString(this.matBool.matrice[i]));
         }
         System.out.println();
-        
     }
     
     

@@ -15,8 +15,8 @@ public class GrapheDraw extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.nodes = new ArrayList<Node>();
 		this.edges = new ArrayList<Edge>();
-		width = 35;
-		height = 35;
+		width = 50;
+		height = 50;
     }
     
     public void addNode(String name, String type, int x, int y) { 

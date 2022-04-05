@@ -5,17 +5,7 @@
 package graphe.values;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Objects;
-
-import javax.swing.*;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.util.Scanner;
-import java.util.stream.Stream;
-import java.util.Random;
 /**
  *
  * @author Remi
@@ -120,16 +110,12 @@ public class GrapheApp {
         Graphe graphe = new Graphe(matriceBool, matriceVal, Liens, noeud);
         // System.out.println(graphe.getNbAutoroutes());
         // System.out.println(Arrays.deepToString(graphe.getVille().toArray()));
-        //graphe.getMatVal().afficher();
+        // graphe.getMatVal().afficher();
         // System.out.println(graphe.getNbVille());
         // System.out.println(graphe.getNbRestaurant());
         // System.out.println(graphe.getNbLoisir());
-        //graphe.floydWarshall().afficher();
-        //print return of graphe.sortNoeud();
+        // graphe.floydWarshall().afficher();
         drawGraph(graphe);
-        //System.out.println(Arrays.deepToString(graphe.sortNoeuds().toArray()));
-        //System.out.print(graphe.Vdistance1("Aquarium de Lyon"));
-        // graphe.getMatVal().afficher();
 
     }
     public static char getCharFromString(String str, int index){
