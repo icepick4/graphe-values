@@ -5,6 +5,7 @@
  */
 package graphe.values;
 
+//import com.formdev.flatlaf.FlatDarkLaf;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 import javax.swing.JFrame;
@@ -17,8 +18,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author matis
  */
 public class GUI extends javax.swing.JFrame {
+    private Graphe graphe;
     private String fileName;
     public boolean opened;
+
     /**
      * Creates new form GUI
      */
@@ -43,13 +46,15 @@ public class GUI extends javax.swing.JFrame {
 
         jFrame1 = new javax.swing.JFrame();
         jFileChooser1 = new javax.swing.JFileChooser();
+        jToolBar1 = new javax.swing.JToolBar();
+        Canvas = new GrapheDraw();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         openFile = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
-        jFileChooser1.setCurrentDirectory(new java.io.File("./inputFiles"));
-        jFileChooser1.setDialogTitle("Choisissez un fichier de Graphe");
+        jFileChooser1.setCurrentDirectory(new java.io.File(".\\inputFiles"));
+        jFileChooser1.setDialogTitle("Choisissez un fichier dde Graphe");
         jFileChooser1.setFileFilter(new FileNameExtensionFilter("TXT File","txt"));
         jFileChooser1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -75,6 +80,24 @@ public class GUI extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                formComponentResized(evt);
+            }
+        });
+
+        jToolBar1.setRollover(true);
+
+        javax.swing.GroupLayout CanvasLayout = new javax.swing.GroupLayout(Canvas);
+        Canvas.setLayout(CanvasLayout);
+        CanvasLayout.setHorizontalGroup(
+            CanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 864, Short.MAX_VALUE)
+        );
+        CanvasLayout.setVerticalGroup(
+            CanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
         jMenu1.setText("Fichier");
 
@@ -99,11 +122,15 @@ public class GUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1083, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(Canvas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 589, Short.MAX_VALUE)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 589, Short.MAX_VALUE)
+            .addComponent(Canvas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -116,40 +143,44 @@ public class GUI extends javax.swing.JFrame {
         jFrame1.dispose();
     }//GEN-LAST:event_jFileChooser1ActionPerformed
 
+    private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
+        // TODO add your handling code here:
+        System.out.print(GUI.getCanvas().getWidth());
+		System.out.print(GUI.getCanvas().getHeight());
+        // graphe = GrapheApp.getGraphe();
+        // try{
+        //     System.out.print(graphe.getNoeuds().size() * 2 * 10);
+        //     if((graphe.getNoeuds().size() * 2 * 10 < GUI.getCanvas().getWidth()) && (graphe.getNoeuds().size() * 2 * 10 < GUI.getCanvas().getHeight())){
+        //         Canvas.clear();
+        //         Canvas.changePos();
+        //         Canvas.repaint();
+        //     }
+        // } catch(NullPointerException e){
+        //     System.out.println("Pas de graphe");
+        // }
+        Canvas.clear();
+        Canvas.changePos();
+        Canvas.repaint();
+        
+    }//GEN-LAST:event_formComponentResized
+
     private void openFileActionPerformed(java.awt.event.ActionEvent evt) {
         jFrame1.pack();
         jFrame1.setVisible(true);
     }
 
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        /*
-         * If Nimbus (introduced in Java SE 6) is not available, stay with the default
-         * look and feel.
-         * For details see
-         * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        // FlatLightLaf.setup();
-        // try {
-        // UIManager.setLookAndFeel("com.formdev.flatlaf.FlatDarkLaf");
-        // } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-        //                      System.out.print("oui");
-
-        // java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        // }
-        // JFrame.setDefaultLookAndFeelDecorated(true);
+    public static GrapheDraw getCanvas() {
+        return Canvas;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private static GrapheDraw Canvas;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JMenuItem openFile;
     // End of variables declaration//GEN-END:variables
 }
