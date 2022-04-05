@@ -7,8 +7,8 @@ public class Edge {
     
     public Edge(String myType, double MyVal, int i, int j) {
         this.i = i;
-        this.j = j;	 
-        this.type = myType; 
-        this.val = MyVal;  
+        this.j = j;
+        this.type = myType;
+        this.val = MyVal;
     }
 }

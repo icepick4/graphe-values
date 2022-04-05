@@ -32,6 +32,9 @@ public class GrapheDraw extends JFrame {
     }
     
     public void paint(Graphics g) { // draw the nodes and edges
+		System.out.print(g);
+		//clear g
+		g.clearRect(0,0,1920,1080);
 		FontMetrics f = g.getFontMetrics();
 		int nodeHeight = Math.max(height, f.getHeight());
 		for (Edge e : this.edges) {
@@ -59,6 +62,7 @@ public class GrapheDraw extends JFrame {
 		for (Node n : this.nodes) {
 			//g.setFont(new Font("TimesRoman", Font.PLAIN, 15)); 
 			int nodeWidth = Math.max(width, f.stringWidth(n.name)+width/2);
+
 			if (n.type.equals("V")){
 				g.setColor(Color.GREEN);
 			}
@@ -68,14 +72,15 @@ public class GrapheDraw extends JFrame {
 			else{
 				g.setColor(Color.YELLOW);
 			}
-			
-			g.fillOval(n.x-nodeWidth/2, n.y-nodeHeight/2, 
+			int x = (int)Math.floor(Math.random()*(1920-0+1)+0);
+			System.out.println(x);
+			g.fillOval(x-nodeWidth/2, n.y-nodeHeight/2, 
 				nodeWidth, nodeHeight);
 			g.setColor(Color.black);
-			g.drawOval(n.x-nodeWidth/2, n.y-nodeHeight/2, 
+			g.drawOval(x-nodeWidth/2, n.y-nodeHeight/2, 
 				nodeWidth, nodeHeight);
 			
-			g.drawString(n.name, n.x-f.stringWidth(n.name)/2,
+			g.drawString(n.name, x-f.stringWidth(n.name)/2,
 				n.y+f.getHeight()/2);
 		}
 	}
