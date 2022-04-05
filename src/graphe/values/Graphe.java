@@ -21,7 +21,6 @@ public class Graphe{
         this.matVal = matriceValuations;
         this.matBool = matriceBool;
         this.matLiens = matriceLiens;
-        this.noeuds = noeuds;
         this.sommets = matriceValuations.lignes();
         this.aretes = 0;
         for(int[] ligne : this.matBool.matrice){
@@ -29,10 +28,11 @@ public class Graphe{
                 this.aretes+=colonne;
             }
         }
+
         if(this.matBool.estSymetrique()){
             this.aretes /= 2;
         }
-        
+        this.noeuds = noeuds;
         if(matriceBool.lignes() != matriceBool.colonnes()){
             throw new IllegalArgumentException("Graphe non valide : colonnes!=lignes");
         }
@@ -43,6 +43,9 @@ public class Graphe{
     }
     public MatriceString getMatLiens(){
         return this.matLiens;
+    }
+    public ArrayList<String[]> getNoeuds(){
+        return this.noeuds;
     }
     public ArrayList<String[]> getVille(){
         ArrayList<String[]> villes = new ArrayList<String[]>();
@@ -74,6 +77,14 @@ public class Graphe{
         return restaurants;
     }
 
+    public ArrayList<String[]> sortNoeuds(){
+        //sort noeuds by "R" "V" "L"
+        ArrayList<String[]> noeuds = new ArrayList<String[]>();
+        noeuds.addAll(this.getRestaurant());
+        noeuds.addAll(this.getVille());
+        noeuds.addAll(this.getLoisir());
+        return noeuds;
+    }
         
     public int getNbVille(){
         return getVille().size();
@@ -82,6 +93,8 @@ public class Graphe{
     public int getNbLoisir(){
         return getLoisir().size();
     }
+
+
 
     public int getNbRestaurant(){
         return getRestaurant().size();
@@ -166,16 +179,26 @@ public class Graphe{
      * @param b
      * @return true si a est plus ouverte que b, sinon false
      */
-    public boolean plusOuverte(int a, int b){
+    public boolean plusOuverte(String a, String b){
         int nbVillesA = 0;
         int nbVillesB = 0;
+        int indexSommetA = -1;
+        int indexSommetB = -1;
+        for(int i = 0; i < this.noeuds.size(); i++){
+            if (this.noeuds.get(i)[1].equals(a)){
+                indexSommetA = i;
+            }
+            else if (this.noeuds.get(i)[1].equals(b)){
+                indexSommetB = i;
+            }
+        }
         for(int i = 0; i < this.matBool.lignes(); i++){
-            if (existeChemin(2, a, i) && this.noeuds.get(i)[0] == "V"){
+            if (existeChemin(2, indexSommetA, i) && this.noeuds.get(i)[0] == "V"){
                 nbVillesA++;
             }
         }
         for(int i = 0; i < this.matBool.lignes(); i++){
-            if (existeChemin(2, b, i) && this.noeuds.get(i)[0] == "V"){
+            if (existeChemin(2, indexSommetB, i) && this.noeuds.get(i)[0] == "V"){
                 nbVillesB++;
             }
         }
@@ -185,16 +208,26 @@ public class Graphe{
         return true;
     }
 
-    public boolean plusGastronomique(int a, int b){
+    public boolean plusGastronomique(String a, String b){
         int nbVillesA = 0;
         int nbVillesB = 0;
+        int indexSommetA = -1;
+        int indexSommetB = -1;
+        for(int i = 0; i < this.noeuds.size(); i++){
+            if (this.noeuds.get(i)[1].equals(a)){
+                indexSommetA = i;
+            }
+            else if (this.noeuds.get(i)[1].equals(b)){
+                indexSommetB = i;
+            }
+        }
         for(int i = 0; i < this.matBool.lignes(); i++){
-            if (existeChemin(2, a, i) && this.noeuds.get(i)[0] == "R"){
+            if (existeChemin(2, indexSommetA, i) && this.noeuds.get(i)[0] == "R"){
                 nbVillesA++;
             }
         }
         for(int i = 0; i < this.matBool.lignes(); i++){
-            if (existeChemin(2, b, i) && this.noeuds.get(i)[0] == "R"){
+            if (existeChemin(2, indexSommetB, i) && this.noeuds.get(i)[0] == "R"){
                 nbVillesB++;
             }
         }
@@ -204,16 +237,26 @@ public class Graphe{
         return true;
     }
 
-    public boolean plusCulturelle(int a, int b){
+    public boolean plusCulturelle(String a, String b){
         int nbVillesA = 0;
         int nbVillesB = 0;
+        int indexSommetA = -1;
+        int indexSommetB = -1;
+        for(int i = 0; i < this.noeuds.size(); i++){
+            if (this.noeuds.get(i)[1].equals(a)){
+                indexSommetA = i;
+            }
+            else if (this.noeuds.get(i)[1].equals(b)){
+                indexSommetB = i;
+            }
+        }
         for(int i = 0; i < this.matBool.lignes(); i++){
-            if (existeChemin(2, a, i) && this.noeuds.get(i)[0] == "L"){
+            if (existeChemin(2, indexSommetA, i) && this.noeuds.get(i)[0] == "L"){
                 nbVillesA++;
             }
         }
         for(int i = 0; i < this.matBool.lignes(); i++){
-            if (existeChemin(2, b, i) && this.noeuds.get(i)[0] == "L"){
+            if (existeChemin(2, indexSommetB, i) && this.noeuds.get(i)[0] == "L"){
                 nbVillesB++;
             }
         }
@@ -249,7 +292,17 @@ public class Graphe{
         return this.floydWarshall().matrice[a][b];
     }
 
+    //dijkstra
+    
+
+   
+    /**
+     * 
+     * @param sommet
+     * @return tous les sommets qui sont voisins de sommet
+     */
     public ArrayList<String> distance1(String sommet){
+        
         ArrayList<String> liste = new ArrayList<String>();
         int indexSommet = -1;
         for(int i = 0; i < this.noeuds.size(); i++){
@@ -265,6 +318,11 @@ public class Graphe{
         return liste;
     }
 
+    /**
+     * 
+     * @param sommet
+     * @return tous les sommets qui sont des restaurants et qui sont voisins de sommet
+     */
     public ArrayList<String> Rdistance1(String sommet){
         ArrayList<String> liste = new ArrayList<String>();
         int indexSommet = -1;
@@ -281,6 +339,11 @@ public class Graphe{
         return liste;
     }
 
+    /**
+     * 
+     * @param sommet
+     * @return tous les sommets qui sont des Villes et qui sont voisins de sommet
+     */
     public ArrayList<String> Vdistance1(String sommet){
         ArrayList<String> liste = new ArrayList<String>();
         int indexSommet = -1;
@@ -297,6 +360,11 @@ public class Graphe{
         return liste;
     }
 
+    /**
+     * 
+     * @param sommet
+     * @return tous les sommets qui sont des Lieux de loisirs et qui sont voisins de sommet
+     */
     public ArrayList<String> Ldistance1(String sommet){
         ArrayList<String> liste = new ArrayList<String>();
         int indexSommet = -1;
@@ -313,10 +381,26 @@ public class Graphe{
         return liste;
     }
 
-    // public Chemin (String ville){
-    //     Chemin chemin = new Chemin(0);
-    //     return chemin;
-    // }
+    public boolean distance2(String a, String b){
+        int indexSommetA = -1;
+        int indexSommetB = -1;
+        for(int i = 0; i < this.noeuds.size(); i++){
+            if (this.noeuds.get(i)[1].equals(a)){
+                indexSommetA = i;
+            }
+            else if (this.noeuds.get(i)[1].equals(b)){
+                indexSommetB = i;
+            }
+        }
+        if (existeChemin(2, indexSommetA, indexSommetB)){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean distance2(int a, int b){
+        return existeChemin(2,a,b);
+    }
 
     public int ordre(){
         return this.sommets;
@@ -352,6 +436,7 @@ public class Graphe{
     }
     
     public boolean estSimple(){
+        //on suppose qu'on travaille qu'avec des 1-graphe pour cette sae
         return this.estElementaire();
     }
     /**
@@ -382,6 +467,39 @@ public class Graphe{
                 if(degres.length > 1){
                     degres[0]+=this.matBool.matrice[i][sommet];
                     degres[2]+=this.matBool.matrice[i][sommet];
+                }
+            }
+        }
+        return degres;
+    }
+
+    public int[] degre(String sommet){
+        int checkOriente;
+        if (this.matBool.estSymetrique()){
+            checkOriente = 1;
+        } 
+        else{
+            checkOriente = 3;
+        }
+        int indexSommet = -1;
+        for(int i = 0; i < this.noeuds.size(); i++){
+            if (this.noeuds.get(i)[1].equals(sommet)){
+                indexSommet = i;
+            }
+        }
+        int[] degres = new int[checkOriente];
+        for(int i = 0; i<this.ordre(); i++){
+            if (this.matBool.matrice[indexSommet][i] != 0){
+                degres[0]+=this.matBool.matrice[indexSommet][i];
+                if(degres.length > 1){
+                    degres[1]+=this.matBool.matrice[indexSommet][i];
+                }
+                
+            }
+            if (this.matBool.matrice[i][indexSommet] != 0){
+                if(degres.length > 1){
+                    degres[0]+=this.matBool.matrice[i][indexSommet];
+                    degres[2]+=this.matBool.matrice[i][indexSommet];
                 }
             }
         }
@@ -800,7 +918,6 @@ public class Graphe{
             System.out.println(Arrays.toString(this.matBool.matrice[i]));
         }
         System.out.println();
-        
     }
     
     
