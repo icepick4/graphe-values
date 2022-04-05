@@ -47,13 +47,19 @@ public class GUI extends javax.swing.JFrame {
         jFrame1 = new javax.swing.JFrame();
         jFileChooser1 = new javax.swing.JFileChooser();
         jToolBar1 = new javax.swing.JToolBar();
-        Canvas = new GrapheDraw("Graphe");
+        toolBarPan = new javax.swing.JPanel();
+        lbl_affichage = new javax.swing.JLabel();
+        cb_ville = new javax.swing.JCheckBox();
+        cb_restaurant = new javax.swing.JCheckBox();
+        cb_loisirs = new javax.swing.JCheckBox();
+        jLabel1 = new javax.swing.JLabel();
+        Canvas = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         openFile = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
-        jFileChooser1.setCurrentDirectory(new java.io.File(".\\inputFiles"));
+        jFileChooser1.setCurrentDirectory(new java.io.File("C:\\inputFiles"));
         jFileChooser1.setDialogTitle("Choisissez un fichier dde Graphe");
         jFileChooser1.setFileFilter(new FileNameExtensionFilter("TXT File","txt"));
         jFileChooser1.addActionListener(new java.awt.event.ActionListener() {
@@ -82,6 +88,68 @@ public class GUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jToolBar1.setRollover(true);
+
+        lbl_affichage.setText("Affichage :");
+
+        cb_ville.setSelected(true);
+        cb_ville.setText("Villes");
+        cb_ville.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_villeActionPerformed(evt);
+            }
+        });
+
+        cb_restaurant.setSelected(true);
+        cb_restaurant.setText("Réstaurants");
+        cb_restaurant.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_restaurantActionPerformed(evt);
+            }
+        });
+
+        cb_loisirs.setSelected(true);
+        cb_loisirs.setText("Loisirs");
+        cb_loisirs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_loisirsActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Liens :");
+
+        javax.swing.GroupLayout toolBarPanLayout = new javax.swing.GroupLayout(toolBarPan);
+        toolBarPan.setLayout(toolBarPanLayout);
+        toolBarPanLayout.setHorizontalGroup(
+            toolBarPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toolBarPanLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(toolBarPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cb_loisirs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cb_restaurant, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                    .addComponent(cb_ville, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lbl_affichage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(toolBarPanLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        toolBarPanLayout.setVerticalGroup(
+            toolBarPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toolBarPanLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(lbl_affichage)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cb_ville)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cb_restaurant)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cb_loisirs)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addContainerGap(421, Short.MAX_VALUE))
+        );
+
+        jToolBar1.add(toolBarPan);
 
         javax.swing.GroupLayout CanvasLayout = new javax.swing.GroupLayout(Canvas);
         Canvas.setLayout(CanvasLayout);
@@ -124,7 +192,7 @@ public class GUI extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 589, Short.MAX_VALUE)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(Canvas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -140,19 +208,37 @@ public class GUI extends javax.swing.JFrame {
         Canvas.drawGraph(graphe);
     }//GEN-LAST:event_jFileChooser1ActionPerformed
 
+    private void cb_villeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_villeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cb_villeActionPerformed
+
+    private void cb_restaurantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_restaurantActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cb_restaurantActionPerformed
+
+    private void cb_loisirsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_loisirsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cb_loisirsActionPerformed
+
     private void openFileActionPerformed(java.awt.event.ActionEvent evt) {
         jFrame1.pack();
         jFrame1.setVisible(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private GrapheDraw Canvas;
+    private javax.swing.JPanel Canvas;
+    private javax.swing.JCheckBox cb_loisirs;
+    private javax.swing.JCheckBox cb_restaurant;
+    private javax.swing.JCheckBox cb_ville;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JFrame jFrame1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JLabel lbl_affichage;
     private javax.swing.JMenuItem openFile;
+    private javax.swing.JPanel toolBarPan;
     // End of variables declaration//GEN-END:variables
 }
