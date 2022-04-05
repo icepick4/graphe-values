@@ -4,6 +4,8 @@ import java.util.*;
 import java.awt.*;
 import javax.swing.*;
 
+import org.w3c.dom.events.MouseEvent;
+
 public class GrapheDraw extends JPanel {
     private int width;
     private int height;
@@ -23,8 +25,8 @@ public class GrapheDraw extends JPanel {
 		//add a node at pixel (x,y)
 		int x = 500,y = 500;
 		while (!this.isValid(x,y)) {
-			x = getRandomNumber(50, GUI.getCanvas().getWidth() - 20);
-			y = getRandomNumber(50, GUI.getCanvas().getHeight() - 20);
+			x = getRandomNumber(50, GUI.getCanvas().getWidth() - 50);
+			y = getRandomNumber(50, GUI.getCanvas().getHeight() - 50);
 
 		}
 		nodes.add(new Node(name,type, x,y));
@@ -103,8 +105,8 @@ public class GrapheDraw extends JPanel {
 		for (int i = 0; i < this.nodes.size(); i++) {
 			int x = 500, y = 500;
 			while(!this.isValid(x, y)) {
-				x = getRandomNumber(50, GUI.getCanvas().getWidth() - 20);
-				y = getRandomNumber(50, GUI.getCanvas().getHeight() - 20);
+				x = getRandomNumber(50, GUI.getCanvas().getWidth() - 50);
+				y = getRandomNumber(50, GUI.getCanvas().getHeight() - 50);
 			}
 			this.nodes.get(i).x = x;
 			this.nodes.get(i).y = y;
@@ -117,36 +119,11 @@ public class GrapheDraw extends JPanel {
 		g.setColor(Color.white);
 		g.fillRect(0,0,GUI.getCanvas().getWidth(),GUI.getCanvas().getHeight());
 	}
-	//change positions of nodes randomly
-	public void randomize() {
-		for (Node n : this.nodes) {
-			n.x = getRandomNumber(10, 1920);
-			n.y = getRandomNumber(10, 1080);
-		}
-		this.repaint();
-	}
 	
 	public void drawGraph(Graphe graphe){
         //draw nodes
         for(int i = 0; i < graphe.getMatVal().colonnes(); i++){
-            // int x;
-            // int y;
-            // int nbNoeuds = graphe.getMatVal().colonnes();
-            // if (i < nbNoeuds / 3){
-            //     //random between 100 and 200
-
-            //     y = getRandomNumber(50, 150);
-            // }
-            // else if(i >= nbNoeuds / 3 && i < nbNoeuds / 3 * 2){
-            //     //random between 1080/2 - 150 and 1080/2
-            //     y = getRandomNumber(1080/2 - 275, 1080/2 - 125);
-            // }
-            // else{
-            //     y = getRandomNumber(1080 - 300, 1080 - 500);
-            // }
-            // x = (i % 10) * 150+ 75;
             this.addNode(graphe.getNoeuds().get(i)[1],graphe.getNoeuds().get(i)[0]);
-			System.out.print(i);
         }
         for(int i = 0; i < graphe.getMatVal().colonnes(); i++){
             for(int j = 0; j < graphe.getMatVal().colonnes(); j++){
@@ -156,7 +133,16 @@ public class GrapheDraw extends JPanel {
             }
         }
     }
+
     public static int getRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
     }
+
+
+	
+
+
+
+
+	
 }
