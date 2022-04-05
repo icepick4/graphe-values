@@ -4,15 +4,15 @@ import java.util.*;
 import java.awt.*;
 import javax.swing.*;
 
-public class GrapheDraw extends JFrame {
+public class GrapheDraw extends JPanel {
     private int width;
     private int height;
     private ArrayList<Node> nodes;
     private ArrayList<Edge> edges;
 
     public GrapheDraw(String name) {
-		this.setTitle(name);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		// this.setTitle(name);
+		// this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.nodes = new ArrayList<Node>();
 		this.edges = new ArrayList<Edge>();
 		width = 50;
@@ -79,4 +79,36 @@ public class GrapheDraw extends JFrame {
 				n.y+f.getHeight()/2);
 		}
 	}
+	public void drawGraph(Graphe graphe){
+        //draw nodes
+        for(int i = 0; i < graphe.getMatVal().colonnes(); i++){
+            int x;
+            int y;
+            int nbNoeuds = graphe.getMatVal().colonnes();
+            if (i < nbNoeuds / 3){
+                //random between 100 and 200
+
+                y = getRandomNumber(50, 150);
+            }
+            else if(i >= nbNoeuds / 3 && i < nbNoeuds / 3 * 2){
+                //random between 1080/2 - 150 and 1080/2
+                y = getRandomNumber(1080/2 - 275, 1080/2 - 125);
+            }
+            else{
+                y = getRandomNumber(1080 - 300, 1080 - 500);
+            }
+            x = (i % 10) * 150+ 75;
+            this.addNode(graphe.getNoeuds().get(i)[1],graphe.getNoeuds().get(i)[0], x,y);
+        }
+        for(int i = 0; i < graphe.getMatVal().colonnes(); i++){
+            for(int j = 0; j < graphe.getMatVal().colonnes(); j++){
+                if(graphe.getMatVal().matrice[i][j] != 999){
+                    this.addEdge(graphe.getMatLiens().matrice[i][j], graphe.getMatVal().matrice[i][j],i,j);
+                }
+            }
+        }
+    }
+    public static int getRandomNumber(int min, int max) {
+        return (int) ((Math.random() * (max - min)) + min);
+    }
 }

@@ -3,28 +3,39 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package graphe.values;
+import com.formdev.flatlaf.FlatDarkLaf;
 import java.io.*;
 import java.util.ArrayList;
 import java.nio.charset.StandardCharsets;
+
 /**
  *
  * @author Remi
  */
 public class GrapheApp {
-    static GUI gui = new GUI();
-    static GrapheDraw frame = new GrapheDraw("GRAPHE");
+    static GUI gui;
+    // static GrapheDraw frame;
+    private static Matrice matriceBool;
+    private static MatriceDouble matriceVal ;
+    private static MatriceString liens ;
+    private static Graphe graphe;
     /**
      * @param args the command line arguments
      * @throws IOException
      */
-    public static void main(String[] args) throws IOException {
-        
-        frame.setSize(1920,1080);
+    public static void main(String[] args)throws IOException{
+        FlatDarkLaf.setup();
+        gui = new GUI();
+        // frame = new GrapheDraw("GRAPHE");
 
-        //open input.txt file
-        // File f = new File("."+File.separator+"input.txt");
-        // System.out.println(f.getAbsolutePath());
-        // System.out.println(f.getCanonicalFile().getAbsolutePath());
+        initApp();
+        // frame.drawGraph(getGraphe());
+
+    }
+
+    public static void initApp() throws IOException{
+        // frame.setSize(1920,1080);
+
         java.awt.EventQueue.invokeLater(() -> {
             gui.setVisible(true);
         });
@@ -36,7 +47,7 @@ public class GrapheApp {
                 e.printStackTrace();
             }
         }
-        frame.setVisible(true);
+        // frame.setVisible(true);
         gui.setVisible(false);
         file = gui.getFileName();
         FileInputStream fstream = new FileInputStream(file);
@@ -104,113 +115,45 @@ public class GrapheApp {
             }
         }
         in.close();
-        Matrice matriceBool = new Matrice(matricebool);
-        MatriceDouble matriceVal = new MatriceDouble(matricevaluations);
-        MatriceString Liens = new MatriceString(matriceliens);
-        Graphe graphe = new Graphe(matriceBool, matriceVal, Liens, noeud);
-        // System.out.println(graphe.getNbAutoroutes());
-        // System.out.println(Arrays.deepToString(graphe.getVille().toArray()));
-        // graphe.getMatVal().afficher();
-        // System.out.println(graphe.getNbVille());
-        // System.out.println(graphe.getNbRestaurant());
-        // System.out.println(graphe.getNbLoisir());
-        // graphe.floydWarshall().afficher();
-        drawGraph(graphe);
+        setMatriceBool(new Matrice(matricebool));
+        setMatriceVal(new MatriceDouble(matricevaluations));
+        setLiens(new MatriceString(matriceliens));
+        setGraphe(noeud);
 
     }
+
+    //seters
+    public static void setMatriceBool(Matrice matriceBool){
+        GrapheApp.matriceBool = matriceBool;
+    }
+    public static void setMatriceVal(MatriceDouble matriceVal){
+        GrapheApp.matriceVal = matriceVal;
+    }
+    public static void setLiens(MatriceString liens){
+        GrapheApp.liens = liens;
+    }
+    public static void setGraphe(ArrayList<String[]> noeud){
+        GrapheApp.graphe = new Graphe(getMatriceBool(),getMatriceVal(), getLiens(), noeud);
+    }
+
+    //geters
+    public static Matrice getMatriceBool(){
+        return GrapheApp.matriceBool;
+    }
+    public static MatriceDouble getMatriceVal(){
+        return GrapheApp.matriceVal;
+    }
+    public static MatriceString getLiens(){
+        return GrapheApp.liens;
+    }
+    public static Graphe getGraphe(){
+        return GrapheApp.graphe;
+    }
+
+
     public static char getCharFromString(String str, int index){
         return str.charAt(index);
     }
     //using swing draw nodes and edges with the help of the class graphe
-    public static void drawGraph(Graphe graphe){
-        //draw nodes
-        for(int i = 0; i < graphe.getMatVal().colonnes(); i++){
-            int x;
-            int y;
-            int nbNoeuds = graphe.getMatVal().colonnes();
-            if (i < nbNoeuds / 3){
-                //random between 100 and 200
-
-                y = getRandomNumber(50, 150);
-            }
-            else if(i >= nbNoeuds / 3 && i < nbNoeuds / 3 * 2){
-                //random between 1080/2 - 150 and 1080/2
-                y = getRandomNumber(1080/2 - 275, 1080/2 - 125);
-            }
-            else{
-                y = getRandomNumber(1080 - 300, 1080 - 500);
-            }
-            x = (i % 10) * 150+ 75;
-            frame.addNode(graphe.getNoeuds().get(i)[1],graphe.getNoeuds().get(i)[0], x,y);
-        }
-        for(int i = 0; i < graphe.getMatVal().colonnes(); i++){
-            for(int j = 0; j < graphe.getMatVal().colonnes(); j++){
-                if(graphe.getMatVal().matrice[i][j] != 999){
-                    frame.addEdge(graphe.getMatLiens().matrice[i][j], graphe.getMatVal().matrice[i][j],i,j);
-                }
-            }
-        }
-    }
-    public static int getRandomNumber(int min, int max) {
-        return (int) ((Math.random() * (max - min)) + min);
-    }
-
-
     
 }
-
-        // int inf = 999;
-        // int[][] matval = {
-        //     {inf,10,inf,inf,5},
-        //     {inf,inf,1,inf,2},
-        //     {inf,inf,inf,4,inf},
-        //     {7,inf,6,inf,inf},
-        //     {inf,3,9,2,inf}
-        // };
-        // int[][] matbool = {
-        //     {0,1,0,0,1},
-        //     {0,0,1,0,1},
-        //     {0,0,0,1,0},
-        //     {1,0,1,0,0},
-        //     {0,1,1,1,0}
-        // };
-        // String[][] lies = {
-        //     {"","A","","","N"},
-        //     {"","","N","","D"},
-        //     {"","","","D",""},
-        //     {"A","","D","",""},
-        //     {"","A","D","N",""}
-        // };
-
-        // ArrayList<String[]> noeuds = new ArrayList<String[]>();
-        // String[] A = {"V", "A"};
-        // noeuds.add(A);
-        // String[] B = {"R", "B"};
-        // noeuds.add(B);
-        // String[] C = {"L", "C"};
-        // noeuds.add(C);
-        // String[] D = {"V", "D"};
-        // noeuds.add(D);
-        // String[] E = {"V", "E"};
-        // noeuds.add(E);
-        //print matricebool
-        // for(int i = 0; i < noeud.size(); i++){
-        //     for(int j = 0; j < noeud.size(); j++){
-        //         //System.out.print(matricebool[i][j] + " ");
-        //     }
-        //     //System.out.println();
-        // }
-        // //print matricevaluations
-        // for(int i = 0; i < noeud.size(); i++){
-        //     for(int j = 0; j < noeud.size(); j++){
-        //         // System.out.print(matricevaluations[i][j] + " ");
-        //     }
-        //     // System.out.println();
-        // }
-        // //print matriceliens
-        // for(int i = 0; i < noeud.size(); i++){
-        //     for(int j = 0; j < noeud.size(); j++){
-        //         // System.out.print(matriceliens[i][j] + " ");
-        //     }
-        //     // System.out.println();
-        // }
