@@ -67,7 +67,7 @@ public class GUI extends javax.swing.JFrame {
                 jFileChooser1ActionPerformed(evt);
             }
         });
-
+        //this.setResizable(false);
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
         jFrame1Layout.setHorizontalGroup(
@@ -225,8 +225,15 @@ public class GUI extends javax.swing.JFrame {
         jFrame1.setVisible(true);
     }
 
+    public static GrapheDraw getCanvas() {
+        return Canvas;
+    }
+
+    //check for mouse motion and mouse click events
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private GrapheDraw Canvas;
+    private static GrapheDraw Canvas;
     private javax.swing.JCheckBox cb_loisirs;
     private javax.swing.JCheckBox cb_restaurant;
     private javax.swing.JCheckBox cb_ville;

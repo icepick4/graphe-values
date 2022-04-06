@@ -3,12 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package graphe.values;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Objects;
-import java.util.Random;
 /**
  *
  * @author Remi
@@ -35,13 +32,7 @@ public class Graphe{
         if(this.matBool.estSymetrique()){
             this.aretes /= 2;
         }
-
-        Random r1 = new Random();
-        for (int i = noeuds.size() - 1; i >= 1; i--) {
-            Collections.swap(noeuds, i, r1.nextInt(i + 1));
-        }
         this.noeuds = noeuds;
-
         if(matriceBool.lignes() != matriceBool.colonnes()){
             throw new IllegalArgumentException("Graphe non valide : colonnes!=lignes");
         }
@@ -102,6 +93,8 @@ public class Graphe{
     public int getNbLoisir(){
         return getLoisir().size();
     }
+
+
 
     public int getNbRestaurant(){
         return getRestaurant().size();
@@ -298,6 +291,11 @@ public class Graphe{
     public double plusCourtChemin(int a, int b){
         return this.floydWarshall().matrice[a][b];
     }
+
+    //dijkstra
+    
+
+   
     /**
      * 
      * @param sommet
