@@ -53,7 +53,7 @@ public class GUI extends javax.swing.JFrame {
         cb_restaurant = new javax.swing.JCheckBox();
         cb_loisirs = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
-        Canvas = new javax.swing.JPanel();
+        Canvas = new GrapheDraw();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         openFile = new javax.swing.JMenuItem();
@@ -226,7 +226,7 @@ public class GUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel Canvas;
+    private GrapheDraw Canvas;
     private javax.swing.JCheckBox cb_loisirs;
     private javax.swing.JCheckBox cb_restaurant;
     private javax.swing.JCheckBox cb_ville;

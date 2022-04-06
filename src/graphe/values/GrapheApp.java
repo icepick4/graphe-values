@@ -26,9 +26,10 @@ public class GrapheApp {
     public static void main(String[] args)throws IOException{
         FlatDarkLaf.setup();
         gui = new GUI();
+        initApp();
         // frame = new GrapheDraw("GRAPHE");
 
-        initApp();
+       
         // frame.drawGraph(getGraphe());
 
     }
@@ -36,9 +37,7 @@ public class GrapheApp {
     public static void initApp() throws IOException{
         // frame.setSize(1920,1080);
 
-        java.awt.EventQueue.invokeLater(() -> {
-            gui.setVisible(true);
-        });
+        gui.setVisible(true);
         String file = null;
         while (!gui.opened){
             try {
@@ -47,8 +46,9 @@ public class GrapheApp {
                 e.printStackTrace();
             }
         }
+        
         // frame.setVisible(true);
-        gui.setVisible(false);
+        //gui.setVisible(false);
         file = gui.getFileName();
         FileInputStream fstream = new FileInputStream(file);
         DataInputStream in = new DataInputStream(fstream);
@@ -119,6 +119,10 @@ public class GrapheApp {
         setMatriceVal(new MatriceDouble(matricevaluations));
         setLiens(new MatriceString(matriceliens));
         setGraphe(noeud);
+        graphe = GrapheApp.getGraphe();
+        // GrapheDraw Canvas = GUI.getCanvas();
+        // Canvas.drawGraph(graphe);
+        System.out.print(getGraphe().toString());
 
     }
 

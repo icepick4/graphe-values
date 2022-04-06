@@ -10,7 +10,7 @@ public class GrapheDraw extends JPanel {
     private ArrayList<Node> nodes;
     private ArrayList<Edge> edges;
 
-    public GrapheDraw(String name) {
+    public GrapheDraw() {
 		// this.setTitle(name);
 		// this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.nodes = new ArrayList<Node>();
@@ -19,12 +19,26 @@ public class GrapheDraw extends JPanel {
 		height = 50;
     }
     
-    public void addNode(String name, String type, int x, int y) { 
+    public void addNode(String name, String type) { 
 		//add a node at pixel (x,y)
+		int x = 500,y = 500;
+		while (!this.isValid(x,y)) {
+			// x = getRandomNumber(50, GUI.getCanvas().getWidth() - 20);
+			// y = getRandomNumber(50, GUI.getCanvas().getHeight() - 20);
+
+		}
 		nodes.add(new Node(name,type, x,y));
 		this.repaint();
     }
-
+	//pythagore
+	public boolean isValid(int x, int y) {
+		for (Node n : nodes) {
+			if (Math.sqrt(Math.pow(n.x - x, 2) + Math.pow(n.y - y, 2)) < 100) {
+				return false;
+			}
+		}
+		return true;
+	}
     public void addEdge(String type, double val, int i, int j) {
 		//add an edge between nodes i and j
 		edges.add(new Edge(type, val, i,j));
@@ -32,6 +46,8 @@ public class GrapheDraw extends JPanel {
     }
     
     public void paint(Graphics g) { // draw the nodes and edges
+		//clear g
+		g.clearRect(0,0,1920,1080);
 		FontMetrics f = g.getFontMetrics();
 		int nodeHeight = Math.max(height, f.getHeight());
 		for (Edge e : this.edges) {
@@ -59,6 +75,7 @@ public class GrapheDraw extends JPanel {
 		for (Node n : this.nodes) {
 			//g.setFont(new Font("TimesRoman", Font.PLAIN, 15)); 
 			int nodeWidth = Math.max(width, f.stringWidth(n.name)+width/2);
+
 			if (n.type.equals("V")){
 				g.setColor(Color.GREEN);
 			}
@@ -68,7 +85,8 @@ public class GrapheDraw extends JPanel {
 			else{
 				g.setColor(Color.YELLOW);
 			}
-			
+			//while not valid, redraw node
+
 			g.fillOval(n.x-nodeWidth/2, n.y-nodeHeight/2, 
 				nodeWidth, nodeHeight);
 			g.setColor(Color.black);
@@ -79,26 +97,56 @@ public class GrapheDraw extends JPanel {
 				n.y+f.getHeight()/2);
 		}
 	}
+
+	//change all positions of nodes depending on GUI.getCanvas().getWidth() and GUI.getCanvas().getHeight()
+	public void changePos() {
+		for (int i = 0; i < this.nodes.size(); i++) {
+			int x = 500, y = 500;
+			while(!this.isValid(x, y)) {
+				// x = getRandomNumber(50, GUI.getCanvas().getWidth() - 20);
+				// y = getRandomNumber(50, GUI.getCanvas().getHeight() - 20);
+			}
+			this.nodes.get(i).x = x;
+			this.nodes.get(i).y = y;
+		}
+	}
+
+	//clear canvas with white color
+	public void clear() {
+		// Graphics g = GUI.getCanvas().getGraphics();
+		g.setColor(Color.white);
+		// g.fillRect(0,0,GUI.getCanvas().getWidth(),GUI.getCanvas().getHeight());
+	}
+	//change positions of nodes randomly
+	public void randomize() {
+		for (Node n : this.nodes) {
+			n.x = getRandomNumber(10, 1920);
+			n.y = getRandomNumber(10, 1080);
+		}
+		this.repaint();
+	}
+	
 	public void drawGraph(Graphe graphe){
         //draw nodes
         for(int i = 0; i < graphe.getMatVal().colonnes(); i++){
-            int x;
-            int y;
-            int nbNoeuds = graphe.getMatVal().colonnes();
-            if (i < nbNoeuds / 3){
-                //random between 100 and 200
+            // int x;
+            // int y;
+            // int nbNoeuds = graphe.getMatVal().colonnes();
+            // if (i < nbNoeuds / 3){
+            //     //random between 100 and 200
 
-                y = getRandomNumber(50, 150);
-            }
-            else if(i >= nbNoeuds / 3 && i < nbNoeuds / 3 * 2){
-                //random between 1080/2 - 150 and 1080/2
-                y = getRandomNumber(1080/2 - 275, 1080/2 - 125);
-            }
-            else{
-                y = getRandomNumber(1080 - 300, 1080 - 500);
-            }
-            x = (i % 10) * 150+ 75;
-            this.addNode(graphe.getNoeuds().get(i)[1],graphe.getNoeuds().get(i)[0], x,y);
+            //     y = getRandomNumber(50, 150);
+            // }
+            // else if(i >= nbNoeuds / 3 && i < nbNoeuds / 3 * 2){
+            //     //random between 1080/2 - 150 and 1080/2
+            //     y = getRandomNumber(1080/2 - 275, 1080/2 - 125);
+            // }
+            // else{
+            //     y = getRandomNumber(1080 - 300, 1080 - 500);
+            // }
+            // x = (i % 10) * 150+ 75;
+            this.addNode(graphe.getNoeuds().get(i)[1],graphe.getNoeuds().get(i)[0]);
+			System.out.print(i);
         }
         for(int i = 0; i < graphe.getMatVal().colonnes(); i++){
             for(int j = 0; j < graphe.getMatVal().colonnes(); j++){
