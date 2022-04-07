@@ -1,7 +1,10 @@
 package graphe.values;
 
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+
 public class Node {
-    int x, y;
+    int x, y, height, width;
     String name;
     String type;
     
@@ -10,6 +13,10 @@ public class Node {
         this.y = y;
         this.type = type;
         this.name = name;
+        Graphics g = GUI.getCanvas().getGraphics();
+        FontMetrics f = g.getFontMetrics();
+        this.height = 50;
+        this.width = f.stringWidth(this.name)+50/2;
     }
 
     public void setPosX(int x) {
@@ -30,5 +37,12 @@ public class Node {
 
     public int getSize() {
         return name.length();
+    }
+
+    public void resetSize(){
+        Graphics g = GUI.getCanvas().getGraphics();
+        FontMetrics f = g.getFontMetrics();
+        this.height = 50;
+        this.width = f.stringWidth(this.name)+50/2;
     }
 }

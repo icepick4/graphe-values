@@ -94,8 +94,6 @@ public class Graphe{
         return getLoisir().size();
     }
 
-
-
     public int getNbRestaurant(){
         return getRestaurant().size();
     }
@@ -140,7 +138,6 @@ public class Graphe{
         MatriceString autoroutes = new MatriceString(this.matLiens.matrice);
         for(int i = 0; i < autoroutes.lignes(); i++){
             for(int j = 0; j < autoroutes.colonnes(); j++){
-
                 if(autoroutes.matrice[i][j] != "A"){
                     autoroutes.matrice[i][j] = "";
                 }

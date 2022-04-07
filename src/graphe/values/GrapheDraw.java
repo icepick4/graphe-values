@@ -11,8 +11,6 @@ public class GrapheDraw extends JPanel {
     private ArrayList<Edge> edges;
 
     public GrapheDraw() {
-		// this.setTitle(name);
-		// this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.nodes = new ArrayList<Node>();
 		this.edges = new ArrayList<Edge>();
 		width = 50;
@@ -56,7 +54,7 @@ public class GrapheDraw extends JPanel {
 		//clear g
 		g.clearRect(0,0,1920,1080);
 		FontMetrics f = g.getFontMetrics();
-		int nodeHeight = Math.max(height, f.getHeight());
+		// int nodeHeight = Math.max(height, f.getHeight());
 		for (Edge e : this.edges) {
 			if (e.type.equals("A")){
 				g.setColor(Color.black);
@@ -69,8 +67,8 @@ public class GrapheDraw extends JPanel {
 			}
 			int x = 100;
 			int y = 100;
-				g.drawLine(nodes.get(e.i).x, nodes.get(e.i).y,
-					nodes.get(e.j).x, nodes.get(e.j).y);
+			g.drawLine(nodes.get(e.i).x, nodes.get(e.i).y,
+				nodes.get(e.j).x, nodes.get(e.j).y);
 			//get middle of edge with pos of nodes
 			x = (nodes.get(e.i).x + nodes.get(e.j).x)/2;
 			y = (nodes.get(e.i).y + nodes.get(e.j).y)/2;
@@ -78,12 +76,10 @@ public class GrapheDraw extends JPanel {
 			g.setColor(Color.BLACK);
 			//convert e.val to string
 			String val = Double.toString(e.val);
-			//g.setFont(new Font("TimesRoman", Font.PLAIN, 20)); 
 			g.drawString(val, x,y);
 		}
 		for (Node n : this.nodes) {
-			//g.setFont(new Font("TimesRoman", Font.PLAIN, 15)); 
-			int nodeWidth = Math.max(width, f.stringWidth(n.name)+width/2);
+			// int nodeWidth = Math.max(width, f.stringWidth(n.name)+width/2);
 			if (n.type.equals("V")){
 				g.setColor(Color.GREEN);
 			}
@@ -93,13 +89,12 @@ public class GrapheDraw extends JPanel {
 			else{
 				g.setColor(Color.YELLOW);
 			}
-			//while not valid, redraw node
 
-			g.fillOval(n.x-nodeWidth/2, n.y-nodeHeight/2, 
-				nodeWidth, nodeHeight);
+			g.fillOval(n.x-n.width/2, n.y-n.height/2, 
+				n.width, n.height);
 			g.setColor(Color.black);
-			g.drawOval(n.x-nodeWidth/2, n.y-nodeHeight/2, 
-				nodeWidth, nodeHeight);
+			g.drawOval(n.x-n.width/2, n.y-n.height/2, 
+				n.width, n.height);
 			
 			g.drawString(n.name, n.x-f.stringWidth(n.name)/2,
 				n.y+f.getHeight()/2);
@@ -160,7 +155,6 @@ public class GrapheDraw extends JPanel {
 			return GUI.getCb_restaurant().isSelected();
 		}
 	} 
-
 
 	public boolean canAddEdge(String type){
 		if(type.equals("A")){

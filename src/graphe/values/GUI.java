@@ -7,7 +7,10 @@ package graphe.values;
 
 import java.io.IOException;
 import javax.swing.JCheckBox;
+import javax.swing.JToolBar.Separator;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -41,11 +44,18 @@ public class GUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        this.setMinimumSize(new Dimension(1400, 850));
         jFrame1 = new javax.swing.JFrame();
         jFileChooser1 = new javax.swing.JFileChooser();
         jToolBar1 = new javax.swing.JToolBar();
         toolBarPan = new javax.swing.JPanel();
         lbl_affichage = new javax.swing.JLabel();
+        nbVille = new javax.swing.JLabel();
+        nbRestaurant = new javax.swing.JLabel();
+        nbLoisir = new javax.swing.JLabel();
+        nbDepartementale = new javax.swing.JLabel();
+        nbNationale = new javax.swing.JLabel();
+        nbAutoroute = new javax.swing.JLabel();
         cb_ville = new javax.swing.JCheckBox();
         cb_restaurant = new javax.swing.JCheckBox();
         cb_loisirs = new javax.swing.JCheckBox();
@@ -58,8 +68,8 @@ public class GUI extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         openFile = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        this.addMouseMotionListener(new clickNode());
         this.addMouseListener(new clickNode());
+        this.addMouseMotionListener(new clickNode());
         jFileChooser1.setCurrentDirectory(new java.io.File(".\\inputFiles"));
         jFileChooser1.setDialogTitle("Choisissez un fichier dde Graphe");
         jFileChooser1.setFileFilter(new FileNameExtensionFilter("TXT File","txt"));
@@ -68,7 +78,6 @@ public class GUI extends javax.swing.JFrame {
                 try {
                     jFileChooser1ActionPerformed(evt);
                 } catch (IOException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }
@@ -151,7 +160,14 @@ public class GUI extends javax.swing.JFrame {
                 cb_departementaleActionPerformed(evt);
             }
         });
-        
+        nbVille.setText("ville");
+        nbRestaurant.setText("restaurant");
+        nbLoisir.setText("loisirs");
+        nbAutoroute.setText("autoroute");
+        nbNationale.setText("nationale");
+        nbDepartementale.setText("departementale");
+        //display next to checkboxes nbVille, nbRestaurant, nbLoisir, nbAutoroute, nbNationale, nbDepartementale
+
         javax.swing.GroupLayout toolBarPanLayout = new javax.swing.GroupLayout(toolBarPan);
         toolBarPan.setLayout(toolBarPanLayout);
         toolBarPanLayout.setHorizontalGroup(
@@ -192,6 +208,7 @@ public class GUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cb_departementale)
                 .addContainerGap(421, Short.MAX_VALUE))
+                
         );
 
         jToolBar1.add(toolBarPan);
@@ -255,29 +272,17 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jFileChooser1ActionPerformed
 
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
-        // TODO add your handling code here:
-        // graphe = GrapheApp.getGraphe();
-        // try{
-        //     System.out.print(graphe.getNoeuds().size() * 2 * 10);
-        //     if((graphe.getNoeuds().size() * 2 * 10 < GUI.getCanvas().getWidth()) && (graphe.getNoeuds().size() * 2 * 10 < GUI.getCanvas().getHeight())){
-        //         Canvas.clear();
-        //         Canvas.changePos();
-        //         Canvas.repaint();
-        //     }
-        // } catch(NullPointerException e){
-        //     System.out.println("Pas de graphe");
-        // }
         Canvas.clear();
         try{
             graphe = GrapheApp.getGraphe();
             Canvas.drawGraph(graphe);
             Canvas.changePos();
+            Canvas.repaint();
         }
         catch(NullPointerException e){
             System.out.println("Pas de graphe");
         }
         
-        Canvas.repaint();
 
     }//GEN-LAST:event_formComponentResized
 
@@ -380,27 +385,6 @@ public class GUI extends javax.swing.JFrame {
         return Canvas;
     }
 
-    //add event listener for mouse clicking on a node to move it
-    public void addMouseListener(MouseListener ml){
-        Canvas.addMouseListener(ml);
-        //get info about the click 
-        //get the node clicked
-        //move the node
-
-
-    }
-
-    //add event listener for mouse dragging to move it
-    public void addMouseMotionListener(MouseMotionListener mml){
-        Canvas.addMouseMotionListener(mml);
-        //check if the node is selected
-        //if it is, move it
-
-    }
-
-    //check for mouse motion and mouse click events
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private static GrapheDraw Canvas;
     private static javax.swing.JCheckBox cb_loisirs;
@@ -417,6 +401,12 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lbl_affichage;
+    private javax.swing.JLabel nbVille;
+    private javax.swing.JLabel nbRestaurant;
+    private javax.swing.JLabel nbAutoroute;
+    private javax.swing.JLabel nbNationale;
+    private javax.swing.JLabel nbDepartementale;
+    private javax.swing.JLabel nbLoisir;
     private javax.swing.JMenuItem openFile;
     private javax.swing.JPanel toolBarPan;
     // End of variables declaration//GEN-END:variables
@@ -425,29 +415,17 @@ public class GUI extends javax.swing.JFrame {
 class clickNode implements MouseListener, MouseMotionListener{
     private boolean clicked = false;
     private int node = -1;
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        
-        
-    }
 
     @Override
     public void mousePressed(MouseEvent e) {
         int x = e.getX();
         int y = e.getY();
-        System.out.print("Clicked");
         GrapheDraw Canvas = GUI.getCanvas();
         for(int i = 0; i < Canvas.getNbNodes(); i++){
-                //if pos x and y are in interval of a pos of a node
-                //calculate the size of the node
-                //if the node is selected, move it
-                
-            if(x >= Canvas.getNodes().get(i).getPosX() - 50 && x <= Canvas.getNodes().get(i).getPosX() + 50 && y >= Canvas.getNodes().get(i).getPosY() - 50 && y <= Canvas.getNodes().get(i).getPosY() + 50){
-                //move the node
-                System.out.print("clicked in a node");
+            if(x >= Canvas.getNodes().get(i).getPosX() - 50 && x <= Canvas.getNodes().get(i).getPosX() + 50 && y >= Canvas.getNodes().get(i).getPosY() + 10 && y <= Canvas.getNodes().get(i).getPosY() + 50){
                 node = i;
                 clicked = true;
-                }
+            }
         }
     }
 
@@ -458,7 +436,7 @@ class clickNode implements MouseListener, MouseMotionListener{
         GrapheDraw Canvas = GUI.getCanvas();
         if (clicked){
             Canvas.getNodes().get(node).setPosX(x);
-            Canvas.getNodes().get(node).setPosY(y);
+            Canvas.getNodes().get(node).setPosY(y - 35);
             Canvas.repaint();
         }
         node = -1;
@@ -467,41 +445,37 @@ class clickNode implements MouseListener, MouseMotionListener{
 
     @Override
     public void mouseEntered(MouseEvent e) {
-
     }
-
     @Override
     public void mouseExited(MouseEvent e) {
-        System.out.println("Exited");
     }
-
     @Override
-    public void mouseDragged(MouseEvent e) {
-        int x = e.getX();
-        int y = e.getY();
-        // GrapheDraw Canvas = GUI.getCanvas();
-        // for(int i = 0; i < Canvas.getNbNodes(); i++){
-        //         //if pos x and y are in interval of a pos of a node
-        //         //calculate the size of the node
-        //         //if the node is selected, move it
-                
-        //     if(x >= Canvas.getNodes().get(i).getPosX() - 50 && x <= Canvas.getNodes().get(i).getPosX() + 50 && y >= Canvas.getNodes().get(i).getPosY() - 50 && y <= Canvas.getNodes().get(i).getPosY() + 50){
-        //         //move the node
-        //         System.out.print("clicked in a node");
-        //         if (clicked){
-        //         Canvas.getNodes().get(i).setPosX(x);
-        //         Canvas.getNodes().get(i).setPosY(y);
-        //         Canvas.repaint();
-        //         }
-        //     }
-        // }
-        
+    public void mouseClicked(MouseEvent e) {
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
+        int x = e.getX();
+        int y = e.getY();
+        GrapheDraw Canvas = GUI.getCanvas();
+        for(int i = 0; i < Canvas.getNbNodes(); i++){
+            if(x >= Canvas.getNodes().get(i).getPosX() - 50 && x <= Canvas.getNodes().get(i).getPosX() + 50 && y >= Canvas.getNodes().get(i).getPosY() + 10 && y <= Canvas.getNodes().get(i).getPosY() + 50){
+                if(Canvas.getNodes().get(i).height < 75){
+                    Canvas.getNodes().get(i).height = Canvas.getNodes().get(i).height + 5;
+                }
+                if (Canvas.getNodes().get(i).width < 100){
+                    Canvas.getNodes().get(i).width = Canvas.getNodes().get(i).width + 2;
+                }
+                Canvas.repaint();
+            }
+            else{
+                Canvas.getNodes().get(i).resetSize();
+                Canvas.repaint();
+            }
+        }
     }
-    
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+    }
 }
