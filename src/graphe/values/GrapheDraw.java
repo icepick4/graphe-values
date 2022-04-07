@@ -4,8 +4,6 @@ import java.util.*;
 import java.awt.*;
 import javax.swing.*;
 
-import org.w3c.dom.events.MouseEvent;
-
 public class GrapheDraw extends JPanel {
     private int width;
     private int height;
@@ -21,6 +19,13 @@ public class GrapheDraw extends JPanel {
 		height = 50;
     }
     
+	public int getNbNodes() {
+		return nodes.size();
+	}
+
+	public ArrayList<Node> getNodes() {
+		return nodes;
+	}
     public void addNode(String name, String type) { 
 		//add a node at pixel (x,y)
 		int x = 500,y = 500;
@@ -64,18 +69,12 @@ public class GrapheDraw extends JPanel {
 			}
 			int x = 100;
 			int y = 100;
-			try{
 				g.drawLine(nodes.get(e.i).x, nodes.get(e.i).y,
 					nodes.get(e.j).x, nodes.get(e.j).y);
 			//get middle of edge with pos of nodes
 			x = (nodes.get(e.i).x + nodes.get(e.j).x)/2;
 			y = (nodes.get(e.i).y + nodes.get(e.j).y)/2;
-			}
-			catch(Exception e1){
-				System.out.println(e1.getMessage());
-				x = 100;
-				y = 100;
-			}
+			
 			g.setColor(Color.BLACK);
 			//convert e.val to string
 			String val = Double.toString(e.val);
@@ -85,7 +84,6 @@ public class GrapheDraw extends JPanel {
 		for (Node n : this.nodes) {
 			//g.setFont(new Font("TimesRoman", Font.PLAIN, 15)); 
 			int nodeWidth = Math.max(width, f.stringWidth(n.name)+width/2);
-
 			if (n.type.equals("V")){
 				g.setColor(Color.GREEN);
 			}
