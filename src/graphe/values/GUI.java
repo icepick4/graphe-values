@@ -5,6 +5,7 @@
  */
 package graphe.values;
 
+import java.io.IOException;
 //import com.formdev.flatlaf.FlatDarkLaf;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
@@ -53,6 +54,9 @@ public class GUI extends javax.swing.JFrame {
         cb_ville = new javax.swing.JCheckBox();
         cb_restaurant = new javax.swing.JCheckBox();
         cb_loisirs = new javax.swing.JCheckBox();
+        cb_autoroute = new javax.swing.JCheckBox();
+        cb_nationale = new javax.swing.JCheckBox();
+        cb_departementale = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
         Canvas = new GrapheDraw();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -65,7 +69,12 @@ public class GUI extends javax.swing.JFrame {
         jFileChooser1.setFileFilter(new FileNameExtensionFilter("TXT File","txt"));
         jFileChooser1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFileChooser1ActionPerformed(evt);
+                try {
+                    jFileChooser1ActionPerformed(evt);
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
         });
         //this.setResizable(false);
@@ -105,7 +114,7 @@ public class GUI extends javax.swing.JFrame {
         });
 
         cb_restaurant.setSelected(true);
-        cb_restaurant.setText("Réstaurants");
+        cb_restaurant.setText("Restaurants");
         cb_restaurant.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cb_restaurantActionPerformed(evt);
@@ -120,8 +129,33 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
+
         jLabel1.setText("Liens :");
 
+        cb_autoroute.setSelected(false);
+        cb_autoroute.setText("Autoroutes");
+        cb_autoroute.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_autorouteActionPerformed(evt);
+            }
+        });
+
+        cb_nationale.setSelected(false);
+        cb_nationale.setText("Nationales");
+        cb_nationale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_nationaleActionPerformed(evt);
+            }
+        });
+
+        cb_departementale.setSelected(true);
+        cb_departementale.setText("Departementales");
+        cb_departementale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_departementaleActionPerformed(evt);
+            }
+        });
+        
         javax.swing.GroupLayout toolBarPanLayout = new javax.swing.GroupLayout(toolBarPan);
         toolBarPan.setLayout(toolBarPanLayout);
         toolBarPanLayout.setHorizontalGroup(
@@ -135,8 +169,11 @@ public class GUI extends javax.swing.JFrame {
                     .addComponent(lbl_affichage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(toolBarPanLayout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(cb_autoroute, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cb_nationale, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                        .addComponent(cb_departementale, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         toolBarPanLayout.setVerticalGroup(
             toolBarPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,6 +188,13 @@ public class GUI extends javax.swing.JFrame {
                 .addComponent(cb_loisirs)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
+                .addComponent(lbl_affichage)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cb_autoroute)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cb_nationale)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cb_departementale)
                 .addContainerGap(421, Short.MAX_VALUE))
         );
 
@@ -204,10 +248,12 @@ public class GUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser1ActionPerformed
+    private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) throws IOException {//GEN-FIRST:event_jFileChooser1ActionPerformed
         this.fileName = jFileChooser1.getSelectedFile().getAbsolutePath();
         //System.out.println(fileName);
         this.opened = true;
+        GrapheApp.initApp();
+        System.out.print("oui");
         jFrame1.dispose();
         // graphe = GrapheApp.getGraphe();
         // Canvas.drawGraph(graphe);
@@ -227,7 +273,15 @@ public class GUI extends javax.swing.JFrame {
         //     System.out.println("Pas de graphe");
         // }
         Canvas.clear();
-        Canvas.changePos();
+        try{
+            graphe = GrapheApp.getGraphe();
+            Canvas.drawGraph(graphe);
+            Canvas.changePos();
+        }
+        catch(NullPointerException e){
+            System.out.println("Pas de graphe");
+        }
+        
         Canvas.repaint();
 
     }//GEN-LAST:event_formComponentResized
@@ -265,6 +319,39 @@ public class GUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cb_loisirsActionPerformed
 
+    private void cb_autorouteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_autorouteActionPerformed
+        try{
+            Canvas.clear();
+            graphe = GrapheApp.getGraphe();
+            Canvas.drawGraph(graphe);
+        }
+        catch(NullPointerException e){
+            System.out.println("Pas de graphe");
+        }
+    }//GEN-LAST:event_cb_autorouteActionPerformed
+
+    private void cb_nationaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_nationalesActionPerformed
+        try{
+            Canvas.clear();
+            graphe = GrapheApp.getGraphe();
+            Canvas.drawGraph(graphe);
+        }
+        catch(NullPointerException e){
+            System.out.println("Pas de graphe");
+        }
+    }//GEN-LAST:event_cb_nationalesActionPerformed
+
+    private void cb_departementaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_departementaleActionPerformed
+        try{
+            Canvas.clear();
+            graphe = GrapheApp.getGraphe();
+            Canvas.drawGraph(graphe);
+        }
+        catch(NullPointerException e){
+            System.out.println("Pas de graphe");
+        }
+    }//GEN-LAST:event_cb_departementaleActionPerformed
+
     private void openFileActionPerformed(java.awt.event.ActionEvent evt) {
         jFrame1.pack();
         jFrame1.setVisible(true);
@@ -276,6 +363,18 @@ public class GUI extends javax.swing.JFrame {
 
     public static JCheckBox getCb_restaurant() {
         return cb_restaurant;
+    }
+
+    public static JCheckBox getCb_autoroute() {
+        return cb_autoroute;
+    }
+
+    public static JCheckBox getCb_nationale() {
+        return cb_nationale;
+    }
+
+    public static JCheckBox getCb_departementale() {
+        return cb_departementale;
     }
 
     public static JCheckBox getCb_loisirs() {
@@ -294,6 +393,9 @@ public class GUI extends javax.swing.JFrame {
     private static javax.swing.JCheckBox cb_loisirs;
     private static javax.swing.JCheckBox cb_restaurant;
     private static javax.swing.JCheckBox cb_ville;
+    private static javax.swing.JCheckBox cb_departementale;
+    private static javax.swing.JCheckBox cb_nationale;
+    private static javax.swing.JCheckBox cb_autoroute;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;

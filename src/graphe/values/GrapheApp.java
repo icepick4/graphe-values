@@ -26,7 +26,8 @@ public class GrapheApp {
     public static void main(String[] args)throws IOException{
         FlatDarkLaf.setup();
         gui = new GUI();
-        initApp();
+        gui.setVisible(true);
+        // initApp();
         // frame = new GrapheDraw("GRAPHE");
 
        
@@ -37,7 +38,7 @@ public class GrapheApp {
     public static void initApp() throws IOException{
         // frame.setSize(1920,1080);
 
-        gui.setVisible(true);
+        
         String file = null;
         while (!gui.opened){
             try {
@@ -46,6 +47,7 @@ public class GrapheApp {
                 e.printStackTrace();
             }
         }
+        gui.opened = false;
         
         // frame.setVisible(true);
         //gui.setVisible(false);

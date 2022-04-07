@@ -143,15 +143,12 @@ public class GrapheDraw extends JPanel {
 				x = this.indexOfEdge(graphe, i, j)[0];
 				y = this.indexOfEdge(graphe, i, j)[1];
                 if(graphe.getMatVal().matrice[x][y] != 999){
-                    this.addEdge(graphe.getMatLiens().matrice[x][y], graphe.getMatVal().matrice[x][y],i,j);
+					if(canAddEdge(graphe.getMatLiens().matrice[x][y])){
+                    	this.addEdge(graphe.getMatLiens().matrice[x][y], graphe.getMatVal().matrice[x][y],i,j);
+					}
                 }
             }
         }
-		//print this.edges
-		// for(int i = 0; i < this.edges.size(); i++){
-		// 	System.out.println(this.edges.get(i).type + " " + this.edges.get(i).val + " " + this.edges.get(i).i + " " + this.edges.get(i).j);
-		// }
-		//this.nodesToPrint.remove(0);
     }
 	
 	public boolean canAddNode(String type){
@@ -168,16 +165,15 @@ public class GrapheDraw extends JPanel {
 
 
 	public boolean canAddEdge(String type){
-		// if(type.equals("A")){
-		// 	return GUI.getCb_autoroute().isSelected();
-		// }
-		// else if(type.equals("N")){
-		// 	return GUI.getCb_nationale().isSelected();
-		// }
-		// else{
-		// 	return GUI.getCb_departementale().isSelected();
-		// }
-		return true;
+		if(type.equals("A")){
+			return GUI.getCb_autoroute().isSelected();
+		}
+		else if(type.equals("N")){
+			return GUI.getCb_nationale().isSelected();
+		}
+		else{
+			return GUI.getCb_departementale().isSelected();
+		}
 	}
 
 	public int[] indexOfEdge(Graphe graphe, int i, int j){
