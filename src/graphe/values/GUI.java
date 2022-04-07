@@ -8,6 +8,8 @@ package graphe.values;
 //import com.formdev.flatlaf.FlatDarkLaf;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
+
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -43,7 +45,6 @@ public class GUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
         jFrame1 = new javax.swing.JFrame();
         jFileChooser1 = new javax.swing.JFileChooser();
         jToolBar1 = new javax.swing.JToolBar();
@@ -86,7 +87,11 @@ public class GUI extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                formComponentResized(evt);
+            }
+        });
         jToolBar1.setRollover(true);
 
         lbl_affichage.setText("Affichage :");
@@ -204,25 +209,77 @@ public class GUI extends javax.swing.JFrame {
         //System.out.println(fileName);
         this.opened = true;
         jFrame1.dispose();
-        graphe = GrapheApp.getGraphe();
-        Canvas.drawGraph(graphe);
+        // graphe = GrapheApp.getGraphe();
+        // Canvas.drawGraph(graphe);
     }//GEN-LAST:event_jFileChooser1ActionPerformed
 
-    private void cb_villeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_villeActionPerformed
+    private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
         // TODO add your handling code here:
+        // graphe = GrapheApp.getGraphe();
+        // try{
+        //     System.out.print(graphe.getNoeuds().size() * 2 * 10);
+        //     if((graphe.getNoeuds().size() * 2 * 10 < GUI.getCanvas().getWidth()) && (graphe.getNoeuds().size() * 2 * 10 < GUI.getCanvas().getHeight())){
+        //         Canvas.clear();
+        //         Canvas.changePos();
+        //         Canvas.repaint();
+        //     }
+        // } catch(NullPointerException e){
+        //     System.out.println("Pas de graphe");
+        // }
+        Canvas.clear();
+        Canvas.changePos();
+        Canvas.repaint();
+
+    }//GEN-LAST:event_formComponentResized
+
+    private void cb_villeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_villeActionPerformed
+        try{
+            Canvas.clear();
+            graphe = GrapheApp.getGraphe();
+            Canvas.drawGraph(graphe);
+        }
+        catch(NullPointerException e){
+            System.out.println("Pas de graphe");
+        }
     }//GEN-LAST:event_cb_villeActionPerformed
 
     private void cb_restaurantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_restaurantActionPerformed
-        // TODO add your handling code here:
+        try{
+            Canvas.clear();
+            graphe = GrapheApp.getGraphe();
+            Canvas.drawGraph(graphe);
+        }
+        catch(NullPointerException e){
+            System.out.println("Pas de graphe");
+        }
     }//GEN-LAST:event_cb_restaurantActionPerformed
 
     private void cb_loisirsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_loisirsActionPerformed
-        // TODO add your handling code here:
+        try{
+            Canvas.clear();
+            graphe = GrapheApp.getGraphe();
+            Canvas.drawGraph(graphe);
+        }
+        catch(NullPointerException e){
+            System.out.println("Pas de graphe");
+        }
     }//GEN-LAST:event_cb_loisirsActionPerformed
 
     private void openFileActionPerformed(java.awt.event.ActionEvent evt) {
         jFrame1.pack();
         jFrame1.setVisible(true);
+    }
+    //getter cb
+    public static JCheckBox getCb_ville() {
+        return cb_ville;
+    }
+
+    public static JCheckBox getCb_restaurant() {
+        return cb_restaurant;
+    }
+
+    public static JCheckBox getCb_loisirs() {
+        return cb_loisirs;
     }
 
     public static GrapheDraw getCanvas() {
@@ -234,9 +291,9 @@ public class GUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private static GrapheDraw Canvas;
-    private javax.swing.JCheckBox cb_loisirs;
-    private javax.swing.JCheckBox cb_restaurant;
-    private javax.swing.JCheckBox cb_ville;
+    private static javax.swing.JCheckBox cb_loisirs;
+    private static javax.swing.JCheckBox cb_restaurant;
+    private static javax.swing.JCheckBox cb_ville;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;

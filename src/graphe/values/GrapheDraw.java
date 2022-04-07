@@ -34,7 +34,7 @@ public class GrapheDraw extends JPanel {
     }
 	//pythagore
 	public boolean isValid(int x, int y) {
-		for (Node n : nodes) {
+		for (Node n : this.nodes) {
 			if (Math.sqrt(Math.pow(n.x - x, 2) + Math.pow(n.y - y, 2)) < 100) {
 				return false;
 			}
@@ -62,18 +62,26 @@ public class GrapheDraw extends JPanel {
 			else{
 				g.setColor(Color.blue);
 			}
-			g.drawLine(nodes.get(e.i).x, nodes.get(e.i).y,
-				nodes.get(e.j).x, nodes.get(e.j).y);
+			int x = 100;
+			int y = 100;
+			try{
+				g.drawLine(nodes.get(e.i).x, nodes.get(e.i).y,
+					nodes.get(e.j).x, nodes.get(e.j).y);
 			//get middle of edge with pos of nodes
-			int x = (nodes.get(e.i).x + nodes.get(e.j).x)/2;
-			int y = (nodes.get(e.i).y + nodes.get(e.j).y)/2;
+			x = (nodes.get(e.i).x + nodes.get(e.j).x)/2;
+			y = (nodes.get(e.i).y + nodes.get(e.j).y)/2;
+			}
+			catch(Exception e1){
+				System.out.println(e1.getMessage());
+				x = 100;
+				y = 100;
+			}
 			g.setColor(Color.BLACK);
 			//convert e.val to string
 			String val = Double.toString(e.val);
 			//g.setFont(new Font("TimesRoman", Font.PLAIN, 20)); 
 			g.drawString(val, x,y);
 		}
-
 		for (Node n : this.nodes) {
 			//g.setFont(new Font("TimesRoman", Font.PLAIN, 15)); 
 			int nodeWidth = Math.max(width, f.stringWidth(n.name)+width/2);
@@ -115,6 +123,8 @@ public class GrapheDraw extends JPanel {
 
 	//clear canvas with white color
 	public void clear() {
+		this.nodes = new ArrayList<Node>();
+		this.edges = new ArrayList<Edge>();
 		Graphics g = GUI.getCanvas().getGraphics();
 		g.setColor(Color.white);
 		g.fillRect(0,0,GUI.getCanvas().getWidth(),GUI.getCanvas().getHeight());
@@ -123,20 +133,89 @@ public class GrapheDraw extends JPanel {
 	public void drawGraph(Graphe graphe){
         //draw nodes
         for(int i = 0; i < graphe.getMatVal().colonnes(); i++){
-            this.addNode(graphe.getNoeuds().get(i)[1],graphe.getNoeuds().get(i)[0]);
+			if(canAddNode(graphe.getNoeuds().get(i)[0])){
+				this.addNode(graphe.getNoeuds().get(i)[1],graphe.getNoeuds().get(i)[0]);
+			}
         }
-        for(int i = 0; i < graphe.getMatVal().colonnes(); i++){
-            for(int j = 0; j < graphe.getMatVal().colonnes(); j++){
-                if(graphe.getMatVal().matrice[i][j] != 999){
-                    this.addEdge(graphe.getMatLiens().matrice[i][j], graphe.getMatVal().matrice[i][j],i,j);
+        for(int i = 0; i < this.nodes.size(); i++){
+            for(int j = 0; j < this.nodes.size(); j++){
+				int x,y;
+				x = this.indexOfEdge(graphe, i, j)[0];
+				y = this.indexOfEdge(graphe, i, j)[1];
+                if(graphe.getMatVal().matrice[x][y] != 999){
+                    this.addEdge(graphe.getMatLiens().matrice[x][y], graphe.getMatVal().matrice[x][y],i,j);
                 }
             }
         }
+		//print this.edges
+		// for(int i = 0; i < this.edges.size(); i++){
+		// 	System.out.println(this.edges.get(i).type + " " + this.edges.get(i).val + " " + this.edges.get(i).i + " " + this.edges.get(i).j);
+		// }
+		//this.nodesToPrint.remove(0);
     }
+	
+	public boolean canAddNode(String type){
+		if(type.equals("V")){
+			return GUI.getCb_ville().isSelected();
+		}
+		else if(type.equals("L")){
+			return GUI.getCb_loisirs().isSelected();
+		}
+		else{
+			return GUI.getCb_restaurant().isSelected();
+		}
+	} 
 
+
+	public boolean canAddEdge(String type){
+		// if(type.equals("A")){
+		// 	return GUI.getCb_autoroute().isSelected();
+		// }
+		// else if(type.equals("N")){
+		// 	return GUI.getCb_nationale().isSelected();
+		// }
+		// else{
+		// 	return GUI.getCb_departementale().isSelected();
+		// }
+		return true;
+	}
+
+	public int[] indexOfEdge(Graphe graphe, int i, int j){
+		//get index of the node this.nodes.get(i) in graphe.getNoeuds()
+		//create String[] with type of node and name of this.nodes.get(i) and this.nodes.get(j)
+		String[] node1 = new String[2];
+		node1[0] = this.nodes.get(i).type;
+		node1[1] = this.nodes.get(i).name;
+		String[] node2 = new String[2];
+		node2[0] = this.nodes.get(j).type;
+		node2[1] = this.nodes.get(j).name;
+		//browse graphe.getNoeuds() when node1 is found x is the index
+		int x = 0;
+		for(int k = 0; k < graphe.getNoeuds().size(); k++){
+			//check is node1.name and node1.type is equal to graphe.getNoeuds().get(k)[0] and graphe.getNoeuds().get(k)[1]
+			if(node1[0].equals(graphe.getNoeuds().get(k)[0]) && node1[1].equals(graphe.getNoeuds().get(k)[1])){
+				x = k;
+				break;
+			}
+		}
+		//same for y
+		int y = 0;
+		for(int k = 0; k < graphe.getNoeuds().size(); k++){
+			if(node2[0].equals(graphe.getNoeuds().get(k)[0]) && node2[1].equals(graphe.getNoeuds().get(k)[1])){
+				y = k;
+				break;
+			}
+		}
+		return new int[]{x,y};
+	}
+	
     public static int getRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
     }
+
+
+
+
 
 
 	

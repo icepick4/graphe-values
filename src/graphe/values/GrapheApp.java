@@ -120,9 +120,8 @@ public class GrapheApp {
         setLiens(new MatriceString(matriceliens));
         setGraphe(noeud);
         graphe = GrapheApp.getGraphe();
-        // GrapheDraw Canvas = GUI.getCanvas();
-        // Canvas.drawGraph(graphe);
-        System.out.print(getGraphe().toString());
+        GrapheDraw Canvas = GUI.getCanvas();
+        Canvas.drawGraph(graphe);
 
     }
 
