@@ -253,7 +253,6 @@ public class GUI extends javax.swing.JFrame {
         //System.out.println(fileName);
         this.opened = true;
         GrapheApp.initApp();
-        System.out.print("oui");
         jFrame1.dispose();
         // graphe = GrapheApp.getGraphe();
         // Canvas.drawGraph(graphe);

@@ -37,8 +37,7 @@ public class GrapheApp {
 
     public static void initApp() throws IOException{
         // frame.setSize(1920,1080);
-
-        
+        System.out.print(gui.opened);
         String file = null;
         while (!gui.opened){
             try {
@@ -52,6 +51,7 @@ public class GrapheApp {
         // frame.setVisible(true);
         //gui.setVisible(false);
         file = gui.getFileName();
+        System.out.print(file);
         FileInputStream fstream = new FileInputStream(file);
         DataInputStream in = new DataInputStream(fstream);
         BufferedReader br = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8));
@@ -121,9 +121,18 @@ public class GrapheApp {
         setMatriceVal(new MatriceDouble(matricevaluations));
         setLiens(new MatriceString(matriceliens));
         setGraphe(noeud);
-        graphe = GrapheApp.getGraphe();
-        GrapheDraw Canvas = GUI.getCanvas();
-        Canvas.drawGraph(graphe);
+        try{
+            graphe = GrapheApp.getGraphe();
+            GrapheDraw Canvas = GUI.getCanvas();
+            System.out.print("je suis à la fin");
+            System.out.print(graphe.getNoeuds().size());
+            Canvas.clear();
+            Canvas.drawGraph(graphe);
+        }
+        catch(Exception e){
+            System.out.print(e.getMessage());
+        }
+        
 
     }
 
