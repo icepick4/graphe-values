@@ -25,6 +25,9 @@ public class GrapheDraw extends JPanel {
 		return nodes;
 	}
 
+	public void setNodes(ArrayList<Node> nodes) {
+		this.nodes = nodes;
+	}
     public void addNode(String name, String type) { 
 		//add a node at pixel (x,y)
 		int x = 500,y = 500;
@@ -46,18 +49,6 @@ public class GrapheDraw extends JPanel {
 		return true;
 	}
 
-	public boolean isValid(int x, int y, int node) {
-		for (int i = 0; i < this.nodes.size(); i++) {
-			if (i != node) {
-				if (Math.sqrt(Math.pow(this.nodes.get(i).x - x, 2) + Math.pow(this.nodes.get(i).y - y, 2)) < 100) {
-					return false;
-				}
-			}
-		}
-		return true;
-	}
-
-
     public void addEdge(String type, double val, int i, int j) {
 		//add an edge between nodes i and j
 		edges.add(new Edge(type, val, i,j));
@@ -67,8 +58,9 @@ public class GrapheDraw extends JPanel {
     public void paint(Graphics g) { // draw the nodes and edges
 		//clear g
 		g.clearRect(0,0,1920,1080);
-		FontMetrics f = g.getFontMetrics();
 		// int nodeHeight = Math.max(height, f.getHeight());
+		g.setFont(new Font("Arial", Font.BOLD, 20));
+		FontMetrics f = g.getFontMetrics();
 		for (Edge e : this.edges) {
 			if (e.type.equals("A")){
 				g.setColor(Color.black);
@@ -81,18 +73,22 @@ public class GrapheDraw extends JPanel {
 			}
 			int x = 100;
 			int y = 100;
-			g.drawLine(nodes.get(e.i).x, nodes.get(e.i).y,
-				nodes.get(e.j).x, nodes.get(e.j).y);
+			//increase the width of the line
+			g.drawLine(nodes.get(e.i).x, nodes.get(e.i).y, nodes.get(e.j).x, nodes.get(e.j).y);
 			//get middle of edge with pos of nodes
 			x = (nodes.get(e.i).x + nodes.get(e.j).x)/2;
 			y = (nodes.get(e.i).y + nodes.get(e.j).y)/2;
 			g.setColor(Color.BLACK);
 			//convert e.val to string
 			String val = Double.toString(e.val);
+			//bigger font
 			g.drawString(val, x,y);
 		}
+		g.setFont(new Font("Arial", Font.BOLD, 10));
+		f = g.getFontMetrics();
 		for (Node n : this.nodes) {
 			// int nodeWidth = Math.max(width, f.stringWidth(n.name)+width/2);
+			//normal font
 			if (n.type.equals("V")){
 				g.setColor(Color.GREEN);
 			}

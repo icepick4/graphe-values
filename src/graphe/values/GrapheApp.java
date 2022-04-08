@@ -40,6 +40,9 @@ public class GrapheApp {
         }
         gui.opened = false;
         file = gui.getFileName();
+        //get only the title of the file
+        String filename = file.substring(file.lastIndexOf("\\")+1, file.length());
+        gui.setTitle(filename);
         FileInputStream fstream = new FileInputStream(file);
         DataInputStream in = new DataInputStream(fstream);
         BufferedReader br = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8));
@@ -57,7 +60,7 @@ public class GrapheApp {
         }
 
         text = lines.split(";;");
-        for(int i = 0; i < nbLines ; i++){
+        for(int i = 0; i < nbLines; i++){
             int n = 0;
             char c = getCharFromString(text[i], n);
             text[i] = text[i].substring(2);
@@ -117,7 +120,7 @@ public class GrapheApp {
         Canvas.drawGraph(graphe);
     }
 
-    //seters
+    //setters
     public static void setMatriceBool(Matrice matriceBool){
         GrapheApp.matriceBool = matriceBool;
     }
@@ -131,7 +134,7 @@ public class GrapheApp {
         GrapheApp.graphe = new Graphe(getMatriceBool(),getMatriceVal(), getLiens(), noeud);
     }
 
-    //geters
+    //getters
     public static Matrice getMatriceBool(){
         return GrapheApp.matriceBool;
     }
