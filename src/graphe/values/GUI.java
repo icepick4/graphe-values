@@ -108,7 +108,7 @@ public class GUI extends javax.swing.JFrame {
         });
         jToolBar1.setRollover(true);
 
-        lbl_affichage.setText("Affichage :");
+        lbl_affichage.setText("Noeuds :");
 
         cb_ville.setSelected(true);
         cb_ville.setText("Villes");
@@ -161,23 +161,12 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        try{
-            nbVille.setText("Nombre : " + GrapheApp.getGraphe().getNbVille());
-            nbRestaurant.setText("Nombre : " +  GrapheApp.getGraphe().getNbRestaurant());
-            nbLoisir.setText("Nombre : " +  GrapheApp.getGraphe().getNbLoisir());
-            // nbAutoroute.setText("Nombre : " +  GrapheApp.getGraphe().getNbAutoroute());
-            // nbNationale.setText("Nombre : " +  GrapheApp.getGraphe().getNbNationale());
-            // nbDepartementale.setText("Nombre : " +  GrapheApp.getGraphe().getNbDepartementale());
-        }
-        catch(NullPointerException e){
-            nbVille.setText("Nombre : 0");
-            nbRestaurant.setText("Nombre : 0");
-            nbLoisir.setText("Nombre : 0");
-            // nbAutoroute.setText("Nombre : 0");
-            // nbNationale.setText("Nombre : 0");
-            // nbDepartementale.setText("Nombre : 0");
-        }
-        //display next to checkboxes nbVille, nbRestaurant, nbLoisir, nbAutoroute, nbNationale, nbDepartementale
+        nbVille.setText("Nombre : 0");
+        nbRestaurant.setText("Nombre : 0");
+        nbLoisir.setText("Nombre : 0");
+        nbAutoroute.setText("Nombre : 0");
+        nbNationale.setText("Nombre : 0");
+        nbDepartementale.setText("Nombre : 0");
 
         javax.swing.GroupLayout toolBarPanLayout = new javax.swing.GroupLayout(toolBarPan);
         toolBarPan.setLayout(toolBarPanLayout);
@@ -254,7 +243,6 @@ public class GUI extends javax.swing.JFrame {
         );
 
         jMenu1.setText("Fichier");
-
         openFile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         openFile.setText("Ouvrir");
         openFile.setToolTipText("");
@@ -292,13 +280,10 @@ public class GUI extends javax.swing.JFrame {
 
     private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) throws IOException {//GEN-FIRST:event_jFileChooser1ActionPerformed
         this.fileName = jFileChooser1.getSelectedFile().getAbsolutePath();
-        //System.out.println(fileName);
         this.opened = true;
         GrapheApp.initApp();
         setNombres();
         jFrame1.dispose();
-        // graphe = GrapheApp.getGraphe();
-        // Canvas.drawGraph(graphe);
     }//GEN-LAST:event_jFileChooser1ActionPerformed
 
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
@@ -312,7 +297,6 @@ public class GUI extends javax.swing.JFrame {
         catch(NullPointerException e){
             System.out.println("Pas de graphe");
         }
-        
 
     }//GEN-LAST:event_formComponentResized
 

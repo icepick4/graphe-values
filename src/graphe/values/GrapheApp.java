@@ -27,7 +27,6 @@ public class GrapheApp {
         FlatDarkLaf.setup();
         gui = new GUI();
         gui.setVisible(true);
-
     }
 
     public static void initApp() throws IOException{
@@ -111,11 +110,11 @@ public class GrapheApp {
         setLiens(new MatriceString(matriceliens));
         setGraphe(noeud);
         graphe = GrapheApp.getGraphe();
+        //print result of graphe.floydWarshallPredecesseurs()
+        // System.out.println(graphe.floydWarshallChemin(0,3));
         GrapheDraw Canvas = GUI.getCanvas();
         Canvas.clear();
         Canvas.drawGraph(graphe);
-        
-
     }
 
     //seters

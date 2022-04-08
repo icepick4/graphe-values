@@ -5,6 +5,7 @@
 package graphe.values;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Objects;
 /**
  *
@@ -264,7 +265,7 @@ public class Graphe{
     }
     //stocker le predeceur du chemin de floydwarshall
 
-    public MatriceDouble floydWarshall() {
+    public MatriceDouble floydWarshallDistance() {
         int n = this.matVal.matrice.length;
         double[][] temp = new double[n][n];
         for(int h = 0; h < n; h++){
@@ -285,11 +286,47 @@ public class Graphe{
         return finalMat;
     }
 
-    public double plusCourtChemin(int a, int b){
-        return this.floydWarshall().matrice[a][b];
+    public Matrice floydWarshallPredesseceurs(){
+        //get predecesseur with floydwarshall
+        int n = this.matVal.matrice.length;
+        int[][] pred = new int[n][n];
+        for(int h = 0; h < n; h++){
+            for(int j = 0; j < n; j++){
+                pred[h][j] = -1;
+            }
+        }
+        for (int k = 0; k < n; k++) {
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    if (this.matVal.matrice[i][k] + this.matVal.matrice[k][j] < this.matVal.matrice[i][j] && i != j) {
+                        pred[i][j] = k;
+                    }
+                }
+            }
+        }
+        Matrice mat = new Matrice(pred);
+        return mat;
     }
 
-    //dijkstra
+    public double plusCourtChemin(int a, int b){
+        return this.floydWarshallDistance().matrice[a][b];
+    }
+
+    //retourne le chemin de floydwarshall entre deux points
+    public ArrayList<Integer> floydWarshallChemin(int a, int b){
+        ArrayList<Integer> chemin = new ArrayList<>();
+        int i = a;
+        int j = b;
+        int[][] pred = this.floydWarshallPredesseceurs().matrice;
+        //solve problem with -1
+        while(pred[i][j] != -1){
+            chemin.add(j);
+            j = pred[i][j];
+        }
+        chemin.add(j);
+        Collections.reverse(chemin);
+        return chemin;
+    }
     
 
    

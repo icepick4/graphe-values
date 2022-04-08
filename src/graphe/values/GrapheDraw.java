@@ -24,17 +24,18 @@ public class GrapheDraw extends JPanel {
 	public ArrayList<Node> getNodes() {
 		return nodes;
 	}
+
     public void addNode(String name, String type) { 
 		//add a node at pixel (x,y)
 		int x = 500,y = 500;
 		while (!this.isValid(x,y)) {
 			x = getRandomNumber(50, GUI.getCanvas().getWidth() - 50);
 			y = getRandomNumber(50, GUI.getCanvas().getHeight() - 50);
-
 		}
 		nodes.add(new Node(name,type, x,y));
 		this.repaint();
     }
+
 	//pythagore
 	public boolean isValid(int x, int y) {
 		for (Node n : this.nodes) {
@@ -72,7 +73,6 @@ public class GrapheDraw extends JPanel {
 			//get middle of edge with pos of nodes
 			x = (nodes.get(e.i).x + nodes.get(e.j).x)/2;
 			y = (nodes.get(e.i).y + nodes.get(e.j).y)/2;
-			
 			g.setColor(Color.BLACK);
 			//convert e.val to string
 			String val = Double.toString(e.val);
@@ -95,7 +95,6 @@ public class GrapheDraw extends JPanel {
 			g.setColor(Color.black);
 			g.drawOval(n.x-n.width/2, n.y-n.height/2, 
 				n.width, n.height);
-			
 			g.drawString(n.name, n.x-f.stringWidth(n.name)/2,
 				n.y+f.getHeight()/2);
 		}
@@ -169,7 +168,6 @@ public class GrapheDraw extends JPanel {
 	}
 
 	public int[] indexOfEdge(Graphe graphe, int i, int j){
-		//get index of the node this.nodes.get(i) in graphe.getNoeuds()
 		//create String[] with type of node and name of this.nodes.get(i) and this.nodes.get(j)
 		String[] node1 = new String[2];
 		node1[0] = this.nodes.get(i).type;
