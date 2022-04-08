@@ -45,6 +45,19 @@ public class GrapheDraw extends JPanel {
 		}
 		return true;
 	}
+
+	public boolean isValid(int x, int y, int node) {
+		for (int i = 0; i < this.nodes.size(); i++) {
+			if (i != node) {
+				if (Math.sqrt(Math.pow(this.nodes.get(i).x - x, 2) + Math.pow(this.nodes.get(i).y - y, 2)) < 100) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+
     public void addEdge(String type, double val, int i, int j) {
 		//add an edge between nodes i and j
 		edges.add(new Edge(type, val, i,j));

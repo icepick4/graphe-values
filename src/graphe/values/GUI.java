@@ -7,7 +7,6 @@ package graphe.values;
 
 import java.io.IOException;
 import javax.swing.JCheckBox;
-import javax.swing.JToolBar.Separator;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.awt.Dimension;
@@ -23,7 +22,7 @@ public class GUI extends javax.swing.JFrame {
     private Graphe graphe;
     private String fileName;
     public boolean opened;
-
+    private clickNode click = new clickNode();
     /**
      * Creates new form GUI
      */
@@ -68,8 +67,8 @@ public class GUI extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         openFile = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        this.addMouseListener(new clickNode());
-        this.addMouseMotionListener(new clickNode());
+        this.addMouseListener(click);
+        this.addMouseMotionListener(click);
         jFileChooser1.setCurrentDirectory(new java.io.File(".\\inputFiles"));
         jFileChooser1.setDialogTitle("Choisissez un fichier dde Graphe");
         jFileChooser1.setFileFilter(new FileNameExtensionFilter("TXT File","txt"));
@@ -451,29 +450,35 @@ class clickNode implements MouseListener, MouseMotionListener{
 
     @Override
     public void mousePressed(MouseEvent e) {
+        if(this.clicked){
+            this.clicked = false;
+        }
+        else{
+            this.clicked = true;
+        }
         int x = e.getX();
         int y = e.getY();
         GrapheDraw Canvas = GUI.getCanvas();
         for(int i = 0; i < Canvas.getNbNodes(); i++){
             if(x >= Canvas.getNodes().get(i).getPosX() - 50 && x <= Canvas.getNodes().get(i).getPosX() + 50 && y >= Canvas.getNodes().get(i).getPosY() + 10 && y <= Canvas.getNodes().get(i).getPosY() + 50){
-                node = i;
-                clicked = true;
+                this.node = i;
             }
         }
+        // System.out.print(this.clicked);
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        int x = e.getX();
-        int y = e.getY();
-        GrapheDraw Canvas = GUI.getCanvas();
-        if (clicked){
-            Canvas.getNodes().get(node).setPosX(x);
-            Canvas.getNodes().get(node).setPosY(y - 35);
-            Canvas.repaint();
-        }
-        node = -1;
-        clicked = false;
+        // int x = e.getX();
+        // int y = e.getY();
+        // GrapheDraw Canvas = GUI.getCanvas();
+        // if (clicked){
+        //     Canvas.getNodes().get(node).setPosX(x);
+        //     Canvas.getNodes().get(node).setPosY(y - 35);
+        //     Canvas.repaint();
+        // }
+        // node = -1;
+        // clicked = false;
     }
 
     @Override
@@ -496,9 +501,9 @@ class clickNode implements MouseListener, MouseMotionListener{
                 if(Canvas.getNodes().get(i).height < 75){
                     Canvas.getNodes().get(i).height = Canvas.getNodes().get(i).height + 5;
                 }
-                if (Canvas.getNodes().get(i).width < 100){
+                if (Canvas.getNodes().get(i).width < 90){
                     Canvas.getNodes().get(i).width = Canvas.getNodes().get(i).width + 2;
-                }
+                }         
                 Canvas.repaint();
             }
             else{
@@ -506,6 +511,10 @@ class clickNode implements MouseListener, MouseMotionListener{
                 Canvas.repaint();
             }
         }
+        if(clicked && Canvas.isValid(x,y,this.node)){
+            Canvas.getNodes().get(this.node).setPosX(x);
+            Canvas.getNodes().get(this.node).setPosY(y - 35);
+        }       
     }
 
     @Override
