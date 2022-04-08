@@ -146,7 +146,6 @@ public class GrapheApp {
         return GrapheApp.graphe;
     }
 
-
     public static char getCharFromString(String str, int index){
         return str.charAt(index);
     }

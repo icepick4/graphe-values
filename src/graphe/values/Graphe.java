@@ -122,7 +122,7 @@ public class Graphe{
         return ctr/2;
     }
 
-    public int getNbNationnales(){
+    public int getNbNationales(){
         int ctr = 0;
         for(int i = 0; i < this.matLiens.lignes(); i++){
             for(int j = 0; j < this.matLiens.colonnes(); j++){

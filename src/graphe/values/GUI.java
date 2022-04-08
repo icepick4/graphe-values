@@ -160,12 +160,23 @@ public class GUI extends javax.swing.JFrame {
                 cb_departementaleActionPerformed(evt);
             }
         });
-        nbVille.setText("ville");
-        nbRestaurant.setText("restaurant");
-        nbLoisir.setText("loisirs");
-        nbAutoroute.setText("autoroute");
-        nbNationale.setText("nationale");
-        nbDepartementale.setText("departementale");
+
+        try{
+            nbVille.setText("Nombre : " + GrapheApp.getGraphe().getNbVille());
+            nbRestaurant.setText("Nombre : " +  GrapheApp.getGraphe().getNbRestaurant());
+            nbLoisir.setText("Nombre : " +  GrapheApp.getGraphe().getNbLoisir());
+            // nbAutoroute.setText("Nombre : " +  GrapheApp.getGraphe().getNbAutoroute());
+            // nbNationale.setText("Nombre : " +  GrapheApp.getGraphe().getNbNationale());
+            // nbDepartementale.setText("Nombre : " +  GrapheApp.getGraphe().getNbDepartementale());
+        }
+        catch(NullPointerException e){
+            nbVille.setText("Nombre : 0");
+            nbRestaurant.setText("Nombre : 0");
+            nbLoisir.setText("Nombre : 0");
+            // nbAutoroute.setText("Nombre : 0");
+            // nbNationale.setText("Nombre : 0");
+            // nbDepartementale.setText("Nombre : 0");
+        }
         //display next to checkboxes nbVille, nbRestaurant, nbLoisir, nbAutoroute, nbNationale, nbDepartementale
 
         javax.swing.GroupLayout toolBarPanLayout = new javax.swing.GroupLayout(toolBarPan);
@@ -179,6 +190,12 @@ public class GUI extends javax.swing.JFrame {
                     .addComponent(cb_restaurant, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
                     .addComponent(cb_ville, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lbl_affichage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(nbVille, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(nbRestaurant, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(nbLoisir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(nbDepartementale, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(nbAutoroute, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(nbNationale, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(toolBarPanLayout.createSequentialGroup()
                         .addComponent(jLabel1)
                 .addContainerGap())
@@ -194,19 +211,31 @@ public class GUI extends javax.swing.JFrame {
                 .addComponent(lbl_affichage)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cb_ville)
+                .addComponent(nbVille)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cb_restaurant)
+                .addComponent(nbRestaurant)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cb_loisirs)
+                .addComponent(nbLoisir)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addComponent(lbl_affichage)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cb_autoroute)
+                .addComponent(nbAutoroute)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cb_nationale)
+                .addComponent(nbNationale)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cb_departementale)
+                .addComponent(nbDepartementale)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addContainerGap(421, Short.MAX_VALUE))
                 
         );
@@ -266,6 +295,7 @@ public class GUI extends javax.swing.JFrame {
         //System.out.println(fileName);
         this.opened = true;
         GrapheApp.initApp();
+        setNombres();
         jFrame1.dispose();
         // graphe = GrapheApp.getGraphe();
         // Canvas.drawGraph(graphe);
@@ -355,6 +385,25 @@ public class GUI extends javax.swing.JFrame {
     private void openFileActionPerformed(java.awt.event.ActionEvent evt) {
         jFrame1.pack();
         jFrame1.setVisible(true);
+    }
+
+    private void setNombres(){
+        try{
+            nbVille.setText("Nombre : " + GrapheApp.getGraphe().getNbVille());
+            nbRestaurant.setText("Nombre : " +  GrapheApp.getGraphe().getNbRestaurant());
+            nbLoisir.setText("Nombre : " +  GrapheApp.getGraphe().getNbLoisir());
+            nbAutoroute.setText("Nombre : " +  GrapheApp.getGraphe().getNbAutoroutes());
+            nbNationale.setText("Nombre : " +  GrapheApp.getGraphe().getNbNationales());
+            nbDepartementale.setText("Nombre : " +  GrapheApp.getGraphe().getNbDepartementales());
+        }
+        catch(NullPointerException e){
+            nbVille.setText("Nombre : 0");
+            nbRestaurant.setText("Nombre : 0");
+            nbLoisir.setText("Nombre : 0");
+            nbAutoroute.setText("Nombre : 0");
+            nbNationale.setText("Nombre : 0");
+            nbDepartementale.setText("Nombre : 0");
+        }
     }
     //getter cb
     public static JCheckBox getCb_ville() {
