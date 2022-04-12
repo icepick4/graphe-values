@@ -6,15 +6,16 @@
 package graphe.values;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
+import java.io.File;
 import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.Desktop;
 
 /**
  *
@@ -68,6 +69,7 @@ public class GUI extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         openFile = new javax.swing.JMenuItem();
+        modifyFile = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         this.addMouseListener(click);
         this.addMouseMotionListener(click);
@@ -257,7 +259,20 @@ public class GUI extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Edit");
+        jMenu2.add(modifyFile);
         jMenuBar1.add(jMenu2);
+        modifyFile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        modifyFile.setText("Ouvrir");
+        modifyFile.setToolTipText("");
+        modifyFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    menuModifActionPerformed(evt);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         setJMenuBar(jMenuBar1);
 
@@ -287,9 +302,12 @@ public class GUI extends javax.swing.JFrame {
         }
         catch(ArrayIndexOutOfBoundsException e){
             System.out.println("Le graphe ne correspond pas au format attendu (erreur de synthaxe)");
+            //open a new message dialog
+            JOptionPane.showMessageDialog(null, "Le graphe ne correspond pas au format attendu (erreur de synthaxe)", "Erreur", JOptionPane.ERROR_MESSAGE);
             this.setTitle("Le graphe ne correspond pas au format attendu (erreur de synthaxe)");
         }
         catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Le graphe ne correspond pas au format attendu : " + e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
             System.out.println("Le graphe ne correspond pas au format attendu, erreur inconnu : " + e.getMessage());
             this.setTitle("Le graphe ne correspond pas au format attendu");
         }
@@ -306,9 +324,8 @@ public class GUI extends javax.swing.JFrame {
             Canvas.repaint();
         }
         catch(NullPointerException e){
-            System.out.println("Pas de graphe");
+            //pas de graphe chargé
         }
-
     }//GEN-LAST:event_formComponentResized
 
     private void cb_villeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_villeActionPerformed
@@ -318,6 +335,8 @@ public class GUI extends javax.swing.JFrame {
             Canvas.drawGraph(graphe);
         }
         catch(NullPointerException e){
+            //open new message dialog
+            JOptionPane.showMessageDialog(null, "Aucun graphe n'est ouvert", "Erreur", JOptionPane.ERROR_MESSAGE);
             System.out.println("Pas de graphe");
         }
     }//GEN-LAST:event_cb_villeActionPerformed
@@ -329,6 +348,8 @@ public class GUI extends javax.swing.JFrame {
             Canvas.drawGraph(graphe);
         }
         catch(NullPointerException e){
+            //open new message dialog
+            JOptionPane.showMessageDialog(null, "Aucun graphe n'est ouvert", "Erreur", JOptionPane.ERROR_MESSAGE);
             System.out.println("Pas de graphe");
         }
     }//GEN-LAST:event_cb_restaurantActionPerformed
@@ -340,6 +361,8 @@ public class GUI extends javax.swing.JFrame {
             Canvas.drawGraph(graphe);
         }
         catch(NullPointerException e){
+            //open new message dialog
+            JOptionPane.showMessageDialog(null, "Aucun graphe n'est ouvert", "Erreur", JOptionPane.ERROR_MESSAGE);
             System.out.println("Pas de graphe");
         }
     }//GEN-LAST:event_cb_loisirsActionPerformed
@@ -351,6 +374,8 @@ public class GUI extends javax.swing.JFrame {
             Canvas.drawGraph(graphe);
         }
         catch(NullPointerException e){
+            //open new message dialog
+            JOptionPane.showMessageDialog(null, "Aucun graphe n'est ouvert", "Erreur", JOptionPane.ERROR_MESSAGE);
             System.out.println("Pas de graphe");
         }
     }//GEN-LAST:event_cb_autorouteActionPerformed
@@ -362,6 +387,8 @@ public class GUI extends javax.swing.JFrame {
             Canvas.drawGraph(graphe);
         }
         catch(NullPointerException e){
+            //open new message dialog
+            JOptionPane.showMessageDialog(null, "Aucun graphe n'est ouvert", "Erreur", JOptionPane.ERROR_MESSAGE);
             System.out.println("Pas de graphe");
         }
     }//GEN-LAST:event_cb_nationalesActionPerformed
@@ -373,6 +400,8 @@ public class GUI extends javax.swing.JFrame {
             Canvas.drawGraph(graphe);
         }
         catch(NullPointerException e){
+            //open new message dialog
+            JOptionPane.showMessageDialog(null, "Aucun graphe n'est ouvert", "Erreur", JOptionPane.ERROR_MESSAGE);
             System.out.println("Pas de graphe");
         }
     }//GEN-LAST:event_cb_departementaleActionPerformed
@@ -400,6 +429,32 @@ public class GUI extends javax.swing.JFrame {
             nbDepartementale.setText("Nombre : 0");
         }
     }
+
+    private void menuModifActionPerformed(java.awt.event.ActionEvent evt) throws IOException {//GEN-FIRST:event_menuModifActionPerformed
+        try{
+            //constructor of file class having file as argument  
+            File file = new File(this.getFileName());   
+            if(!Desktop.isDesktopSupported())//check if Desktop is supported by Platform or not  
+            {  
+                JOptionPane.showMessageDialog(null, "Desktop n'est pas supporté", "Erreur", JOptionPane.ERROR_MESSAGE);  
+                return;  
+            }  
+            Desktop desktop = Desktop.getDesktop();  
+            if(file.exists()){         //checks file exists or not  
+                desktop.open(file);
+            }              //opens the specified file  
+        }
+        catch(NullPointerException e){
+            //open new message dialog
+            JOptionPane.showMessageDialog(null, "Pas de graphe chargé", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+        catch(Exception e){
+            //open new message dialog
+            JOptionPane.showMessageDialog(null, "Erreur dans l'ouverture du fichier", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+
+        
+    }//GEN-LAST:event_menuModifActionPerformed
     //getter cb
     public static JCheckBox getCb_ville() {
         return cb_ville;
@@ -452,6 +507,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel nbDepartementale;
     private javax.swing.JLabel nbLoisir;
     private javax.swing.JMenuItem openFile;
+    private javax.swing.JMenuItem modifyFile;
     private javax.swing.JPanel toolBarPan;
     // End of variables declaration//GEN-END:variables
 }
@@ -505,28 +561,25 @@ class clickNode implements MouseListener, MouseMotionListener{
         GrapheDraw Canvas = GUI.getCanvas();
         for(int i = 0; i < Canvas.getNbNodes(); i++){
             if(x >= Canvas.getNodes().get(i).getPosX() - 50 && x <= Canvas.getNodes().get(i).getPosX() + 50 && y >= Canvas.getNodes().get(i).getPosY() + 10 && y <= Canvas.getNodes().get(i).getPosY() + 50){
-                try{
+                if(this.node != -1 && this.node != -2){
                     if(Canvas.getNodes().get(this.node).height < 75){
-                        Canvas.getNodes().get(this.node).height = Canvas.getNodes().get(this.node).height + 5;
+                        Canvas.getNodes().get(this.node).height = Canvas.getNodes().get(this.node).height + 10;
                     }
                     if (Canvas.getNodes().get(this.node).width < 90){
-                        Canvas.getNodes().get(this.node).width = Canvas.getNodes().get(this.node).width + 5;
+                        Canvas.getNodes().get(this.node).width = Canvas.getNodes().get(this.node).width + 10;
                     }   
-                }
-                catch(IndexOutOfBoundsException ee){
-                    //pas de noeud selectionné
                 }
                 if(!this.clicked || this.node == -1){
                     if(Canvas.getNodes().get(i).height < 75){
-                        Canvas.getNodes().get(i).height = Canvas.getNodes().get(i).height + 5;
+                        Canvas.getNodes().get(i).height = Canvas.getNodes().get(i).height + 10;
                     }
                     if (Canvas.getNodes().get(i).width < 90){
-                        Canvas.getNodes().get(i).width = Canvas.getNodes().get(i).width + 5;
+                        Canvas.getNodes().get(i).width = Canvas.getNodes().get(i).width + 10;
                     }
                 } 
             }
             else if (this.clicked){
-                try{
+                if(this.node != -1 && this.node != -2){
                     if(Canvas.getNodes().get(this.node).height < 75){
                         Canvas.getNodes().get(this.node).height = 75;
                     }
@@ -534,22 +587,16 @@ class clickNode implements MouseListener, MouseMotionListener{
                         Canvas.getNodes().get(this.node).width = 90;
                     }
                 }
-                catch(IndexOutOfBoundsException ee){
-                    //pas de noeud selectionné
-                }
                 Canvas.getNodes().get(i).resetSize();
             }
             else{
                 Canvas.getNodes().get(i).resetSize();
             }
         }
-        if(clicked){
-            try{
+        if(this.clicked){
+            if(this.node != -1 && this.node != -2){
                 Canvas.getNodes().get(this.node).setPosX(x);
                 Canvas.getNodes().get(this.node).setPosY(y - 35);
-            }
-            catch(IndexOutOfBoundsException ee){
-                //pas de noeud selectionné
             }
         }  
         Canvas.repaint();     
