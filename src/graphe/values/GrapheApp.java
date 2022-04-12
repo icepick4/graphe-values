@@ -4,9 +4,13 @@
  */
 package graphe.values;
 import com.formdev.flatlaf.FlatDarkLaf;
-import java.io.*;
 import java.util.ArrayList;
 import java.nio.charset.StandardCharsets;
+import java.io.IOException;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
 
 /**
  *

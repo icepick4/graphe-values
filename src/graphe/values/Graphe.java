@@ -177,7 +177,7 @@ public class Graphe{
      * @param b
      * @return true si a est plus ouverte que b, sinon false
      */
-    public boolean plusOuverte(String a, String b){
+    public Boolean plusOuverte(String a, String b){
         int nbVillesA = 0;
         int nbVillesB = 0;
         int indexSommetA = -1;
@@ -191,22 +191,25 @@ public class Graphe{
             }
         }
         for(int i = 0; i < this.matBool.lignes(); i++){
-            if (existeChemin(2, indexSommetA, i) && this.noeuds.get(i)[0] == "V"){
+            if (existeChemin(2, indexSommetA, i) && this.noeuds.get(i)[0].equals("V")){
                 nbVillesA++;
             }
         }
         for(int i = 0; i < this.matBool.lignes(); i++){
-            if (existeChemin(2, indexSommetB, i) && this.noeuds.get(i)[0] == "V"){
+            if (existeChemin(2, indexSommetB, i) && this.noeuds.get(i)[0].equals("V")){
                 nbVillesB++;
             }
         }
-        if (nbVillesB < nbVillesA){
+        if (nbVillesB > nbVillesA){
             return false;
         }
-        return true;
+        else if (nbVillesB < nbVillesA){
+            return true;
+        }
+        return null;
     }
 
-    public boolean plusGastronomique(String a, String b){
+    public Boolean plusGastronomique(String a, String b){
         int nbVillesA = 0;
         int nbVillesB = 0;
         int indexSommetA = -1;
@@ -220,22 +223,25 @@ public class Graphe{
             }
         }
         for(int i = 0; i < this.matBool.lignes(); i++){
-            if (existeChemin(2, indexSommetA, i) && this.noeuds.get(i)[0] == "R"){
+            if (existeChemin(2, indexSommetA, i) && this.noeuds.get(i)[0].equals("R")){
                 nbVillesA++;
             }
         }
         for(int i = 0; i < this.matBool.lignes(); i++){
-            if (existeChemin(2, indexSommetB, i) && this.noeuds.get(i)[0] == "R"){
+            if (existeChemin(2, indexSommetB, i) && this.noeuds.get(i)[0].equals("R")){
                 nbVillesB++;
             }
         }
-        if (nbVillesB < nbVillesA){
+        if (nbVillesB > nbVillesA){
             return false;
         }
-        return true;
+        else if (nbVillesB < nbVillesA){
+            return true;
+        }
+        return null;
     }
 
-    public boolean plusCulturelle(String a, String b){
+    public Boolean plusCulturelle(String a, String b){
         int nbVillesA = 0;
         int nbVillesB = 0;
         int indexSommetA = -1;
@@ -249,19 +255,22 @@ public class Graphe{
             }
         }
         for(int i = 0; i < this.matBool.lignes(); i++){
-            if (existeChemin(2, indexSommetA, i) && this.noeuds.get(i)[0] == "L"){
+            if (existeChemin(2, indexSommetA, i) && this.noeuds.get(i)[0].equals("L")){
                 nbVillesA++;
             }
         }
         for(int i = 0; i < this.matBool.lignes(); i++){
-            if (existeChemin(2, indexSommetB, i) && this.noeuds.get(i)[0] == "L"){
+            if (existeChemin(2, indexSommetB, i) && this.noeuds.get(i)[0].equals("L")){
                 nbVillesB++;
             }
         }
-        if (nbVillesB < nbVillesA){
+        if (nbVillesB > nbVillesA){
             return false;
         }
-        return true;
+        else if (nbVillesB < nbVillesA){
+            return true;
+        }
+        return null;
     }
     //stocker le predeceur du chemin de floydwarshall
 
@@ -327,16 +336,12 @@ public class Graphe{
         Collections.reverse(chemin);
         return chemin;
     }
-    
-
-   
     /**
      * 
      * @param sommet
      * @return tous les sommets qui sont voisins de sommet
      */
     public ArrayList<String> distance1(String sommet){
-        
         ArrayList<String> liste = new ArrayList<String>();
         int indexSommet = -1;
         for(int i = 0; i < this.noeuds.size(); i++){
@@ -473,6 +478,7 @@ public class Graphe{
         //on suppose qu'on travaille qu'avec des 1-graphe pour cette sae
         return this.estElementaire();
     }
+
     /**
      * 
      * @param sommet sommet auquel on récupère le ou les degrés (si orienté et non simple)
@@ -911,9 +917,11 @@ public class Graphe{
         
             // System.out.println("Actualisation dsat de "+i+" à : "+dtable[i][2]);
     }
+
     public boolean relies(int sommet1, int sommet2) {
         return (this.verifSuccesseur(sommet1, sommet2) && this.verifSuccesseur(sommet2, sommet1));
     }
+
     public ArrayList<Integer> couleursRelies(int sommet,int[][] dtable){
         ArrayList<Integer> couleurs = new ArrayList<>();
         for(int i = 0; i < dtable.length; i++){
@@ -979,11 +987,10 @@ public class Graphe{
             return false;
         }
         Matrice matrice = this.matBool.powMat(longueur);
-        ArrayList<String[]> noeuds = new ArrayList<String[]>();
-        Graphe graphe = new Graphe(matrice,this.matVal, this.matLiens,noeuds);
-        return graphe.relies(sommet1, sommet2);
+        return (matrice.matrice[sommet1][sommet2] != 0);
     }
 
+    //lethode qui renvoie si le graphe est connexe ou pas
     public boolean estConnexe(){
         if(this.matBool.estVide() && this.ordre() > 1){
             return false;

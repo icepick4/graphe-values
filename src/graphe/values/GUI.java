@@ -6,10 +6,14 @@
 package graphe.values;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.io.File;
+
+import javax.swing.ButtonGroup;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.JRadioButton;
 
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
@@ -64,6 +68,14 @@ public class GUI extends javax.swing.JFrame {
         cb_autoroute = new javax.swing.JCheckBox();
         cb_nationale = new javax.swing.JCheckBox();
         cb_departementale = new javax.swing.JCheckBox();
+        selectNoeud = new javax.swing.JRadioButton();
+        resto1Distance = new javax.swing.JRadioButton();
+        ville1Distance = new javax.swing.JRadioButton();
+        loisir1Distance = new javax.swing.JRadioButton();
+        plusCulturel = new javax.swing.JRadioButton();
+        plusOuvert = new javax.swing.JRadioButton();
+        plusGastro = new javax.swing.JRadioButton();
+        plusCourteDistance = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
         Canvas = new GrapheDraw();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -171,6 +183,25 @@ public class GUI extends javax.swing.JFrame {
         nbNationale.setText("Nombre : 0");
         nbDepartementale.setText("Nombre : 0");
 
+        ButtonGroup group = new ButtonGroup();
+        group.add(selectNoeud);
+        group.add(resto1Distance);
+        group.add(ville1Distance);
+        group.add(loisir1Distance);
+        group.add(plusCulturel);
+        group.add(plusGastro);
+        group.add(plusOuvert);
+        group.add(plusCourteDistance);
+
+        selectNoeud.setText("Bouger les noeuds");
+        resto1Distance.setText("Resto 1 Distance");
+        ville1Distance.setText("Ville 1 Distance");
+        loisir1Distance.setText("Loisir 1 Distance");
+        plusCulturel.setText("Plus Culturel");
+        plusGastro.setText("Plus Gastronomique");
+        plusOuvert.setText("Plus Ouvert");
+        plusCourteDistance.setText("Plus Courte Distance (valeur)");
+
         javax.swing.GroupLayout toolBarPanLayout = new javax.swing.GroupLayout(toolBarPan);
         toolBarPan.setLayout(toolBarPanLayout);
         toolBarPanLayout.setHorizontalGroup(
@@ -195,6 +226,15 @@ public class GUI extends javax.swing.JFrame {
                         .addComponent(cb_autoroute, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cb_nationale, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
                         .addComponent(cb_departementale, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0,0,Short.MAX_VALUE)
+                        .addComponent(selectNoeud, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(resto1Distance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ville1Distance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(loisir1Distance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(plusCulturel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(plusGastro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(plusOuvert, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(plusCourteDistance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         toolBarPanLayout.setVerticalGroup(
             toolBarPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -228,6 +268,21 @@ public class GUI extends javax.swing.JFrame {
                 .addComponent(cb_departementale)
                 .addComponent(nbDepartementale)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(selectNoeud, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(resto1Distance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(ville1Distance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(loisir1Distance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(plusCulturel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(plusGastro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(plusOuvert, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(plusCourteDistance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap(421, Short.MAX_VALUE))
                 
         );
@@ -258,7 +313,7 @@ public class GUI extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
+        jMenu2.setText("Modifier");
         jMenu2.add(modifyFile);
         jMenuBar1.add(jMenu2);
         modifyFile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -480,6 +535,36 @@ public class GUI extends javax.swing.JFrame {
         return cb_loisirs;
     }
 
+    public static JRadioButton getRb_resto1Distance(){
+        return resto1Distance;
+    }
+
+    public static JRadioButton getRb_ville1Distance(){
+        return ville1Distance;
+    }
+
+    public static JRadioButton getRb_loisir1Distance(){
+        return loisir1Distance;
+    }
+
+    public static JRadioButton getRb_selectNoeud(){
+        return selectNoeud;
+    }
+
+    public static JRadioButton getRb_plusGastro(){
+        return plusGastro;
+    }
+
+    public static JRadioButton getRb_plusOuvert(){
+        return plusOuvert;
+    }
+
+    public static JRadioButton getRb_plusCulturel(){
+        return plusCulturel;
+    }
+
+    
+
     public static GrapheDraw getCanvas() {
         return Canvas;
     }
@@ -509,36 +594,59 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem openFile;
     private javax.swing.JMenuItem modifyFile;
     private javax.swing.JPanel toolBarPan;
+    private static javax.swing.JRadioButton selectNoeud;
+    private static javax.swing.JRadioButton resto1Distance;
+    private static javax.swing.JRadioButton ville1Distance;
+    private static javax.swing.JRadioButton loisir1Distance;
+    private static javax.swing.JRadioButton plusGastro;
+    private static javax.swing.JRadioButton plusOuvert;
+    private static javax.swing.JRadioButton plusCulturel;
+    private static javax.swing.JRadioButton plusCourteDistance;
     // End of variables declaration//GEN-END:variables
 }
 
 class clickNode implements MouseListener, MouseMotionListener{
     private boolean clicked = false;
-    private int node = -2;
+    private int[] node = {-2,0};
+    private boolean clickedTwo = false;
 
     @Override
     public void mousePressed(MouseEvent e) {
+        //print int[] node
+
+
         int x = e.getX();
         int y = e.getY();
         GrapheDraw Canvas = GUI.getCanvas();
-        int lastNode = this.node;
+        int lastNode = this.node[0];
         for(int i = 0; i < Canvas.getNbNodes(); i++){
             if(x >= Canvas.getNodes().get(i).getPosX() - 50 && x <= Canvas.getNodes().get(i).getPosX() + 50 && y >= Canvas.getNodes().get(i).getPosY() + 10 && y <= Canvas.getNodes().get(i).getPosY() + 50){
                 lastNode = i;
             }
         }
-        if(lastNode == node){
-            this.node = -1;
+        if(this.clickedTwo){
+            this.node = new int[] {-2,0};
+            this.clickedTwo = false;
+        }
+        if(lastNode == node[0]){
+            this.node[0] = -1;
+        }
+        else if (this.node[0] == -2){
+            this.node[0] = lastNode;
         }
         else{
-            this.node = lastNode;
+            this.node[1] = lastNode;
+            this.clickedTwo = true;
         }
         if(this.clicked){
             this.clicked = false;
         }
-        else if (this.node != -1){
+        else if (this.node[0] != -1){
             this.clicked = true;
         }
+        System.out.print(Arrays.toString(this.node));
+
+        
     }
 
     @Override
@@ -561,15 +669,15 @@ class clickNode implements MouseListener, MouseMotionListener{
         GrapheDraw Canvas = GUI.getCanvas();
         for(int i = 0; i < Canvas.getNbNodes(); i++){
             if(x >= Canvas.getNodes().get(i).getPosX() - 50 && x <= Canvas.getNodes().get(i).getPosX() + 50 && y >= Canvas.getNodes().get(i).getPosY() + 10 && y <= Canvas.getNodes().get(i).getPosY() + 50){
-                if(this.node != -1 && this.node != -2){
-                    if(Canvas.getNodes().get(this.node).height < 75){
-                        Canvas.getNodes().get(this.node).height = Canvas.getNodes().get(this.node).height + 10;
+                if(this.node[0] != -1 && this.node[0] != -2){
+                    if(Canvas.getNodes().get(this.node[0]).height < 75){
+                        Canvas.getNodes().get(this.node[0]).height = Canvas.getNodes().get(this.node[0]).height + 10;
                     }
-                    if (Canvas.getNodes().get(this.node).width < 90){
-                        Canvas.getNodes().get(this.node).width = Canvas.getNodes().get(this.node).width + 10;
+                    if (Canvas.getNodes().get(this.node[0]).width < 90){
+                        Canvas.getNodes().get(this.node[0]).width = Canvas.getNodes().get(this.node[0]).width + 10;
                     }   
                 }
-                if(!this.clicked || this.node == -1){
+                if(!this.clicked || this.node[0] == -1){
                     if(Canvas.getNodes().get(i).height < 75){
                         Canvas.getNodes().get(i).height = Canvas.getNodes().get(i).height + 10;
                     }
@@ -578,13 +686,13 @@ class clickNode implements MouseListener, MouseMotionListener{
                     }
                 } 
             }
-            else if (this.clicked){
-                if(this.node != -1 && this.node != -2){
-                    if(Canvas.getNodes().get(this.node).height < 75){
-                        Canvas.getNodes().get(this.node).height = 75;
+            else if (this.clicked && GUI.getRb_selectNoeud().isSelected()){
+                if(this.node[0] != -1 && this.node[0] != -2){
+                    if(Canvas.getNodes().get(this.node[0]).height < 75){
+                        Canvas.getNodes().get(this.node[0]).height = 75;
                     }
-                    if (Canvas.getNodes().get(this.node).width < 90){
-                        Canvas.getNodes().get(this.node).width = 90;
+                    if (Canvas.getNodes().get(this.node[0]).width < 90){
+                        Canvas.getNodes().get(this.node[0]).width = 90;
                     }
                 }
                 Canvas.getNodes().get(i).resetSize();
@@ -593,13 +701,41 @@ class clickNode implements MouseListener, MouseMotionListener{
                 Canvas.getNodes().get(i).resetSize();
             }
         }
-        if(this.clicked){
-            if(this.node != -1 && this.node != -2){
-                Canvas.getNodes().get(this.node).setPosX(x);
-                Canvas.getNodes().get(this.node).setPosY(y - 35);
+        if(this.clicked && GUI.getRb_selectNoeud().isSelected()){
+            if(this.node[0] != -1 && this.node[0] != -2){
+                Canvas.getNodes().get(this.node[0]).setPosX(x);
+                Canvas.getNodes().get(this.node[0]).setPosY(y - 35);
             }
         }  
-        Canvas.repaint();     
+        Canvas.repaint();
+        if (GUI.getRb_plusGastro().isSelected()){
+            if (this.node[0] != -1 && this.node[0] != -2 && this.node[1] != 0){
+                //print the return of PlusGastro method in the console with the two nodes
+                System.out.println(GrapheApp.getGraphe().plusGastronomique(Canvas.getNodes().get(this.node[0]).getName(), Canvas.getNodes().get(this.node[1]).getName()));
+            }
+        }
+        else if (GUI.getRb_plusOuvert().isSelected()){
+            if (this.node[0] != -1 && this.node[0] != -2 && this.node[1] != 0){
+                //print the return of PlusOuvert method in the console with the two nodes
+                System.out.println(GrapheApp.getGraphe().plusOuverte(Canvas.getNodes().get(this.node[0]).getName(), Canvas.getNodes().get(this.node[1]).getName()));
+            }
+        }
+        else if (GUI.getRb_plusCulturel().isSelected()){
+            if (this.node[0] != -1 && this.node[0] != -2 && this.node[1] != 0){
+                //print the return of PlusCulturel method in the console with the two nodes
+                Boolean bool = GrapheApp.getGraphe().plusCulturelle(Canvas.getNodes().get(this.node[0]).getName(), Canvas.getNodes().get(this.node[1]).getName());
+
+                if (bool){
+                    System.out.println(Canvas.getNodes().get(this.node[0]).getName() + " est plus culturel que " + Canvas.getNodes().get(this.node[1]).getName());
+                }
+                else if (!bool){
+                    System.out.println(Canvas.getNodes().get(this.node[0]).getName() + " n'est pas plus culturel que " + Canvas.getNodes().get(this.node[1]).getName());
+                }
+                else{
+                    System.out.println("Ces deux noeuds ne sont pas à 2 distance de culture");
+                }
+            }
+        }
     }
 
     @Override

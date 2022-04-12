@@ -1,20 +1,22 @@
 package graphe.values;
 
-import java.util.*;
-import java.awt.*;
-import javax.swing.*;
+
+import java.util.ArrayList;
+
+import javax.swing.JPanel;
+
+import java.awt.Graphics;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
 
 public class GrapheDraw extends JPanel {
-    private int width;
-    private int height;
     private ArrayList<Node> nodes;
     private ArrayList<Edge> edges;
 
     public GrapheDraw() {
 		this.nodes = new ArrayList<Node>();
 		this.edges = new ArrayList<Edge>();
-		width = 50;
-		height = 50;
     }
     
 	public int getNbNodes() {
@@ -207,4 +209,5 @@ public class GrapheDraw extends JPanel {
     public static int getRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
     }
+
 }

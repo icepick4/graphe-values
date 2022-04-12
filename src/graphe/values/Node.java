@@ -19,6 +19,10 @@ public class Node {
         this.width = f.stringWidth(this.name)+50/2;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void setPosX(int x) {
         this.x = x;
     }
