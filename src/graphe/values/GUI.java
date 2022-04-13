@@ -81,6 +81,7 @@ public class GUI extends javax.swing.JFrame {
         plusOuvert = new javax.swing.JRadioButton();
         plusGastro = new javax.swing.JRadioButton();
         plusCourteDistance = new javax.swing.JRadioButton();
+        plusCourtChemin = new javax.swing.JRadioButton();
         est2Distance = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
         Canvas = new GrapheDraw();
@@ -230,6 +231,12 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
+        plusCourtChemin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                plusCourtCheminActionPerformed(e);
+            }
+        });
+
         est2Distance.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent e) {
                 est2DistanceActionPerformed(e);
@@ -252,6 +259,7 @@ public class GUI extends javax.swing.JFrame {
         group.add(plusGastro);
         group.add(plusOuvert);
         group.add(plusCourteDistance);
+        group.add(plusCourtChemin);
         group.add(est2Distance);
 
         selectNoeud.setText("Bouger les noeuds");
@@ -262,6 +270,7 @@ public class GUI extends javax.swing.JFrame {
         plusGastro.setText("Plus Gastronomique");
         plusOuvert.setText("Plus Ouvert");
         plusCourteDistance.setText("Plus Courte Distance (valeur)");
+        plusCourtChemin.setText("Plus Court Chemin");
         est2Distance.setText("Est 2 Distance ?");
 
         javax.swing.GroupLayout toolBarPanLayout = new javax.swing.GroupLayout(toolBarPan);
@@ -297,6 +306,7 @@ public class GUI extends javax.swing.JFrame {
                         .addComponent(plusGastro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(plusOuvert, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(plusCourteDistance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(plusCourtChemin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(est2Distance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         toolBarPanLayout.setVerticalGroup(
@@ -346,6 +356,8 @@ public class GUI extends javax.swing.JFrame {
                 .addComponent(plusOuvert, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(plusCourteDistance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(plusCourtChemin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap( javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(est2Distance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap(421, Short.MAX_VALUE))
@@ -491,6 +503,12 @@ public class GUI extends javax.swing.JFrame {
     }
 
     private void plusCourteDistanceActionPerformed(java.awt.event.ActionEvent evt){
+        this.removeListeners();
+        this.addMouseListener(clickTwoNode);
+        this.addMouseMotionListener(clickTwoNode);
+    }
+
+    private void plusCourtCheminActionPerformed(java.awt.event.ActionEvent evt){
         this.removeListeners();
         this.addMouseListener(clickTwoNode);
         this.addMouseMotionListener(clickTwoNode);
@@ -694,6 +712,10 @@ public class GUI extends javax.swing.JFrame {
         return plusCourteDistance;
     }
 
+    public static JRadioButton getRb_plusCourtChemin(){
+        return plusCourtChemin;
+    }
+
     public static JRadioButton getRb_est2Distance(){
         return est2Distance;
     }
@@ -738,6 +760,7 @@ public class GUI extends javax.swing.JFrame {
     private static javax.swing.JRadioButton plusOuvert;
     private static javax.swing.JRadioButton plusCulturel;
     private static javax.swing.JRadioButton plusCourteDistance;
+    private static javax.swing.JRadioButton plusCourtChemin;
     // End of variables declaration//GEN-END:variables
 }
 
@@ -952,6 +975,22 @@ class clickTwoNode implements MouseListener, MouseMotionListener{
                         JOptionPane.showMessageDialog(null, "Ces deux noeuds ne sont pas reliés");
                     }
 
+                }
+                else if (GUI.getRb_plusCourtChemin().isSelected()){
+                    //print return of the function floydWarshallChemin in Graphe in a new messageDialog
+                    ArrayList<Integer> result = GrapheApp.getGraphe().floydWarshallChemin(this.node[0],this.node[1]);
+                    //browse result and print the path
+                    if(result.size() != 0){
+                        String path = "Le plus court chemin entre " + Canvas.getNodes().get(this.node[0]).getName() + " et " + Canvas.getNodes().get(this.node[1]).getName() + " est : " + "\n";
+                        for(int i = 0; i < result.size() - 1; i++){
+                            path += Canvas.getNodes().get(result.get(i)).getName() + " -> ";
+                        }
+                        path += Canvas.getNodes().get(result.get(result.size() - 1)).getName();
+                        JOptionPane.showMessageDialog(null, path);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "Ces deux noeuds ne sont pas reliés");
+                    }
                 }
                 else if (GUI.getRb_est2Distance().isSelected()){
                     //print return of distance2 in Graphe in a new messageDialog

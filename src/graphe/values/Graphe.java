@@ -333,6 +333,7 @@ public class Graphe{
             j = pred[i][j];
         }
         chemin.add(j);
+        chemin.add(i);
         Collections.reverse(chemin);
         return chemin;
     }

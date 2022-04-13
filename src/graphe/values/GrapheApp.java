@@ -119,6 +119,7 @@ public class GrapheApp {
         graphe = GrapheApp.getGraphe();
         //print result of graphe.floydWarshallPredecesseurs()
         // System.out.println(graphe.floydWarshallChemin(0,3));
+
         GrapheDraw Canvas = GUI.getCanvas();
         Canvas.clear();
         Canvas.drawGraph(graphe);
