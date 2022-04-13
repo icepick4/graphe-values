@@ -5,6 +5,7 @@
 package graphe.values;
 import com.formdev.flatlaf.FlatDarkLaf;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.nio.charset.StandardCharsets;
 import java.io.IOException;
 import java.io.FileInputStream;
@@ -118,7 +119,10 @@ public class GrapheApp {
         setGraphe(noeud);
         graphe = GrapheApp.getGraphe();
         //print result of graphe.floydWarshallPredecesseurs()
-        // System.out.println(graphe.floydWarshallChemin(0,3));
+        // graphe.floydWarshallPredesseceurs().afficher();
+        // System.out.print(graphe.floydWarshallPredesseceurs().matrice[21][7]);
+
+        // System.out.println(graphe.floydWarshallChemin(21,7));
 
         GrapheDraw Canvas = GUI.getCanvas();
         Canvas.clear();

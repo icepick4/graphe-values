@@ -304,10 +304,17 @@ public class Graphe{
                 pred[h][j] = -1;
             }
         }
+        double[][] temp = new double[n][n];
+        for(int h = 0; h < n; h++){
+            for(int j = 0; j < n; j++){
+                temp[h][j] = this.matVal.matrice[h][j];
+            }
+        }
         for (int k = 0; k < n; k++) {
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < n; j++) {
-                    if (this.matVal.matrice[i][k] + this.matVal.matrice[k][j] < this.matVal.matrice[i][j] && i != j) {
+                    if (temp[i][k] + temp[k][j] < temp[i][j] && i != j) {
+                        temp[i][j] = temp[i][k] + temp[k][j];
                         pred[i][j] = k;
                     }
                 }
@@ -327,13 +334,13 @@ public class Graphe{
         int i = a;
         int j = b;
         int[][] pred = this.floydWarshallPredesseceurs().matrice;
-        //solve problem with -1
+        //fill chemin with pred
+        chemin.add(b);
         while(pred[i][j] != -1){
-            chemin.add(j);
-            j = pred[i][j];
+            chemin.add(pred[i][j]);
+            i = pred[i][j];
         }
-        chemin.add(j);
-        chemin.add(i);
+        chemin.add(a);
         Collections.reverse(chemin);
         return chemin;
     }

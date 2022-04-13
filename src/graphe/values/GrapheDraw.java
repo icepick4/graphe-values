@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -83,6 +84,10 @@ public class GrapheDraw extends JPanel {
 			g.setColor(Color.BLACK);
 			//convert e.val to string
 			String val = Double.toString(e.val);
+			//if val ends with .0 remove it
+			if (val.endsWith(".0")) {
+				val = val.substring(0, val.length() - 2);
+			}
 			//bigger font
 			g.drawString(val, x,y);
 		}
@@ -104,6 +109,12 @@ public class GrapheDraw extends JPanel {
 			g.fillOval(n.x-n.width/2, n.y-n.height/2, 
 				n.width, n.height);
 			g.setColor(Color.black);
+			if(n.selected){
+				((Graphics2D) g).setStroke(new java.awt.BasicStroke(3));
+			}
+			else{
+				((Graphics2D) g).setStroke(new java.awt.BasicStroke(1));
+			}
 			g.drawOval(n.x-n.width/2, n.y-n.height/2, 
 				n.width, n.height);
 			g.drawString(n.name, n.x-f.stringWidth(n.name)/2,

@@ -7,12 +7,14 @@ public class Node {
     int x, y, height, width;
     String name;
     String type;
+    boolean selected;
     
     public Node(String name, String type, int x, int y) {
         this.x = x;
         this.y = y;
         this.type = type;
         this.name = name;
+        this.selected = false;
         Graphics g = GUI.getCanvas().getGraphics();
         FontMetrics f = g.getFontMetrics();
         this.height = 50;
@@ -21,6 +23,10 @@ public class Node {
 
     public String getName() {
         return name;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 
     public void setPosX(int x) {
