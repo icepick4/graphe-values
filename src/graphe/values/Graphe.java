@@ -177,7 +177,7 @@ public class Graphe{
      * @param b
      * @return true si a est plus ouverte que b, sinon false
      */
-    public Boolean plusOuverte(String a, String b){
+    public int plusOuverte(String a, String b){
         int nbVillesA = 0;
         int nbVillesB = 0;
         int indexSommetA = -1;
@@ -201,15 +201,15 @@ public class Graphe{
             }
         }
         if (nbVillesB > nbVillesA){
-            return false;
+            return 0;
         }
         else if (nbVillesB < nbVillesA){
-            return true;
+            return 1;
         }
-        return null;
+        return -1;
     }
 
-    public Boolean plusGastronomique(String a, String b){
+    public int plusGastronomique(String a, String b){
         int nbVillesA = 0;
         int nbVillesB = 0;
         int indexSommetA = -1;
@@ -233,15 +233,15 @@ public class Graphe{
             }
         }
         if (nbVillesB > nbVillesA){
-            return false;
+            return 0;
         }
         else if (nbVillesB < nbVillesA){
-            return true;
+            return 1;
         }
-        return null;
+        return -1;
     }
 
-    public Boolean plusCulturelle(String a, String b){
+    public int plusCulturelle(String a, String b){
         int nbVillesA = 0;
         int nbVillesB = 0;
         int indexSommetA = -1;
@@ -265,12 +265,12 @@ public class Graphe{
             }
         }
         if (nbVillesB > nbVillesA){
-            return false;
+            return 0;
         }
         else if (nbVillesB < nbVillesA){
-            return true;
+            return 1;
         }
-        return null;
+        return -1;
     }
     //stocker le predeceur du chemin de floydwarshall
 
@@ -413,7 +413,7 @@ public class Graphe{
             }
         }
         for(int k = 0; k < this.noeuds.size(); k++){
-            if(this.existeChemin(1, indexSommet, k) && this.noeuds.get(k)[0] == "L"){
+            if(this.existeChemin(1, indexSommet, k) && this.noeuds.get(k)[0].equals("L")){
                 liste.add(this.noeuds.get(k)[1]);
             }
         }
