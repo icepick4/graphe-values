@@ -335,13 +335,12 @@ public class Graphe{
         int j = b;
         int[][] pred = this.floydWarshallPredesseceurs().matrice;
         //fill chemin with pred
-        chemin.add(b);
+        chemin.add(a);
         while(pred[i][j] != -1){
             chemin.add(pred[i][j]);
             i = pred[i][j];
         }
-        chemin.add(a);
-        Collections.reverse(chemin);
+        chemin.add(b);
         return chemin;
     }
     /**

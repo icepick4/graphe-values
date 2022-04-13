@@ -945,8 +945,13 @@ class clickTwoNode implements MouseListener, MouseMotionListener{
                 else if(GUI.getRb_plusCourteDistance().isSelected()){
                     //print return of the function plusCourtChemin in Graphe in a new messageDialog
                     double result = GrapheApp.getGraphe().plusCourtChemin(this.node[0],this.node[1]);
+                    //cast result to String and if it ends with .0, remove it 
+                    String resultString = String.valueOf(result);
+                    if(resultString.endsWith(".0")){
+                        resultString = resultString.substring(0, resultString.length()-2);
+                    }
                     if(result != 0){
-                        JOptionPane.showMessageDialog(null, "Le plus court chemin entre " + Canvas.getNodes().get(this.node[0]).getName() + " et " + Canvas.getNodes().get(this.node[1]).getName() + " est de " + result);
+                        JOptionPane.showMessageDialog(null, "Le plus court chemin entre " + Canvas.getNodes().get(this.node[0]).getName() + " et " + Canvas.getNodes().get(this.node[1]).getName() + " est de " + resultString);
                     }
                     else{
                         JOptionPane.showMessageDialog(null, "Ces deux noeuds ne sont pas reliés");
