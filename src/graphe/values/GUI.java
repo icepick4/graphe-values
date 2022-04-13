@@ -21,6 +21,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.Desktop;
+import java.awt.Color;
 
 /**
  *
@@ -134,6 +135,7 @@ public class GUI extends javax.swing.JFrame {
 
         cb_ville.setSelected(true);
         cb_ville.setText("Villes");
+        cb_ville.setForeground(Color.GREEN);
         cb_ville.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cb_villeActionPerformed(evt);
@@ -142,6 +144,7 @@ public class GUI extends javax.swing.JFrame {
 
         cb_restaurant.setSelected(true);
         cb_restaurant.setText("Restaurants");
+        cb_restaurant.setForeground(Color.RED);
         cb_restaurant.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cb_restaurantActionPerformed(evt);
@@ -150,6 +153,7 @@ public class GUI extends javax.swing.JFrame {
 
         cb_loisirs.setSelected(true);
         cb_loisirs.setText("Loisirs");
+        cb_loisirs.setForeground(Color.YELLOW);
         cb_loisirs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cb_loisirsActionPerformed(evt);
@@ -162,6 +166,7 @@ public class GUI extends javax.swing.JFrame {
 
         cb_autoroute.setSelected(false);
         cb_autoroute.setText("Autoroutes");
+        cb_autoroute.setForeground(Color.MAGENTA);
         cb_autoroute.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cb_autorouteActionPerformed(evt);
@@ -170,6 +175,7 @@ public class GUI extends javax.swing.JFrame {
 
         cb_nationale.setSelected(false);
         cb_nationale.setText("Nationales");
+        cb_nationale.setForeground(Color.GRAY);
         cb_nationale.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cb_nationaleActionPerformed(evt);
@@ -178,6 +184,7 @@ public class GUI extends javax.swing.JFrame {
 
         cb_departementale.setSelected(true);
         cb_departementale.setText("Departementales");
+        cb_departementale.setForeground(Color.BLUE);
         cb_departementale.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cb_departementaleActionPerformed(evt);

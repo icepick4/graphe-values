@@ -70,10 +70,10 @@ public class GrapheDraw extends JPanel {
 		FontMetrics f = g2d.getFontMetrics();
 		for (Edge e : this.edges) {
 			if (e.type.equals("A")){
-				g2d.setColor(Color.black);
+				g2d.setColor(Color.MAGENTA);
 			}
 			else if (e.type.equals("N")){
-				g2d.setColor(Color.red);
+				g2d.setColor(Color.GRAY);
 			}
 			else{
 				g2d.setColor(Color.blue);
