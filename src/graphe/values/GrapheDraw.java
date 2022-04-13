@@ -10,6 +10,7 @@ import java.awt.Graphics2D;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
+import java.awt.RenderingHints;
 
 public class GrapheDraw extends JPanel {
     private ArrayList<Node> nodes;
@@ -61,27 +62,30 @@ public class GrapheDraw extends JPanel {
     public void paint(Graphics g) { // draw the nodes and edges
 		//clear g
 		g.clearRect(0,0,1920,1080);
+		Graphics2D g2d = (Graphics2D) g;
+		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		// int nodeHeight = Math.max(height, f.getHeight());
-		g.setFont(new Font("Arial", Font.BOLD, 20));
-		FontMetrics f = g.getFontMetrics();
+		g2d.setFont(new Font("Arial", Font.BOLD, 20));
+		FontMetrics f = g2d.getFontMetrics();
 		for (Edge e : this.edges) {
 			if (e.type.equals("A")){
-				g.setColor(Color.black);
+				g2d.setColor(Color.black);
 			}
 			else if (e.type.equals("N")){
-				g.setColor(Color.red);
+				g2d.setColor(Color.red);
 			}
 			else{
-				g.setColor(Color.blue);
+				g2d.setColor(Color.blue);
 			}
 			int x = 100;
 			int y = 100;
 			//increase the width of the line
-			g.drawLine(nodes.get(e.i).x, nodes.get(e.i).y, nodes.get(e.j).x, nodes.get(e.j).y);
+			g2d.drawLine(nodes.get(e.i).x, nodes.get(e.i).y, nodes.get(e.j).x, nodes.get(e.j).y);
 			//get middle of edge with pos of nodes
 			x = (nodes.get(e.i).x + nodes.get(e.j).x)/2;
 			y = (nodes.get(e.i).y + nodes.get(e.j).y)/2;
-			g.setColor(Color.BLACK);
+			g2d.setColor(Color.BLACK);
 			//convert e.val to string
 			String val = Double.toString(e.val);
 			//if val ends with .0 remove it
@@ -89,35 +93,35 @@ public class GrapheDraw extends JPanel {
 				val = val.substring(0, val.length() - 2);
 			}
 			//bigger font
-			g.drawString(val, x,y);
+			g2d.drawString(val, x,y);
 		}
-		g.setFont(new Font("Arial", Font.BOLD, 10));
-		f = g.getFontMetrics();
+		g2d.setFont(new Font("Arial", Font.BOLD, 10));
+		f = g2d.getFontMetrics();
 		for (Node n : this.nodes) {
 			// int nodeWidth = Math.max(width, f.stringWidth(n.name)+width/2);
 			//normal font
 			if (n.type.equals("V")){
-				g.setColor(Color.GREEN);
+				g2d.setColor(Color.GREEN);
 			}
 			else if (n.type.equals("R")){
-				g.setColor(Color.RED);
+				g2d.setColor(Color.RED);
 			}
 			else{
-				g.setColor(Color.YELLOW);
+				g2d.setColor(Color.YELLOW);
 			}
 
-			g.fillOval(n.x-n.width/2, n.y-n.height/2, 
+			g2d.fillOval(n.x-n.width/2, n.y-n.height/2, 
 				n.width, n.height);
-			g.setColor(Color.black);
+			g2d.setColor(Color.black);
 			if(n.selected){
-				((Graphics2D) g).setStroke(new java.awt.BasicStroke(3));
+				((Graphics2D) g2d).setStroke(new java.awt.BasicStroke(3));
 			}
 			else{
-				((Graphics2D) g).setStroke(new java.awt.BasicStroke(1));
+				((Graphics2D) g2d).setStroke(new java.awt.BasicStroke(1));
 			}
-			g.drawOval(n.x-n.width/2, n.y-n.height/2, 
+			g2d.drawOval(n.x-n.width/2, n.y-n.height/2, 
 				n.width, n.height);
-			g.drawString(n.name, n.x-f.stringWidth(n.name)/2,
+			g2d.drawString(n.name, n.x-f.stringWidth(n.name)/2,
 				n.y+f.getHeight()/2);
 		}
 	}

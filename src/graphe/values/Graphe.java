@@ -5,7 +5,6 @@
 package graphe.values;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Objects;
 /**
  *
@@ -18,6 +17,7 @@ public class Graphe{
     private final MatriceDouble matVal;
     private final MatriceString matLiens;
     private final ArrayList<String[]> noeuds;
+    public Object values;
     Graphe(Matrice matriceBool, MatriceDouble matriceValuations, MatriceString matriceLiens, ArrayList<String[]> noeuds){
         this.matVal = matriceValuations;
         this.matBool = matriceBool;

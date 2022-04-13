@@ -7,7 +7,6 @@ package graphe.values;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.io.File;
 
 import javax.swing.ButtonGroup;
@@ -15,9 +14,9 @@ import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JRadioButton;
-import javax.swing.event.MouseInputListener;
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -32,7 +31,7 @@ public class GUI extends javax.swing.JFrame {
     private String fileName;
     public boolean opened;
     private clickNode click = new clickNode();
-    private clickTwoNode clickTwoNode = new clickTwoNode();
+    private clickTwoNode twoNode = new clickTwoNode();
     /**
      * Creates new form GUI
      */
@@ -73,6 +72,7 @@ public class GUI extends javax.swing.JFrame {
         cb_autoroute = new javax.swing.JCheckBox();
         cb_nationale = new javax.swing.JCheckBox();
         cb_departementale = new javax.swing.JCheckBox();
+        labelAction = new javax.swing.JLabel();
         selectNoeud = new javax.swing.JRadioButton();
         resto1Distance = new javax.swing.JRadioButton();
         ville1Distance = new javax.swing.JRadioButton();
@@ -129,6 +129,7 @@ public class GUI extends javax.swing.JFrame {
         });
         jToolBar1.setRollover(true);
 
+        lbl_affichage.setFont(new java.awt.Font("Arial", Font.BOLD, 20));
         lbl_affichage.setText("Noeuds :");
 
         cb_ville.setSelected(true);
@@ -155,7 +156,8 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-
+        //increase the size of jLabel1
+        jLabel1.setFont(new java.awt.Font("Arial", Font.BOLD, 20));
         jLabel1.setText("Liens :");
 
         cb_autoroute.setSelected(false);
@@ -262,6 +264,8 @@ public class GUI extends javax.swing.JFrame {
         group.add(plusCourtChemin);
         group.add(est2Distance);
 
+        labelAction.setFont(new java.awt.Font("Arial", Font.BOLD, 20));
+        labelAction.setText("Actions :");
         selectNoeud.setText("Bouger les noeuds");
         resto1Distance.setText("Resto 1 Distance");
         ville1Distance.setText("Ville 1 Distance");
@@ -290,14 +294,13 @@ public class GUI extends javax.swing.JFrame {
                     .addComponent(nbDepartementale, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(nbAutoroute, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(nbNationale, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(toolBarPanLayout.createSequentialGroup()
                         .addComponent(jLabel1)
-                .addContainerGap())
-                .addGap(0, 0, Short.MAX_VALUE)))
+                ))
                         .addComponent(cb_autoroute, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cb_nationale, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
                         .addComponent(cb_departementale, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0,0,Short.MAX_VALUE)
+                        .addComponent(labelAction, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(selectNoeud, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(resto1Distance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(ville1Distance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -327,8 +330,8 @@ public class GUI extends javax.swing.JFrame {
                 .addComponent(nbLoisir)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGap(18, 18, 18)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1)
-                .addComponent(lbl_affichage)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cb_autoroute)
                 .addComponent(nbAutoroute)
@@ -340,6 +343,10 @@ public class GUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cb_departementale)
                 .addComponent(nbDepartementale)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
+                .addGap(18, 18, 18)
+                .addComponent(labelAction, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(selectNoeud, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -394,7 +401,7 @@ public class GUI extends javax.swing.JFrame {
         jMenu2.add(modifyFile);
         jMenuBar1.add(jMenu2);
         modifyFile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        modifyFile.setText("Ouvrir");
+        modifyFile.setText("Ouvrir avec le Bloc-Notes");
         modifyFile.setToolTipText("");
         modifyFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -468,63 +475,66 @@ public class GUI extends javax.swing.JFrame {
 
     private void plusCulturelActionPerformed(java.awt.event.ActionEvent evt){
         this.removeListeners();
-        this.addMouseListener(clickTwoNode);
-        this.addMouseMotionListener(clickTwoNode);
+        this.addMouseListener(twoNode);
+        this.addMouseMotionListener(twoNode);
     }
 
     private void plusGastroActionPerformed(java.awt.event.ActionEvent evt){
         this.removeListeners();
-        this.addMouseListener(clickTwoNode);
-        this.addMouseMotionListener(clickTwoNode);
+        this.addMouseListener(twoNode);
+        this.addMouseMotionListener(twoNode);
     }
 
     private void plusOuvertActionPerformed(java.awt.event.ActionEvent evt){
         this.removeListeners();
-        this.addMouseListener(clickTwoNode);
-        this.addMouseMotionListener(clickTwoNode);
+        this.addMouseListener(twoNode);
+        this.addMouseMotionListener(twoNode);
     }
 
     private void resto1DistanceActionPerformed(java.awt.event.ActionEvent evt){
         this.removeListeners();
-        this.addMouseListener(clickTwoNode);
-        this.addMouseMotionListener(clickTwoNode);
+        this.addMouseListener(twoNode);
+        this.addMouseMotionListener(twoNode);
     }
 
     private void ville1DistanceActionPerformed(java.awt.event.ActionEvent evt){
         this.removeListeners();
-        this.addMouseListener(clickTwoNode);
-        this.addMouseMotionListener(clickTwoNode);
+        this.addMouseListener(twoNode);
+        this.addMouseMotionListener(twoNode);
     }
 
     private void loisir1DistanceActionPerformed(java.awt.event.ActionEvent evt){
         this.removeListeners();
-        this.addMouseListener(clickTwoNode);
-        this.addMouseMotionListener(clickTwoNode);
+        this.addMouseListener(twoNode);
+        this.addMouseMotionListener(twoNode);
     }
 
     private void plusCourteDistanceActionPerformed(java.awt.event.ActionEvent evt){
         this.removeListeners();
-        this.addMouseListener(clickTwoNode);
-        this.addMouseMotionListener(clickTwoNode);
+        this.addMouseListener(twoNode);
+        this.addMouseMotionListener(twoNode);
     }
 
     private void plusCourtCheminActionPerformed(java.awt.event.ActionEvent evt){
         this.removeListeners();
-        this.addMouseListener(clickTwoNode);
-        this.addMouseMotionListener(clickTwoNode);
+        this.addMouseListener(twoNode);
+        this.addMouseMotionListener(twoNode);
     }
 
     private void est2DistanceActionPerformed(java.awt.event.ActionEvent evt){
         this.removeListeners();
-        this.addMouseListener(clickTwoNode);
-        this.addMouseMotionListener(clickTwoNode);
+        this.addMouseListener(twoNode);
+        this.addMouseMotionListener(twoNode);
     }
 
     private void removeListeners(){
         this.removeMouseListener(click);
         this.removeMouseMotionListener(click);
-        this.removeMouseListener(clickTwoNode);
-        this.removeMouseMotionListener(clickTwoNode);
+        this.removeMouseListener(twoNode);
+        this.removeMouseMotionListener(twoNode);
+        clickTwoNode.resetNodes();
+        clickTwoNode.resetSelections(Canvas);
+        Canvas.repaint();
     }
 
 
@@ -751,6 +761,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem openFile;
     private javax.swing.JMenuItem modifyFile;
     private javax.swing.JPanel toolBarPan;
+    private javax.swing.JLabel labelAction;
     private static javax.swing.JRadioButton selectNoeud;
     private static javax.swing.JRadioButton resto1Distance;
     private static javax.swing.JRadioButton ville1Distance;
@@ -869,8 +880,8 @@ class clickNode implements MouseListener, MouseMotionListener{
 }
 
 class clickTwoNode implements MouseListener, MouseMotionListener{
-    private int[] node = {-1, -1};
-    private int stateNode = 0;
+    private static int[] node = {-1, -1};
+    private static int stateNode = 0;
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -884,85 +895,85 @@ class clickTwoNode implements MouseListener, MouseMotionListener{
             }
         }
         if (lastNode == -1){
-            this.node[0] = -1;
-            this.node[1] = -1;
-            this.stateNode = 0;
+            node[0] = -1;
+            node[1] = -1;
+            stateNode = 0;
             this.resetSelections(Canvas);
             Canvas.repaint();
         }
         if(lastNode != -1){
-            if(this.stateNode == 0){
-                //reset this.node
-                this.node[0] = -1;
-                this.node[1] = -1;
-                this.node[stateNode] = lastNode;
-                this.stateNode = 1;
+            if(stateNode == 0){
+                //reset node
+                node[0] = -1;
+                node[1] = -1;
+                node[stateNode] = lastNode;
+                stateNode = 1;
                 this.setSelections(Canvas);
             }
-            else if (this.stateNode == 1){
-                this.node[stateNode] = lastNode;
+            else if (stateNode == 1){
+                node[stateNode] = lastNode;
                 this.setSelections(Canvas);
-                this.stateNode = 0;
+                stateNode = 0;
                 if(GUI.getRb_plusCulturel().isSelected()){
                     //print return of the function plusCulturelle in Graphe in a new messageDialog
-                    int result = GrapheApp.getGraphe().plusCulturelle(Canvas.getNodes().get(this.node[0]).getName(),  Canvas.getNodes().get(this.node[1]).getName());
+                    int result = GrapheApp.getGraphe().plusCulturelle(Canvas.getNodes().get(node[0]).getName(),  Canvas.getNodes().get(node[1]).getName());
                     if(result == 1){
-                        JOptionPane.showMessageDialog(null, Canvas.getNodes().get(this.node[0]).getName() + " est plus culturel que " + Canvas.getNodes().get(this.node[1]).getName());
+                        JOptionPane.showMessageDialog(null, Canvas.getNodes().get(node[0]).getName() + " est plus culturel que " + Canvas.getNodes().get(node[1]).getName());
                     }
                     else if (result == 0){
-                        JOptionPane.showMessageDialog(null, Canvas.getNodes().get(this.node[0]).getName() + " n'est pas plus culturel que " + Canvas.getNodes().get(this.node[1]).getName());
+                        JOptionPane.showMessageDialog(null, Canvas.getNodes().get(node[0]).getName() + " n'est pas plus culturel que " + Canvas.getNodes().get(node[1]).getName());
                     }
                     else{
-                        JOptionPane.showMessageDialog(null, "Ces deux noeuds ne sont pas à 2 distance d'au moins un centre de loisir");
+                        JOptionPane.showMessageDialog(null, "Les noeuds " +  Canvas.getNodes().get(node[0]).getName() + " et " +  Canvas.getNodes().get(node[1]).getName() + " ne sont pas à 2 distance d'au moins un centre de loisir");
                     }
                 }
                 else if(GUI.getRb_plusGastro().isSelected()){
                     //print return of the function plusGastro in Graphe in a new messageDialog
-                    int result = GrapheApp.getGraphe().plusGastronomique( Canvas.getNodes().get(this.node[0]).getName(),  Canvas.getNodes().get(this.node[1]).getName());
+                    int result = GrapheApp.getGraphe().plusGastronomique( Canvas.getNodes().get(node[0]).getName(),  Canvas.getNodes().get(node[1]).getName());
                     if(result == 1){
-                        JOptionPane.showMessageDialog(null, Canvas.getNodes().get(this.node[0]).getName() + " est plus gastronomique que " + Canvas.getNodes().get(this.node[1]).getName());
+                        JOptionPane.showMessageDialog(null, Canvas.getNodes().get(node[0]).getName() + " est plus gastronomique que " + Canvas.getNodes().get(node[1]).getName());
                     }
                     else if (result == 0){
-                        JOptionPane.showMessageDialog(null, Canvas.getNodes().get(this.node[0]).getName() + " n'est pas plus gastronomique que " + Canvas.getNodes().get(this.node[1]).getName());
+                        JOptionPane.showMessageDialog(null, Canvas.getNodes().get(node[0]).getName() + " n'est pas plus gastronomique que " + Canvas.getNodes().get(node[1]).getName());
                     }
                     else{
-                        JOptionPane.showMessageDialog(null, "Ces deux noeuds ne sont pas à 2 distance d'au moins un restaurant");
+                        JOptionPane.showMessageDialog(null, "Les noeuds " +  Canvas.getNodes().get(node[0]).getName() + " et " + "ne sont pas à 2 distance d'au moins un restaurant");
                     }
                 }
                 else if(GUI.getRb_plusOuvert().isSelected()){
                     //print return of the function plusOuverte in Graphe in a new messageDialog
-                    int result = GrapheApp.getGraphe().plusOuverte( Canvas.getNodes().get(this.node[0]).getName(), Canvas.getNodes().get(this.node[1]).getName());
+                    int result = GrapheApp.getGraphe().plusOuverte( Canvas.getNodes().get(node[0]).getName(), Canvas.getNodes().get(node[1]).getName());
                     if(result == 1){
-                        JOptionPane.showMessageDialog(null, Canvas.getNodes().get(this.node[0]).getName() + " est plus ouvert que " + Canvas.getNodes().get(this.node[1]).getName());
+                        JOptionPane.showMessageDialog(null, Canvas.getNodes().get(node[0]).getName() + " est plus ouvert que " + Canvas.getNodes().get(node[1]).getName());
                     }
                     else if (result == 0){
-                        JOptionPane.showMessageDialog(null, Canvas.getNodes().get(this.node[0]).getName() + " n'est pas plus ouvert que " + Canvas.getNodes().get(this.node[1]).getName());
+                        JOptionPane.showMessageDialog(null, Canvas.getNodes().get(node[0]).getName() + " n'est pas plus ouvert que " + Canvas.getNodes().get(node[1]).getName());
                     }
                     else{
-                        JOptionPane.showMessageDialog(null, "Ces deux noeuds ne sont pas à 2 distance d'au moins une ville");
+                        JOptionPane.showMessageDialog(null, "Les noeud s" +  Canvas.getNodes().get(node[0]).getName() + " et " +  Canvas.getNodes().get(node[1]).getName() + " ne sont pas à 2 distance d'au moins une ville");
                     }
                 }
                 else if(GUI.getRb_plusCourteDistance().isSelected()){
                     //print return of the function plusCourtChemin in Graphe in a new messageDialog
-                    double result = GrapheApp.getGraphe().plusCourtChemin(this.node[0],this.node[1]);
+                    double result = GrapheApp.getGraphe().plusCourtChemin(node[0],node[1]);
                     //cast result to String and if it ends with .0, remove it 
                     String resultString = String.valueOf(result);
                     if(resultString.endsWith(".0")){
                         resultString = resultString.substring(0, resultString.length()-2);
                     }
                     if(result != 0){
-                        JOptionPane.showMessageDialog(null, "Le plus court chemin entre " + Canvas.getNodes().get(this.node[0]).getName() + " et " + Canvas.getNodes().get(this.node[1]).getName() + " est de " + resultString);
+                        JOptionPane.showMessageDialog(null, "Le plus court chemin entre " + Canvas.getNodes().get(node[0]).getName() + " et " + Canvas.getNodes().get(node[1]).getName() + " est de " + resultString);
                     }
                     else{
-                        JOptionPane.showMessageDialog(null, "Ces deux noeuds ne sont pas reliés");
+                        JOptionPane.showMessageDialog(null, "Les noeuds " + Canvas.getNodes().get(node[0]).getName() + " et " +  Canvas.getNodes().get(node[1]).getName() + " ne sont pas reliés");
                     }
                 }
                 else if (GUI.getRb_plusCourtChemin().isSelected()){
                     //print return of the function floydWarshallChemin in Graphe in a new messageDialog
-                    ArrayList<Integer> result = GrapheApp.getGraphe().floydWarshallChemin(this.node[0],this.node[1]);
+                    ArrayList<Integer> result = GrapheApp.getGraphe().floydWarshallChemin(node[0],node[1]);
                     //browse result and print the path
                     if(result.size() != 0){
-                        String path = "Le plus court chemin entre " + Canvas.getNodes().get(this.node[0]).getName() + " et " + Canvas.getNodes().get(this.node[1]).getName() + " est : " + "\n";
+                        String path = "Le plus court chemin entre " + Canvas.getNodes().get(node[0]).getName() + " et " + Canvas.getNodes().get(node[1]).getName() + " est : " + "\n";
                         for(int i = 0; i < result.size() - 1; i++){
                             path += Canvas.getNodes().get(result.get(i)).getName() + " -> ";
                         }
@@ -970,17 +981,17 @@ class clickTwoNode implements MouseListener, MouseMotionListener{
                         JOptionPane.showMessageDialog(null, path);
                     }
                     else{
-                        JOptionPane.showMessageDialog(null, "Ces deux noeuds ne sont pas reliés");
+                        JOptionPane.showMessageDialog(null, "Les noeuds " + Canvas.getNodes().get(node[0]).getName() + " et " +  Canvas.getNodes().get(node[1]).getName() + " ne sont pas reliés");
                     }
                 }
                 else if (GUI.getRb_est2Distance().isSelected()){
                     //print return of distance2 in Graphe in a new messageDialog
-                    boolean result = GrapheApp.getGraphe().distance2(this.node[0],this.node[1]);
+                    boolean result = GrapheApp.getGraphe().distance2(node[0],node[1]);
                     if(result){
-                        JOptionPane.showMessageDialog(null, "Ces deux noeuds sont à 2 distance l'un de l'autre");
+                        JOptionPane.showMessageDialog(null, "Les noeuds " + Canvas.getNodes().get(node[0]).getName() + " et " +  Canvas.getNodes().get(node[1]).getName() + " sont à 2 distance l'un de l'autre");
                     }
                     else if (!result){
-                        JOptionPane.showMessageDialog(null, "Ces deux noeuds ne sont pas à 2 distance l'un de l'autre");
+                        JOptionPane.showMessageDialog(null, "Les noeuds " + Canvas.getNodes().get(node[0]).getName() + " et " +  Canvas.getNodes().get(node[1]).getName() + " ne sont pas à 2 distance l'un de l'autre");
                     }
                 }
                 this.resetSelections(Canvas);
@@ -989,7 +1000,7 @@ class clickTwoNode implements MouseListener, MouseMotionListener{
         }
         if(lastNode != -1){
             int oneNodeState;
-            if (this.stateNode == 1){
+            if (stateNode == 1){
                 oneNodeState = 2;
             }
             else{
@@ -998,13 +1009,13 @@ class clickTwoNode implements MouseListener, MouseMotionListener{
             this.setSelections(Canvas, oneNodeState);
             if (GUI.getRb_resto1Distance().isSelected()){
                 //print ArrayList of the function rDistance1 in Graphe in a new messageDialog
-                ArrayList<String> result = GrapheApp.getGraphe().Rdistance1(Canvas.getNodes().get(this.node[oneNodeState - 2]).getName());
+                ArrayList<String> result = GrapheApp.getGraphe().Rdistance1(Canvas.getNodes().get(node[oneNodeState - 2]).getName());
                 if(result.size() == 0){
-                    JOptionPane.showMessageDialog(null, "Le noeud " +  Canvas.getNodes().get(this.node[oneNodeState - 2]).getName() + " n'est pas à 1 distance d'au moins un restaurant");
+                    JOptionPane.showMessageDialog(null, "Le noeud " +  Canvas.getNodes().get(node[oneNodeState - 2]).getName() + " n'est pas à 1 distance d'au moins un restaurant");
                 }
                 else{
                     String message = "";
-                    message += "Le(s) restaurant(s) relié(s) à " + Canvas.getNodes().get(this.node[oneNodeState - 2]).getName() + " est/sont : " + "\n\n";
+                    message += "Le(s) restaurant(s) relié(s) à " + Canvas.getNodes().get(node[oneNodeState - 2]).getName() + " est/sont : " + "\n\n";
                     for(int i = 0; i < result.size(); i++){
                         message += "-" + result.get(i) + "\n";
                     }
@@ -1015,13 +1026,13 @@ class clickTwoNode implements MouseListener, MouseMotionListener{
             }
             else if(GUI.getRb_ville1Distance().isSelected()){
                 //print ArrayList of the function vDistance1 in Graphe in a new messageDialog
-                ArrayList<String> result = GrapheApp.getGraphe().Vdistance1(Canvas.getNodes().get(this.node[oneNodeState - 2]).getName());
+                ArrayList<String> result = GrapheApp.getGraphe().Vdistance1(Canvas.getNodes().get(node[oneNodeState - 2]).getName());
                 if(result.size() == 0){
-                    JOptionPane.showMessageDialog(null, "Le noeud " +  Canvas.getNodes().get(this.node[oneNodeState - 2]).getName() + " n'est pas à 1 distance d'au moins une ville");
+                    JOptionPane.showMessageDialog(null, "Le noeud " +  Canvas.getNodes().get(node[oneNodeState - 2]).getName() + " n'est pas à 1 distance d'au moins une ville");
                 }
                 else{
                     String message = "";
-                    message += "La(les) ville(s) relié(s) à " + Canvas.getNodes().get(this.node[oneNodeState - 2]).getName() + " est/sont : " + "\n\n";
+                    message += "La(les) ville(s) relié(s) à " + Canvas.getNodes().get(node[oneNodeState - 2]).getName() + " est/sont : " + "\n\n";
                     for(int i = 0; i < result.size(); i++){
                         message += "-" + result.get(i) + "\n";
                     }
@@ -1032,13 +1043,13 @@ class clickTwoNode implements MouseListener, MouseMotionListener{
             }
             else if(GUI.getRb_loisir1Distance().isSelected()){
                 //print ArrayList of the function lDistance1 in Graphe in a new messageDialog
-                ArrayList<String> result = GrapheApp.getGraphe().Ldistance1(Canvas.getNodes().get(this.node[oneNodeState - 2]).getName());
+                ArrayList<String> result = GrapheApp.getGraphe().Ldistance1(Canvas.getNodes().get(node[oneNodeState - 2]).getName());
                 if(result.size() == 0){
-                    JOptionPane.showMessageDialog(null, "Le noeud " +  Canvas.getNodes().get(this.node[oneNodeState - 2]).getName() + " n'est pas à 1 distance d'au moins un centre de loisir");
+                    JOptionPane.showMessageDialog(null, "Le noeud " +  Canvas.getNodes().get(node[oneNodeState - 2]).getName() + " n'est pas à 1 distance d'au moins un centre de loisir");
                 }
                 else{
                     String message = "";
-                    message += "Le(s) centre(s) de loisir relié(s) à " + Canvas.getNodes().get(this.node[oneNodeState - 2]).getName() + " est/sont : " + "\n\n";
+                    message += "Le(s) centre(s) de loisir relié(s) à " + Canvas.getNodes().get(node[oneNodeState - 2]).getName() + " est/sont : " + "\n\n";
                     for(int i = 0; i < result.size(); i++){
                         message += "-" + result.get(i) + "\n";
                     }
@@ -1053,10 +1064,16 @@ class clickTwoNode implements MouseListener, MouseMotionListener{
         }
     }
 
+    static void resetNodes(){
+        node[0] = -1;
+        node[1] = -1;
+        stateNode = 0;
+    }
+
     private void setSelections(GrapheDraw Canvas){
-        //set selected true to the node in this.node and set selected false to the other nodes
+        //set selected true to the node in node and set selected false to the other nodes
         for(int i = 0; i < Canvas.getNodes().size(); i++){
-            if(i == this.node[0] || i == this.node[1]){
+            if(i == node[0] || i == node[1]){
                 Canvas.getNodes().get(i).setSelected(true);
             }
             else{
@@ -1067,9 +1084,9 @@ class clickTwoNode implements MouseListener, MouseMotionListener{
     }
 
     private void setSelections(GrapheDraw Canvas, int oneNodeState){
-        //set selected true to the node in this.node and set selected false to the other nodes
+        //set selected true to the node in node and set selected false to the other nodes
         for(int i = 0; i < Canvas.getNodes().size(); i++){
-            if(i == this.node[oneNodeState - 2]){
+            if(i == node[oneNodeState - 2]){
                 Canvas.getNodes().get(i).setSelected(true);
             }
             else{
@@ -1079,7 +1096,7 @@ class clickTwoNode implements MouseListener, MouseMotionListener{
         Canvas.repaint();
     }
 
-    private void resetSelections(GrapheDraw Canvas){
+    public static void resetSelections(GrapheDraw Canvas){
         //set selected false to all nodes
         for(int i = 0; i < Canvas.getNodes().size(); i++){
             Canvas.getNodes().get(i).setSelected(false);
@@ -1089,34 +1106,20 @@ class clickTwoNode implements MouseListener, MouseMotionListener{
     @Override
     public void mousePressed(MouseEvent e) {
     }
-
     @Override
     public void mouseReleased(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
     }
-
     @Override
     public void mouseEntered(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
     }
-
     @Override
-    public void mouseDragged(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
+    public void mouseDragged(MouseEvent e) {        
     }
-
     @Override
     public void mouseMoved(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
     }
 }
