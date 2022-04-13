@@ -898,7 +898,14 @@ class clickTwoNode implements MouseListener, MouseMotionListener{
             node[0] = -1;
             node[1] = -1;
             stateNode = 0;
-            this.resetSelections(Canvas);
+            clickTwoNode.resetSelections(Canvas);
+            Canvas.repaint();
+        }
+        if (stateNode == 1 && lastNode == node[0]){
+            node[0] = -1;
+            node[1] = -1;
+            stateNode = 0;
+            clickTwoNode.resetSelections(Canvas);
             Canvas.repaint();
         }
         if(lastNode != -1){
@@ -994,7 +1001,7 @@ class clickTwoNode implements MouseListener, MouseMotionListener{
                         JOptionPane.showMessageDialog(null, "Les noeuds " + Canvas.getNodes().get(node[0]).getName() + " et " +  Canvas.getNodes().get(node[1]).getName() + " ne sont pas à 2 distance l'un de l'autre");
                     }
                 }
-                this.resetSelections(Canvas);
+                clickTwoNode.resetSelections(Canvas);
                 Canvas.repaint();
             }
         }
@@ -1021,7 +1028,7 @@ class clickTwoNode implements MouseListener, MouseMotionListener{
                     }
                     JOptionPane.showMessageDialog(null, message);
                 }
-                this.resetSelections(Canvas);
+                clickTwoNode.resetSelections(Canvas);
                 Canvas.repaint();
             }
             else if(GUI.getRb_ville1Distance().isSelected()){
@@ -1038,7 +1045,7 @@ class clickTwoNode implements MouseListener, MouseMotionListener{
                     }
                     JOptionPane.showMessageDialog(null, message);
                 }
-                this.resetSelections(Canvas);
+                clickTwoNode.resetSelections(Canvas);
                 Canvas.repaint();
             }
             else if(GUI.getRb_loisir1Distance().isSelected()){
@@ -1055,11 +1062,11 @@ class clickTwoNode implements MouseListener, MouseMotionListener{
                     }
                     JOptionPane.showMessageDialog(null, message);
                 }
-                this.resetSelections(Canvas);
+                clickTwoNode.resetSelections(Canvas);
                 Canvas.repaint();
             }
             if(stateNode == 0){
-                this.resetSelections(Canvas);
+                clickTwoNode.resetSelections(Canvas);
             }
         }
     }
