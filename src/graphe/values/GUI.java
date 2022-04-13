@@ -175,7 +175,7 @@ public class GUI extends javax.swing.JFrame {
 
         cb_nationale.setSelected(false);
         cb_nationale.setText("Nationales");
-        cb_nationale.setForeground(Color.GRAY);
+        cb_nationale.setForeground(Color.cyan);
         cb_nationale.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cb_nationaleActionPerformed(evt);

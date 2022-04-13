@@ -73,7 +73,7 @@ public class GrapheDraw extends JPanel {
 				g2d.setColor(Color.MAGENTA);
 			}
 			else if (e.type.equals("N")){
-				g2d.setColor(Color.GRAY);
+				g2d.setColor(Color.cyan);
 			}
 			else{
 				g2d.setColor(Color.blue);
