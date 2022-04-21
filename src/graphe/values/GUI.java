@@ -26,12 +26,13 @@ import java.awt.Color;
 /**
  *
  * @author matis
+ * @version 1.0
  */
 public class GUI extends javax.swing.JFrame {
     private Graphe graphe;
     private String fileName;
     public boolean opened;
-    private clickNode click = new clickNode();
+    private HoverMoveNode click = new HoverMoveNode();
     private clickTwoNode twoNode = new clickTwoNode();
     /**
      * Creates new form GUI
@@ -41,6 +42,7 @@ public class GUI extends javax.swing.JFrame {
         this.fileName = null;
         this.opened = false;
     }
+
     public String getFileName(){
         return this.fileName;
     }
@@ -782,7 +784,10 @@ public class GUI extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 }
 
-class clickNode implements MouseListener, MouseMotionListener{
+/**
+ * Classe qui gère les mouvements et l'effet de hover des noeuds
+ */
+class HoverMoveNode implements MouseListener, MouseMotionListener{
     private boolean clicked = false;
     private int node = -2;
 
@@ -886,6 +891,10 @@ class clickNode implements MouseListener, MouseMotionListener{
     }
 }
 
+/**
+ * Classe permettant de gérer les évènements de la souris sur le graphe (déplacement, clic, ...)
+ * Actions entre les noeuds
+ */
 class clickTwoNode implements MouseListener, MouseMotionListener{
     private static int[] node = {-1, -1};
     private static int stateNode = 0;
@@ -1084,6 +1093,11 @@ class clickTwoNode implements MouseListener, MouseMotionListener{
         stateNode = 0;
     }
 
+    /**
+     * Sélectionne le noeud sélectionné (action où 1 noeud est sélectionné)
+     * @param Canvas
+     * @param oneNodeState
+     */
     private void setSelections(GrapheDraw Canvas){
         //set selected true to the node in node and set selected false to the other nodes
         for(int i = 0; i < Canvas.getNodes().size(); i++){
@@ -1097,6 +1111,11 @@ class clickTwoNode implements MouseListener, MouseMotionListener{
         Canvas.repaint();
     }
 
+    /**
+     * Sélectionne le noeud sélectionné (actions où deux noeuds sont sélectionnés)
+     * @param Canvas
+     * @param oneNodeState
+     */
     private void setSelections(GrapheDraw Canvas, int oneNodeState){
         //set selected true to the node in node and set selected false to the other nodes
         for(int i = 0; i < Canvas.getNodes().size(); i++){
@@ -1110,6 +1129,10 @@ class clickTwoNode implements MouseListener, MouseMotionListener{
         Canvas.repaint();
     }
 
+    /**
+     * Déselectionne tous les noeuds
+     * @param Canvas 
+     */
     public static void resetSelections(GrapheDraw Canvas){
         //set selected false to all nodes
         for(int i = 0; i < Canvas.getNodes().size(); i++){
@@ -1126,7 +1149,6 @@ class clickTwoNode implements MouseListener, MouseMotionListener{
     @Override
     public void mouseEntered(MouseEvent e) {
     }
-
     @Override
     public void mouseExited(MouseEvent e) {
     }

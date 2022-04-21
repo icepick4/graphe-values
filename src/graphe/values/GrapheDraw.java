@@ -12,10 +12,18 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.RenderingHints;
 
+/**
+ *  La Classe qui permet de définir l'UI d'un {@link Graphe}
+ * @author Rémi JARA
+ * @version 1.0
+ */
 public class GrapheDraw extends JPanel {
     private ArrayList<Node> nodes;
     private ArrayList<Edge> edges;
 
+	/**
+	 * Constructeur de la classe GrapheDraw
+	 */
     public GrapheDraw() {
 		this.nodes = new ArrayList<Node>();
 		this.edges = new ArrayList<Edge>();
@@ -29,9 +37,19 @@ public class GrapheDraw extends JPanel {
 		return nodes;
 	}
 
+	/**
+	 * Permet de modifier la liste des noeuds
+	 * @param nodes
+	 */
 	public void setNodes(ArrayList<Node> nodes) {
 		this.nodes = nodes;
 	}
+
+	/**
+	 * Permet d'ajouter un noeud à la liste des noeuds
+	 * @param name Nom du noeud
+	 * @param type Type du noeud
+	 */
     public void addNode(String name, String type) { 
 		//add a node at pixel (x,y)
 		int x = 500,y = 500;
@@ -43,7 +61,12 @@ public class GrapheDraw extends JPanel {
 		this.repaint();
     }
 
-	//pythagore
+	/**
+	 * Vérifie si la position d'un nouveau noeud est valide
+	 * @param x position en x
+	 * @param y position en y
+	 * @return {@code true} si la position est valide, {@code false} sinon
+	 */
 	public boolean isValid(int x, int y) {
 		for (Node n : this.nodes) {
 			if (Math.sqrt(Math.pow(n.x - x, 2) + Math.pow(n.y - y, 2)) < 100) {
@@ -53,12 +76,22 @@ public class GrapheDraw extends JPanel {
 		return true;
 	}
 
+	/**
+	 *  Permet d'ajouter une arête entre deux noeuds
+	 * @param type Type de l'arête
+	 * @param val Valeur de l'arête
+	 * @param i Numéro du premier noeud
+	 * @param j Numéro du second noeud
+	 */
     public void addEdge(String type, double val, int i, int j) {
 		//add an edge between nodes i and j
 		edges.add(new Edge(type, val, i,j));
 		this.repaint();
     }
     
+	/**
+	 * Permet de peindre tous les composants du graphe
+	 */
     public void paint(Graphics g) { // draw the nodes and edges
 		//clear g
 		g.clearRect(0,0,1920,1080);
@@ -126,7 +159,9 @@ public class GrapheDraw extends JPanel {
 		}
 	}
 
-	//change all positions of nodes depending on GUI.getCanvas().getWidth() and GUI.getCanvas().getHeight()
+	/**
+	 * Permet de changer la positions des noeuds pour pas qu'ils ne se touchent
+	 */
 	public void changePos() {
 		for (int i = 0; i < this.nodes.size(); i++) {
 			int x = 500, y = 500;
@@ -139,7 +174,9 @@ public class GrapheDraw extends JPanel {
 		}
 	}
 
-	//clear canvas with white color
+	/**
+	 * Permet de nettoyer le canvas
+	 */
 	public void clear() {
 		this.nodes = new ArrayList<Node>();
 		this.edges = new ArrayList<Edge>();
@@ -148,6 +185,10 @@ public class GrapheDraw extends JPanel {
 		g.fillRect(0,0,GUI.getCanvas().getWidth(),GUI.getCanvas().getHeight());
 	}
 	
+	/**
+	 * Permet de dessiner tous les noeuds et arêtes du graphe contenu dans le fichier donné dans {@link #GraphApp} au lancement
+	 * @param graphe
+	 */
 	public void drawGraph(Graphe graphe){
         //draw nodes
         for(int i = 0; i < graphe.getMatVal().colonnes(); i++){

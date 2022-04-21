@@ -5,13 +5,19 @@
 package graphe.values;
 import java.util.Arrays;
 /**
- *
+ * La Classe qui permet de définit une Matrice contenant des {@code int}
  * @author Rémi
+ * @version 1.0
  */
 public class Matrice {
     private int colonnes;
     private int lignes;
     public int[][] matrice = new int[lignes][colonnes];
+
+    /**
+     * Constructeur de la classe Matrice
+     * @param matrice Matrice à initialiser
+     */
     Matrice(int[][] matrice){
         this.matrice = matrice;
         this.colonnes = matrice[0].length;
@@ -35,9 +41,9 @@ public class Matrice {
      * 
      *fonction du calcul de produit vectoriel à une position donnée de la matrice résultante.
      * 
-     * @param mat
-     * @param lignes
-     * @param col
+     * @param mat Matrice à multiplier
+     * @param lignes Ligne de la matrice à multiplier
+     * @param col Colonne de la matrice à multiplier
      * @return le résultat du produit vectoriel à une position donnée.
      */
     public int multAdd(Matrice mat, int ligne,int col){
@@ -49,9 +55,9 @@ public class Matrice {
     }
 
     /**
-     * 
+     *  fonction qui permet de multiplier une matrice par un coeff
      * @param coeff multiplicateur
-     * @return 
+     * @return la matrice multipliée par un coeff
      */
     public Matrice multMat(int coeff){
         int[][] matTemp = new int [this.lignes][this.colonnes];
@@ -64,6 +70,11 @@ public class Matrice {
         return matMult;
     }
     
+    /**
+     *  fonction qui permet de multiplier une matrice par une autre
+     * @param mat matrice à multiplier
+     * @return la matrice multipliée par une autre
+     */
     public Matrice multMat(Matrice mat){
         if (this.colonnes() != mat.lignes()){
             return null;
@@ -78,6 +89,11 @@ public class Matrice {
         return matMult;
     }
 
+    /**
+     * fonction qui renvoie la matrice puissance de n
+     * @param n puissance
+     * @return la matrice puissance de n
+     */
     public Matrice powMat(int n){
         if (!estCarre()){
             return null;
@@ -91,6 +107,9 @@ public class Matrice {
         return matMult;
     }
 
+    /**
+     * @return la matrice multiplié par elle même
+     */
     public Matrice selfMultMat(){
         if (!estCarre()){
             return null;
@@ -105,6 +124,11 @@ public class Matrice {
         return matMult;
     }
 
+    /**
+     * 
+     * @param mat matrice à additionner
+     * @return la matrice additionnée
+     */
     public Matrice addMat(Matrice mat){
         if (this.colonnes() != mat.colonnes() && this.lignes() != mat.lignes()){
             return null;
@@ -119,6 +143,11 @@ public class Matrice {
         return matSoustrait;
     }
 
+    /**
+     * 
+     * @param mat matrice à soustraire
+     * @return la matrice soustraite
+     */
     public Matrice sousMat(Matrice mat){
         if (this.colonnes() != mat.colonnes() && this.lignes() != mat.lignes()){
             return null;

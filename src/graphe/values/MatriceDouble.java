@@ -1,13 +1,20 @@
 package graphe.values;
 import java.util.Arrays;
+
 /**
-*
+* La Classe qui permet de définit une Matrice contenant des {@code double}
 * @author Rémi
+* @version 1.0
 */
 public class MatriceDouble {
    private int colonnes;
    private int lignes;
    public double[][] matrice = new double[lignes][colonnes];
+
+   /**
+    * Constructeur de la classe MatriceDouble
+    * @param matrice Matrice à initialiser
+    */
    MatriceDouble(double[][] matrice){
        this.matrice = matrice;
        this.colonnes = matrice[0].length;

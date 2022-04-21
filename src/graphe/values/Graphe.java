@@ -6,9 +6,11 @@ package graphe.values;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
+
 /**
- *
+ * La Classe qui permet de définir un Graphe Valués
  * @author Remi
+ * @version 1.0
  */
 public class Graphe{
     private final int sommets;
@@ -18,6 +20,13 @@ public class Graphe{
     private final MatriceString matLiens;
     private final ArrayList<String[]> noeuds;
     public Object values;
+    /**
+     * Constructeur de la classe Graphe
+     * @param matriceBool Matrice de booléens
+     * @param matriceValuations Matrice de valeurs
+     * @param matriceLiens Matrice de liens
+     * @param noeuds Liste des noeuds
+     */
     Graphe(Matrice matriceBool, MatriceDouble matriceValuations, MatriceString matriceLiens, ArrayList<String[]> noeuds){
         this.matVal = matriceValuations;
         this.matBool = matriceBool;
@@ -48,6 +57,10 @@ public class Graphe{
     public ArrayList<String[]> getNoeuds(){
         return this.noeuds;
     }
+    /**
+     * Retourne les noms de toutes les villes dans le graphe
+     * @return Liste des noms de toutes les villes dans le graphe (ArrayList<String>)
+     */
     public ArrayList<String[]> getVille(){
         ArrayList<String[]> villes = new ArrayList<String[]>();
         for(String[] noeud : this.noeuds){
@@ -58,6 +71,10 @@ public class Graphe{
         return villes;
     }
 
+    /**
+     * Retourne les noms de touts les loisirs dans le graphe
+     * @return Liste des noms de touts les loisirs dans le graphe (ArrayList<String>)
+     */
     public ArrayList<String[]> getLoisir(){
         ArrayList<String[]> loisirs = new ArrayList<String[]>();
         for(String[] noeud : this.noeuds){
@@ -68,6 +85,10 @@ public class Graphe{
         return loisirs;
     }
 
+    /**
+     * Retourne les noms de touts les restaurants dans le graphe
+     * @return Liste des noms de touts les restaurants dans le graphe (ArrayList<String>)
+     */
     public ArrayList<String[]> getRestaurant(){
         ArrayList<String[]> restaurants = new ArrayList<String[]>();
         for(String[] noeud : this.noeuds){
@@ -78,6 +99,10 @@ public class Graphe{
         return restaurants;
     }
 
+    /**
+     * Tri des noeuds par type
+     * @return Liste des noeuds triés par type (ArrayList<String[]>)
+     */
     public ArrayList<String[]> sortNoeuds(){
         //sort noeuds by "R" "V" "L"
         ArrayList<String[]> noeuds = new ArrayList<String[]>();
@@ -135,6 +160,10 @@ public class Graphe{
         return ctr/2;
     }
 
+    /**
+     * Retourne les liens qui sont des autoroutes
+     * @return {@link MatriceString} des liens qui sont des autoroutes
+     */
     public MatriceString getAutoroutes(){
         MatriceString autoroutes = new MatriceString(this.matLiens.matrice);
         for(int i = 0; i < autoroutes.lignes(); i++){
@@ -147,6 +176,10 @@ public class Graphe{
         return autoroutes;
     }
     
+    /**
+     * Retourne les liens qui sont des departementales
+     * @return {@link MatriceString} des liens qui sont des departementales
+     */
     public MatriceString getDepartementales(){
         MatriceString departementales = new MatriceString(this.matLiens.matrice);
         for(int i = 0; i < departementales.lignes(); i++){
@@ -159,6 +192,10 @@ public class Graphe{
         return departementales;
     }
 
+    /**
+     * Retourne les liens qui sont des nationales
+     * @return {@link MatriceString} des liens qui sont des nationales
+     */
     public MatriceString getNationales(){
         MatriceString nationales = new MatriceString(this.matLiens.matrice);
         for(int i = 0; i < nationales.lignes(); i++){
@@ -172,10 +209,10 @@ public class Graphe{
     }
 
     /**
-     * 
-     * @param a
-     * @param b
-     * @return true si a est plus ouverte que b, sinon false
+     * Méthode qui définit si un noeud est plus ou moins ouvert qu'un autre
+     * @param a Nom du noeud A
+     * @param b Nom du noeud B
+     * @return 1 si a est plus ouverte que b, sinon 0, égalité = -1
      */
     public int plusOuverte(String a, String b){
         int nbVillesA = 0;
@@ -209,6 +246,12 @@ public class Graphe{
         return -1;
     }
 
+    /**
+     * Méthode qui définit si un noeud est plus ou moins gastronomique qu'un autre
+     * @param a Nom du noeud A
+     * @param b Nom du noeud B
+     * @return 1 si a est plus gastronomique que b, sinon 0, égalité = -1
+     */
     public int plusGastronomique(String a, String b){
         int nbVillesA = 0;
         int nbVillesB = 0;
@@ -241,6 +284,12 @@ public class Graphe{
         return -1;
     }
 
+    /**
+     * Méthode qui définit si un noeud est plus ou moins culturel qu'un autre
+     * @param a Nom du noeud A
+     * @param b Nom du noeud B
+     * @return 1 si a est plus culturele que b, sinon 0, égalité = -1
+     */
     public int plusCulturelle(String a, String b){
         int nbVillesA = 0;
         int nbVillesB = 0;
@@ -272,8 +321,11 @@ public class Graphe{
         }
         return -1;
     }
-    //stocker le predeceur du chemin de floydwarshall
 
+    /**
+     * Méthode qui applique l'algoritjme de Floyd-Warshall pour trouver les plus courts chemins entre tous les noeuds
+     * @return {@link MatriceDouble} des plus courts chemins entre tous les noeuds (valuations)
+     */
     public MatriceDouble floydWarshallDistance() {
         int n = this.matVal.matrice.length;
         double[][] temp = new double[n][n];
@@ -295,6 +347,10 @@ public class Graphe{
         return finalMat;
     }
 
+    /**
+     * Méthode qui applique l'algoritjme de Floyd-Warshall pour trouver les prédécesseurs entre tous les noeuds
+     * @return {@link Matrice} des prédécesseurs entre tous les noeuds
+     */
     public Matrice floydWarshallPredesseceurs(){
         //get predecesseur with floydwarshall
         int n = this.matVal.matrice.length;
@@ -324,11 +380,22 @@ public class Graphe{
         return mat;
     }
 
+    /**
+     * Méthode qui appel la méthode {@link #floydWarshallDistance()}
+     * @param a Indice du noeud A
+     * @param b Indice du noeud B
+     * @return la valeur de la plus courte distance entre deux noeuds
+     */
     public double plusCourtChemin(int a, int b){
         return this.floydWarshallDistance().matrice[a][b];
     }
 
-    //retourne le chemin de floydwarshall entre deux points
+    /**
+     * Méthode qui appel la méthode {@link #floydWarshallPredesseceurs()}
+     * @param a Indice du noeud A
+     * @param b Indice du noeud B
+     * @return le chemin le plus court entre deux noeuds
+     */
     public ArrayList<Integer> floydWarshallChemin(int a, int b){
         ArrayList<Integer> chemin = new ArrayList<>();
         int i = a;
@@ -344,8 +411,8 @@ public class Graphe{
         return chemin;
     }
     /**
-     * 
-     * @param sommet
+     *  
+     * @param sommet Nom du sommet de départ
      * @return tous les sommets qui sont voisins de sommet
      */
     public ArrayList<String> distance1(String sommet){
@@ -366,7 +433,7 @@ public class Graphe{
 
     /**
      * 
-     * @param sommet
+     * @param sommet Nom du sommet de départ
      * @return tous les sommets qui sont des restaurants et qui sont voisins de sommet
      */
     public ArrayList<String> Rdistance1(String sommet){
@@ -387,7 +454,7 @@ public class Graphe{
 
     /**
      * 
-     * @param sommet
+     * @param sommet Nom du sommet de départ
      * @return tous les sommets qui sont des Villes et qui sont voisins de sommet
      */
     public ArrayList<String> Vdistance1(String sommet){
@@ -408,7 +475,7 @@ public class Graphe{
 
     /**
      * 
-     * @param sommet
+     * @param sommet Nom du sommet de départ
      * @return tous les sommets qui sont des Lieux de loisirs et qui sont voisins de sommet
      */
     public ArrayList<String> Ldistance1(String sommet){
@@ -427,6 +494,13 @@ public class Graphe{
         return liste;
     }
 
+    /**
+     *  
+     * @param a Nom du sommet a
+     * @param b Nom du sommet b
+     * @return {@code true} si le sommet a est voisin de b sinon {@code false}
+     * @see {@link #distance2(int a, int b)}
+     */
     public boolean distance2(String a, String b){
         int indexSommetA = -1;
         int indexSommetB = -1;
@@ -444,6 +518,13 @@ public class Graphe{
         return false;
     }
 
+    /**
+     *  
+     * @param a Indice du sommet a
+     * @param b Indice du sommet b
+     * @return {@code true} si le sommet a est voisin de b sinon {@code false}
+     * @see {@link #distance2(String a, String b)}
+     */
     public boolean distance2(int a, int b){
         return existeChemin(2,a,b);
     }
@@ -488,7 +569,7 @@ public class Graphe{
 
     /**
      * 
-     * @param sommet sommet auquel on récupère le ou les degrés (si orienté et non simple)
+     * @param sommet auquel on récupère le ou les degrés (si orienté et non simple)
      * @return un tableau de int correspondant au 
      * degre du sommet, respectivement le degré simple, le demi-degré extérieur puis demi-degré intérieur
      * (si orienté et non simple)
@@ -642,9 +723,9 @@ public class Graphe{
     }
     /**
      * 
-     * @param sommet1 
-     * @param sommet2 
-     * @return true si sommet1 est un predecesseur de sommet2, sinon false
+     * @param sommet1  sommet auquel on récupère les successeurs
+     * @param sommet2  sommet auquel on récupère les successeurs
+     * @return {@code true} si sommet1 est un predecesseur de sommet2, sinon {@code false}
      */
     public boolean verifPredecesseur(int sommet1, int sommet2){
         int[] precedents = this.precedents(sommet2);
@@ -657,9 +738,9 @@ public class Graphe{
     }
     /**
      * 
-     * @param sommet1 
-     * @param sommet2 
-     * @return true si sommet1 est un successeur de sommet2, sinon false
+     * @param sommet1  sommet auquel on récupère les successeurs
+     * @param sommet2  sommet auquel on récupère les successeurs
+     * @return {@code true} si sommet1 est un successeur de sommet2, sinon {@code false}
      */
     public boolean verifSuccesseur(int sommet1, int sommet2){
         int[] suivants = this.suivants(sommet2);
@@ -925,6 +1006,12 @@ public class Graphe{
             // System.out.println("Actualisation dsat de "+i+" à : "+dtable[i][2]);
     }
 
+    /**
+     * 
+     * @param sommet1
+     * @param sommet2
+     * @return {@code true} si le sommet {@code sommet1} est relié au sommet {@code sommet2} sinon {@code false}
+     */
     public boolean relies(int sommet1, int sommet2) {
         return (this.verifSuccesseur(sommet1, sommet2) && this.verifSuccesseur(sommet2, sommet1));
     }
@@ -989,6 +1076,13 @@ public class Graphe{
         return 0;
     }
 
+    /**
+     *  Méthode qui permet de savoir s'il existe un chemin d'une certaine distance entre deux sommets.
+     * @param longueur
+     * @param sommet1
+     * @param sommet2
+     * @return {@code true} s'il existe un chemin d'une certaine distance entre deux sommets, {@code false} sinon.
+     */
     public boolean existeChemin(int longueur,int sommet1, int sommet2){
         if (this.matBool.estVide()){
             return false;
@@ -997,7 +1091,6 @@ public class Graphe{
         return (matrice.matrice[sommet1][sommet2] != 0);
     }
 
-    //lethode qui renvoie si le graphe est connexe ou pas
     public boolean estConnexe(){
         if(this.matBool.estVide() && this.ordre() > 1){
             return false;

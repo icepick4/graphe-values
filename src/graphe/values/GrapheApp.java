@@ -14,8 +14,9 @@ import java.io.BufferedReader;
 import java.io.DataInputStream;
 
 /**
- *
+ * Classe principale de l'application qui permet d'ouvrir un fichier et de l'afficher (.txt)
  * @author Remi
+ * @version 1.0
  */
 public class GrapheApp {
     static GUI gui;
@@ -35,6 +36,9 @@ public class GrapheApp {
         gui.setVisible(true);
     }
 
+    /**
+     * Permet d'ouvrir un fichier et de l'afficher
+     */
     public static void initApp() throws IOException {
         String file = null;
         while (!gui.opened) {
@@ -165,6 +169,12 @@ public class GrapheApp {
         return GrapheApp.graphe;
     }
 
+    /**
+     * Permet de récupérer le caractère à l'index passé en argument à partir d'une chaine de caractère
+     * @param str
+     * @param index
+     * @return le caractère à l'index passé en argument
+     */
     public static char getCharFromString(String str, int index) {
         return str.charAt(index);
     }

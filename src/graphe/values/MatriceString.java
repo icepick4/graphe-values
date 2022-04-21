@@ -5,13 +5,18 @@
 package graphe.values;
 import java.util.Arrays;
 /**
- *
+ * La Classe qui permet de définit une Matrice contenant des {@code String}
  * @author Rémi
  */
 public class MatriceString {
     private int colonnes;
     private int lignes;
     public String[][] matrice = new String[lignes][colonnes];
+
+    /**
+     * Constructeur de la classe MatriceString
+     * @param matrice Matrice à initialiser
+     */
     MatriceString(String[][] matrice){
         this.matrice = matrice;
         this.colonnes = matrice[0].length;
