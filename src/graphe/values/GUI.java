@@ -98,6 +98,7 @@ public class GUI extends javax.swing.JFrame {
         openFile = new javax.swing.JMenuItem();
         modifyFile = new javax.swing.JMenuItem();
         newWindow = new javax.swing.JMenuItem();
+        closeFile = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         
         jFileChooser1.setCurrentDirectory(new java.io.File("./inputFiles"));
@@ -416,9 +417,18 @@ public class GUI extends javax.swing.JFrame {
                 newWindowActionPerformed(evt);
             }
         });
+
+        closeFile.setText("Fermer le fichier actuel");
+        closeFile.setEnabled(false);
+        closeFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeFileActionPerformed(evt);
+            }
+        });
         
         jMenu1.add(openFile);
         jMenu1.add(newWindow);
+        jMenu1.add(closeFile);
 
         jMenuBar1.add(jMenu1);
 
@@ -463,6 +473,7 @@ public class GUI extends javax.swing.JFrame {
         this.opened = true;
         try{
             this.app.initApp();
+            this.closeFile.setEnabled(true);
         }
         catch(ArrayIndexOutOfBoundsException e){
             System.out.println("Le graphe ne correspond pas au format attendu (erreur de synthaxe)");
@@ -650,6 +661,16 @@ public class GUI extends javax.swing.JFrame {
         GrapheApp grapheapp = new GrapheApp();
     }
 
+    private void closeFileActionPerformed(java.awt.event.ActionEvent evt) {
+        this.closeFile.setEnabled(false);
+        //reset the graph
+        this.graphe = null;
+        this.fileName = null;
+        this.app.graphe = null;
+        this.Canvas.clear();
+    }
+    
+
     private void setNombres(){
         try{
             nbVille.setText("Nombre : " + this.app.getGraphe().getNbVille());
@@ -759,25 +780,24 @@ public class GUI extends javax.swing.JFrame {
         return est2Distance;
     }
 
-    
-
     public GrapheDraw getCanvas() {
         return Canvas;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private static GrapheDraw Canvas;
-    private static javax.swing.JCheckBox cb_loisirs;
-    private static javax.swing.JCheckBox cb_restaurant;
-    private static javax.swing.JCheckBox cb_ville;
-    private static javax.swing.JCheckBox cb_departementale;
-    private static javax.swing.JCheckBox cb_nationale;
-    private static javax.swing.JCheckBox cb_autoroute;
+    private GrapheDraw Canvas;
+    private javax.swing.JCheckBox cb_loisirs;
+    private javax.swing.JCheckBox cb_restaurant;
+    private javax.swing.JCheckBox cb_ville;
+    private javax.swing.JCheckBox cb_departementale;
+    private javax.swing.JCheckBox cb_nationale;
+    private javax.swing.JCheckBox cb_autoroute;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem newWindow;
+    private javax.swing.JMenuItem closeFile;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JToolBar jToolBar1;

@@ -24,7 +24,7 @@ public class GrapheApp {
     private Matrice matriceBool;
     private MatriceDouble matriceVal;
     private MatriceString liens;
-    private Graphe graphe;
+    public Graphe graphe;
 
     /**
      * @param args the command line arguments
