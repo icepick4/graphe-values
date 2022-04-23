@@ -99,6 +99,8 @@ public class GUI extends javax.swing.JFrame {
         modifyFile = new javax.swing.JMenuItem();
         newWindow = new javax.swing.JMenuItem();
         closeFile = new javax.swing.JMenuItem();
+        affichage_menu = new javax.swing.JMenu();
+        options_menu = new javax.swing.JCheckBoxMenuItem();
         jMenu2 = new javax.swing.JMenu();
         
         jFileChooser1.setCurrentDirectory(new java.io.File("./inputFiles"));
@@ -449,6 +451,16 @@ public class GUI extends javax.swing.JFrame {
         });
 
         setJMenuBar(jMenuBar1);
+        affichage_menu.setText("Affichage");
+        options_menu.setSelected(true);
+        options_menu.setText("Menu d'options");
+        options_menu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                options_menuActionPerformed(evt);
+            }
+        });
+        affichage_menu.add(options_menu);
+        jMenuBar1.add(affichage_menu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -490,6 +502,10 @@ public class GUI extends javax.swing.JFrame {
         jFrame1.dispose();
     }//GEN-LAST:event_jFileChooser1ActionPerformed
 
+    private void options_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_options_menuActionPerformed
+        this.jToolBar1.setVisible(this.options_menu.isSelected());
+    }
+    
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
         Canvas.clear();
         try{
@@ -812,6 +828,8 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem modifyFile;
     private javax.swing.JPanel toolBarPan;
     private javax.swing.JLabel labelAction;
+    private javax.swing.JCheckBoxMenuItem options_menu;
+    private javax.swing.JMenu affichage_menu;
     private static javax.swing.JRadioButton selectNoeud;
     private static javax.swing.JRadioButton resto1Distance;
     private static javax.swing.JRadioButton ville1Distance;
