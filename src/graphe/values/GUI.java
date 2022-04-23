@@ -41,7 +41,7 @@ public class GUI extends javax.swing.JFrame {
     public GUI(GrapheApp graphe) {
         this.app = graphe;
         this.graphe = this.app.getGraphe();
-        initComponents();
+        this.initComponents();
         this.fileName = null;
         this.opened = false;
     }
@@ -97,6 +97,7 @@ public class GUI extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         openFile = new javax.swing.JMenuItem();
         modifyFile = new javax.swing.JMenuItem();
+        newWindow = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         
         jFileChooser1.setCurrentDirectory(new java.io.File("./inputFiles"));
@@ -129,7 +130,7 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 formComponentResized(evt);
@@ -407,7 +408,17 @@ public class GUI extends javax.swing.JFrame {
                 openFileActionPerformed(evt);
             }
         });
+
+        newWindow.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        newWindow.setText("Nouvelle fenêtre");
+        newWindow.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newWindowActionPerformed(evt);
+            }
+        });
+        
         jMenu1.add(openFile);
+        jMenu1.add(newWindow);
 
         jMenuBar1.add(jMenu1);
 
@@ -635,6 +646,10 @@ public class GUI extends javax.swing.JFrame {
         jFrame1.setVisible(true);
     }
 
+    private void newWindowActionPerformed(java.awt.event.ActionEvent evt) {
+        GrapheApp grapheapp = new GrapheApp();
+    }
+
     private void setNombres(){
         try{
             nbVille.setText("Nombre : " + this.app.getGraphe().getNbVille());
@@ -762,6 +777,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuItem newWindow;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JToolBar jToolBar1;
