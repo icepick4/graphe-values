@@ -19,27 +19,31 @@ import java.io.DataInputStream;
  * @version 1.0
  */
 public class GrapheApp {
-    static GUI gui;
+    private GUI gui;
     // static GrapheDraw frame;
-    private static Matrice matriceBool;
-    private static MatriceDouble matriceVal;
-    private static MatriceString liens;
-    private static Graphe graphe;
+    private Matrice matriceBool;
+    private MatriceDouble matriceVal;
+    private MatriceString liens;
+    public Graphe graphe;
 
     /**
      * @param args the command line arguments
      * @throws IOException
      */
     public static void main(String[] args) throws IOException {
+       GrapheApp grapheapp = new GrapheApp();
+    }
+
+    public GrapheApp(){
         FlatDarkLaf.setup();
-        gui = new GUI();
+        gui = new GUI(this);
         gui.setVisible(true);
     }
 
     /**
      * Permet d'ouvrir un fichier et de l'afficher
      */
-    public static void initApp() throws IOException {
+    public void initApp() throws IOException {
         String file = null;
         while (!gui.opened) {
             try {
@@ -123,50 +127,49 @@ public class GrapheApp {
         setMatriceVal(new MatriceDouble(matricevaluations));
         setLiens(new MatriceString(matriceliens));
         setGraphe(noeud);
-        graphe = GrapheApp.getGraphe();
         // print result of graphe.floydWarshallPredecesseurs()
         // graphe.floydWarshallPredesseceurs().afficher();
         // System.out.print(graphe.floydWarshallPredesseceurs().matrice[21][7]);
 
         // System.out.println(graphe.floydWarshallChemin(21,7));
 
-        GrapheDraw Canvas = GUI.getCanvas();
+        GrapheDraw Canvas = this.gui.getCanvas();
         Canvas.clear();
-        Canvas.drawGraph(graphe);
+        Canvas.drawGraph(this.graphe);
     }
 
     // setters
-    public static void setMatriceBool(Matrice matriceBool) {
-        GrapheApp.matriceBool = matriceBool;
+    public void setMatriceBool(Matrice matriceBool) {
+        this.matriceBool = matriceBool;
     }
 
-    public static void setMatriceVal(MatriceDouble matriceVal) {
-        GrapheApp.matriceVal = matriceVal;
+    public void setMatriceVal(MatriceDouble matriceVal) {
+        this.matriceVal = matriceVal;
     }
 
-    public static void setLiens(MatriceString liens) {
-        GrapheApp.liens = liens;
+    public void setLiens(MatriceString liens) {
+        this.liens = liens;
     }
 
-    public static void setGraphe(ArrayList<String[]> noeud) {
-        GrapheApp.graphe = new Graphe(getMatriceBool(), getMatriceVal(), getLiens(), noeud);
+    public void setGraphe(ArrayList<String[]> noeud) {
+        this.graphe = new Graphe(getMatriceBool(), getMatriceVal(), getLiens(), noeud);
     }
 
     // getters
-    public static Matrice getMatriceBool() {
-        return GrapheApp.matriceBool;
+    public Matrice getMatriceBool() {
+        return this.matriceBool;
     }
 
-    public static MatriceDouble getMatriceVal() {
-        return GrapheApp.matriceVal;
+    public MatriceDouble getMatriceVal() {
+        return this.matriceVal;
     }
 
-    public static MatriceString getLiens() {
-        return GrapheApp.liens;
+    public MatriceString getLiens() {
+        return this.liens;
     }
 
-    public static Graphe getGraphe() {
-        return GrapheApp.graphe;
+    public Graphe getGraphe() {
+        return this.graphe;
     }
 
     /**

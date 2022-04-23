@@ -20,13 +20,14 @@ import java.awt.RenderingHints;
 public class GrapheDraw extends JPanel {
     private ArrayList<Node> nodes;
     private ArrayList<Edge> edges;
-
+	private GUI gui;
 	/**
 	 * Constructeur de la classe GrapheDraw
 	 */
-    public GrapheDraw() {
+    public GrapheDraw(GUI gui) {
 		this.nodes = new ArrayList<Node>();
 		this.edges = new ArrayList<Edge>();
+		this.gui = gui;
     }
     
 	public int getNbNodes() {
@@ -54,10 +55,10 @@ public class GrapheDraw extends JPanel {
 		//add a node at pixel (x,y)
 		int x = 500,y = 500;
 		while (!this.isValid(x,y)) {
-			x = getRandomNumber(50, GUI.getCanvas().getWidth() - 50);
-			y = getRandomNumber(50, GUI.getCanvas().getHeight() - 50);
+			x = getRandomNumber(50, this.gui.getCanvas().getWidth() - 50);
+			y = getRandomNumber(50, this.gui.getCanvas().getHeight() - 50);
 		}
-		nodes.add(new Node(name,type, x,y));
+		nodes.add(new Node(this.gui, name,type, x,y));
 		this.repaint();
     }
 
@@ -166,8 +167,8 @@ public class GrapheDraw extends JPanel {
 		for (int i = 0; i < this.nodes.size(); i++) {
 			int x = 500, y = 500;
 			while(!this.isValid(x, y)) {
-				x = getRandomNumber(50, GUI.getCanvas().getWidth() - 50);
-				y = getRandomNumber(50, GUI.getCanvas().getHeight() - 50);
+				x = getRandomNumber(50, this.gui.getCanvas().getWidth() - 50);
+				y = getRandomNumber(50, this.gui.getCanvas().getHeight() - 50);
 			}
 			this.nodes.get(i).x = x;
 			this.nodes.get(i).y = y;
@@ -180,9 +181,9 @@ public class GrapheDraw extends JPanel {
 	public void clear() {
 		this.nodes = new ArrayList<Node>();
 		this.edges = new ArrayList<Edge>();
-		Graphics g = GUI.getCanvas().getGraphics();
+		Graphics g = this.gui.getCanvas().getGraphics();
 		g.setColor(Color.white);
-		g.fillRect(0,0,GUI.getCanvas().getWidth(),GUI.getCanvas().getHeight());
+		g.fillRect(0,0,this.gui.getCanvas().getWidth(),this.gui.getCanvas().getHeight());
 	}
 	
 	/**
@@ -212,25 +213,25 @@ public class GrapheDraw extends JPanel {
 	
 	public boolean canAddNode(String type){
 		if(type.equals("V")){
-			return GUI.getCb_ville().isSelected();
+			return this.gui.getCb_ville().isSelected();
 		}
 		else if(type.equals("L")){
-			return GUI.getCb_loisirs().isSelected();
+			return this.gui.getCb_loisirs().isSelected();
 		}
 		else{
-			return GUI.getCb_restaurant().isSelected();
+			return this.gui.getCb_restaurant().isSelected();
 		}
 	} 
 
 	public boolean canAddEdge(String type){
 		if(type.equals("A")){
-			return GUI.getCb_autoroute().isSelected();
+			return this.gui.getCb_autoroute().isSelected();
 		}
 		else if(type.equals("N")){
-			return GUI.getCb_nationale().isSelected();
+			return this.gui.getCb_nationale().isSelected();
 		}
 		else{
-			return GUI.getCb_departementale().isSelected();
+			return this.gui.getCb_departementale().isSelected();
 		}
 	}
 

@@ -13,6 +13,7 @@ public class Node {
     String name;
     String type;
     boolean selected;
+    GUI gui;
     
     /**
      * Constructeur de la classe Node
@@ -21,13 +22,14 @@ public class Node {
      * @param x Abscisse du sommet
      * @param y Ordonnée du sommet
      */
-    public Node(String name, String type, int x, int y) {
+    public Node(GUI gui, String name, String type, int x, int y) {
         this.x = x;
         this.y = y;
         this.type = type;
         this.name = name;
         this.selected = false;
-        Graphics g = GUI.getCanvas().getGraphics();
+        this.gui = gui;
+        Graphics g = this.gui.getCanvas().getGraphics();
         FontMetrics f = g.getFontMetrics();
         this.height = 50;
         this.width = f.stringWidth(this.name)+50/2;
@@ -65,7 +67,7 @@ public class Node {
      * Reset la taille du noeud
      */
     public void resetSize(){
-        Graphics g = GUI.getCanvas().getGraphics();
+        Graphics g = this.gui.getCanvas().getGraphics();
         FontMetrics f = g.getFontMetrics();
         this.height = 50;
         this.width = f.stringWidth(this.name)+50/2;
