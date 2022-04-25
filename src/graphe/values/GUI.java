@@ -1,8 +1,3 @@
-  
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/this.guiForms/JFrame.java to edit this template
- */
 package graphe.values;
 
 import java.io.IOException;
@@ -26,6 +21,7 @@ import java.awt.Color;
 /**
  *
  * @author matis
+ * @author Rémi JARA
  * @version 1.0
  */
 public class GUI extends javax.swing.JFrame {
@@ -674,7 +670,7 @@ public class GUI extends javax.swing.JFrame {
     }
 
     private void newWindowActionPerformed(java.awt.event.ActionEvent evt) {
-        GrapheApp grapheapp = new GrapheApp();
+        new GrapheApp();
     }
 
     private void closeFileActionPerformed(java.awt.event.ActionEvent evt) {

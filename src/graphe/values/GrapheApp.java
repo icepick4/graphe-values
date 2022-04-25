@@ -31,7 +31,7 @@ public class GrapheApp {
      * @throws IOException
      */
     public static void main(String[] args) throws IOException {
-       GrapheApp grapheapp = new GrapheApp();
+       new GrapheApp();
     }
 
     public GrapheApp(){
