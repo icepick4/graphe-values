@@ -21,6 +21,7 @@ public class GrapheDraw extends JPanel {
     private ArrayList<Node> nodes;
     private ArrayList<Edge> edges;
 	private GUI gui;
+	private Color bgColor;
 	/**
 	 * Constructeur de la classe GrapheDraw
 	 */
@@ -28,6 +29,7 @@ public class GrapheDraw extends JPanel {
 		this.nodes = new ArrayList<Node>();
 		this.edges = new ArrayList<Edge>();
 		this.gui = gui;
+		this.bgColor = Color.WHITE;
     }
     
 	public int getNbNodes() {
@@ -96,6 +98,9 @@ public class GrapheDraw extends JPanel {
     public void paint(Graphics g) { // draw the nodes and edges
 		//clear g
 		g.clearRect(0,0,1920,1080);
+		//paint the background with this.bgColor
+		g.setColor(this.bgColor);
+		g.fillRect(0,0,1920,1080);
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
@@ -266,5 +271,10 @@ public class GrapheDraw extends JPanel {
     public static int getRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
     }
+
+	public void setBackground(Color c) {
+		this.bgColor = c;
+		this.repaint();
+	}
 
 }

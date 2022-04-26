@@ -9,6 +9,8 @@ import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JRadioButton;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import java.awt.Dimension;
 import java.awt.Font;
@@ -37,6 +39,7 @@ public class GUI extends javax.swing.JFrame {
     public GUI(GrapheApp graphe) {
         this.app = graphe;
         this.graphe = this.app.getGraphe();
+
         this.initComponents();
         this.fileName = null;
         this.opened = false;
@@ -95,9 +98,13 @@ public class GUI extends javax.swing.JFrame {
         modifyFile = new javax.swing.JMenuItem();
         newWindow = new javax.swing.JMenuItem();
         closeFile = new javax.swing.JMenuItem();
+        quitter = new javax.swing.JMenuItem();
         affichage_menu = new javax.swing.JMenu();
         options_menu = new javax.swing.JCheckBoxMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        couleur_fond_jframe = new javax.swing.JFrame();
+        couleur_fond_chooser = new javax.swing.JColorChooser();
+        couleur_fond = new javax.swing.JMenuItem();
         
         jFileChooser1.setCurrentDirectory(new java.io.File("./inputFiles"));
         jFileChooser1.setDialogTitle("Choisissez un fichier de Graphe");
@@ -127,6 +134,36 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+        );
+
+        couleur_fond_jframe.setTitle("Choisir une couleur de fond");
+        couleur_fond_chooser.setColor(Color.BLACK);
+        couleur_fond_chooser.getSelectionModel().addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                couleur_chooser_fondActionPerformed(e);
+            }
+        });
+
+        javax.swing.GroupLayout couleur_fond_jframeLayout = new javax.swing.GroupLayout(couleur_fond_jframe.getContentPane());
+        couleur_fond_jframe.getContentPane().setLayout(couleur_fond_jframeLayout);
+        couleur_fond_jframeLayout.setHorizontalGroup(
+            couleur_fond_jframeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 640, Short.MAX_VALUE)
+            .addGroup(couleur_fond_jframeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(couleur_fond_jframeLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(couleur_fond_chooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        couleur_fond_jframeLayout.setVerticalGroup(
+            couleur_fond_jframeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 324, Short.MAX_VALUE)
+            .addGroup(couleur_fond_jframeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(couleur_fond_jframeLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(couleur_fond_chooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -296,7 +333,6 @@ public class GUI extends javax.swing.JFrame {
         toolBarPanLayout.setHorizontalGroup(
             toolBarPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(toolBarPanLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(toolBarPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cb_loisirs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cb_restaurant, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
@@ -311,9 +347,8 @@ public class GUI extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                 ))
                         .addComponent(cb_autoroute, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cb_nationale, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                        .addComponent(cb_nationale, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cb_departementale, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0,0,Short.MAX_VALUE)
                         .addComponent(labelAction, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(selectNoeud, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(resto1Distance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -329,9 +364,7 @@ public class GUI extends javax.swing.JFrame {
         toolBarPanLayout.setVerticalGroup(
             toolBarPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(toolBarPanLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
                 .addComponent(lbl_affichage)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cb_ville)
                 .addComponent(nbVille)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -346,7 +379,6 @@ public class GUI extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cb_autoroute)
                 .addComponent(nbAutoroute)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -361,7 +393,6 @@ public class GUI extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGap(18, 18, 18)
                 .addComponent(labelAction, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(selectNoeud, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(resto1Distance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -423,17 +454,24 @@ public class GUI extends javax.swing.JFrame {
                 closeFileActionPerformed(evt);
             }
         });
+
+        quitter.setText("Quitter");
+        quitter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                quitterActionPerformed(evt);
+            }
+        });
         
         jMenu1.add(openFile);
         jMenu1.add(newWindow);
         jMenu1.add(closeFile);
+        jMenu1.add(quitter);
 
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Modifier");
         jMenu2.add(modifyFile);
         jMenuBar1.add(jMenu2);
-        modifyFile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         modifyFile.setText("Ouvrir avec le Bloc-Notes");
         modifyFile.setToolTipText("");
         modifyFile.addActionListener(new java.awt.event.ActionListener() {
@@ -456,6 +494,15 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         affichage_menu.add(options_menu);
+
+        couleur_fond.setText("Couleur de fond");
+        couleur_fond.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                couleur_fondActionPerformed(evt);
+            }
+        });
+        affichage_menu.add(couleur_fond);
+        
         jMenuBar1.add(affichage_menu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -473,7 +520,7 @@ public class GUI extends javax.swing.JFrame {
             .addComponent(Canvas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        pack();
+        this.pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) throws IOException {//GEN-FIRST:event_jFileChooser1ActionPerformed
@@ -514,6 +561,17 @@ public class GUI extends javax.swing.JFrame {
             //pas de graphe chargé
         }
     }//GEN-LAST:event_formComponentResized
+
+    private void couleur_fondActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choisir_fontActionPerformed
+        couleur_fond_jframe.pack();
+        couleur_fond_jframe.setLocationRelativeTo(null);
+        couleur_fond_jframe.setVisible(true);
+    }
+
+    private void couleur_chooser_fondActionPerformed(ChangeEvent evt) {//GEN-FIRST:event_couleur_chooserActionPerformed
+        //set the font color
+        this.Canvas.setBackground(couleur_fond_chooser.getColor());
+    }
 
     private void selectNoeudActionPerformed(java.awt.event.ActionEvent evt){
         this.removeListeners();
@@ -681,6 +739,11 @@ public class GUI extends javax.swing.JFrame {
         this.app.graphe = null;
         this.Canvas.clear();
     }
+
+    private void quitterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitterActionPerformed
+        //close the jFrame
+        this.dispose();
+    }
     
 
     private void setNombres(){
@@ -822,20 +885,34 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel nbLoisir;
     private javax.swing.JMenuItem openFile;
     private javax.swing.JMenuItem modifyFile;
+    private javax.swing.JMenuItem quitter;
     private javax.swing.JPanel toolBarPan;
     private javax.swing.JLabel labelAction;
     private javax.swing.JCheckBoxMenuItem options_menu;
     private javax.swing.JMenu affichage_menu;
-    private static javax.swing.JRadioButton selectNoeud;
-    private static javax.swing.JRadioButton resto1Distance;
-    private static javax.swing.JRadioButton ville1Distance;
-    private static javax.swing.JRadioButton loisir1Distance;
-    private static javax.swing.JRadioButton est2Distance;
-    private static javax.swing.JRadioButton plusGastro;
-    private static javax.swing.JRadioButton plusOuvert;
-    private static javax.swing.JRadioButton plusCulturel;
-    private static javax.swing.JRadioButton plusCourteDistance;
-    private static javax.swing.JRadioButton plusCourtChemin;
+    private javax.swing.JRadioButton selectNoeud;
+    private javax.swing.JRadioButton resto1Distance;
+    private javax.swing.JRadioButton ville1Distance;
+    private javax.swing.JRadioButton loisir1Distance;
+    private javax.swing.JRadioButton est2Distance;
+    private javax.swing.JRadioButton plusGastro;
+    private javax.swing.JRadioButton plusOuvert;
+    private javax.swing.JRadioButton plusCulturel;
+    private javax.swing.JRadioButton plusCourteDistance;
+    private javax.swing.JRadioButton plusCourtChemin;
+    /**
+     * Menu Item pour choisir la couleur de fond
+     */
+    private javax.swing.JMenuItem couleur_fond;
+    /**
+     * JFrame du Color Chooser pour choisir la couleur de fond
+     */
+    private javax.swing.JFrame couleur_fond_jframe;
+    /**
+     * Color Chooser pour choisir la couleur de fond
+     */
+    private javax.swing.JColorChooser couleur_fond_chooser;
+
     // End of variables declaration//GEN-END:variables
 }
 

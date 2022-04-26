@@ -20,7 +20,6 @@ import java.io.DataInputStream;
  */
 public class GrapheApp {
     private GUI gui;
-    // static GrapheDraw frame;
     private Matrice matriceBool;
     private MatriceDouble matriceVal;
     private MatriceString liens;
