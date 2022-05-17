@@ -312,32 +312,16 @@ public class ClickNode implements MouseListener, MouseMotionListener {
         GrapheDraw Canvas = this.gui.getCanvas();
         int x = e.getX();
         int y = e.getY();
-        for (int i = 0; i < Canvas.getNbEdges(); i++) {
-            double posDebX, posDebY, posFinX, posFinY;
-            //set the pos which is on the left
-            if (Canvas.getEdges().get(i).getPos1X() < Canvas.getEdges().get(i).getPos2X()) {
-                posDebX = Canvas.getEdges().get(i).getPos1X();
-                posFinX = Canvas.getEdges().get(i).getPos2X();
-                posDebY = Canvas.getEdges().get(i).getPos1Y() + 25;
-                posFinY = Canvas.getEdges().get(i).getPos2Y() + 25;
-            } else {
-                posDebX = Canvas.getEdges().get(i).getPos2X();
-                posFinX = Canvas.getEdges().get(i).getPos1X();
-                posDebY = Canvas.getEdges().get(i).getPos2Y() + 25;
-                posFinY = Canvas.getEdges().get(i).getPos1Y() + 25;
-            }
-
-            double largeur = Math.abs((posFinY - posDebY)*x - (posFinX - posDebX)*y + posFinX*posDebY - posFinY*posDebX);
-            double longueur = Math.sqrt((posFinX - posDebX)*(posFinX - posDebX) + (posFinY - posDebY)*(posFinY - posDebY));
-            if(largeur/longueur < 7 && x > posDebX && x < posFinX){
-                Canvas.getEdges().get(i).setWidth(7);
-                //repaint the canvas
+        for (int i = 0; i < Canvas.getNbNodes(); i++) {
+            if (x >= Canvas.getNodes().get(i).getPosX() - 50 && x <= Canvas.getNodes().get(i).getPosX() + 50
+                    && y >= Canvas.getNodes().get(i).getPosY() + 10 && y <= Canvas.getNodes().get(i).getPosY() + 50) {
+                //this node is selected
+                Canvas.getNodes().get(i).setSelected(true);
                 Canvas.repaint();
             }
             else{
-                //decrease width of the edge
-                Canvas.getEdges().get(i).setWidth(1);
-                //repaint the canvas
+                //this node is not selected
+                Canvas.getNodes().get(i).setSelected(false);
                 Canvas.repaint();
             }
         }

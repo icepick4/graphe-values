@@ -29,6 +29,7 @@ public class GUI extends javax.swing.JFrame {
     public boolean opened;
     private HoverMoveNode click;
     private ClickNode twoNode;
+    private ClickEdge clickEdge;
     /**
      * Creates new form GUI
      */
@@ -56,6 +57,7 @@ public class GUI extends javax.swing.JFrame {
         this.setMinimumSize(new Dimension(1400, 850));
         this.click = new HoverMoveNode(this);
         this.twoNode = new ClickNode(this.app, this);
+        this.clickEdge = new ClickEdge(this);
         this.addMouseMotionListener(click);
         this.addMouseListener(click);
 
@@ -644,8 +646,8 @@ public class GUI extends javax.swing.JFrame {
 
     private void selectEdgeActionPerformed(java.awt.event.ActionEvent evt){
         this.removeListeners();
-        this.addMouseListener(twoNode);
-        this.addMouseMotionListener(twoNode);
+        this.addMouseListener(clickEdge);
+        this.addMouseMotionListener(clickEdge);
     }
 
     private void removeListeners(){
@@ -653,6 +655,8 @@ public class GUI extends javax.swing.JFrame {
         this.removeMouseMotionListener(click);
         this.removeMouseListener(twoNode);
         this.removeMouseMotionListener(twoNode);
+        this.removeMouseListener(clickEdge);
+        this.removeMouseMotionListener(clickEdge);
         this.twoNode.resetNodes();
         this.twoNode.resetSelections(Canvas);
         Canvas.repaint();
