@@ -1,0 +1,8 @@
+V,Villefontaine:A,17::V,Heyrieux;A,3::V,Diemoz;;
+V,Heyrieux:A,17::V,Villefontaine;D,6::V,Saint-Pierre de Chandieu;A,22::V,Saint-Priest;A,23::L,Eurexpo;D,8::V,Frontonas;;
+V,Diemoz:A,3::V,Villefontaine;N,35::V,Oullins;;
+L,Théatre Gallo Romain:A,6::R,Le Bateau Bellona;A,8::R,Poupées Russes;A,7::V,Ecully;D,3::R,Pitaya;;
+R,Pitaya:D,3::L,Théatre Gallo Romain;A,5::R,Le Bateau Bellona;D,3::L,Parc sergent Blandan;D,1::V,Lyon;;
+R,Le Bateau Bellona:N,8::L,Aquarium de Lyon;A,24::V,Saint-Pierre de Chandieu;D,0.6::V,Vénissieux;A,5::R,Pitaya;A,6::L,Théatre Gallo Romain;;
+L,Aquarium de Lyon:D,2::V,Oullins;D,3::V,Pierre-Bénite;N,8::R,Le Bateau Bellona;;
+V,Oullins:N,35::V,Diemoz;D,3::V,Pierre-Bénite;D,2::L,Aquarium de Lyon;A,11::V,Ecully;;
