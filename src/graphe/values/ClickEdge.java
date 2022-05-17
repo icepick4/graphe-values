@@ -43,10 +43,11 @@ public class ClickEdge implements MouseListener, MouseMotionListener{
                     //display names of the nodes in the JOptionPane
                     String nameI = Canvas.getNodes().get(I).getName();
                     String nameJ = Canvas.getNodes().get(J).getName();
-                    //display the JOptionPane
+                    //display the JOptionPanel
                     JOptionPane.showMessageDialog(null, "Noeud I : " + nameI + "\nNoeud J : " + nameJ);
                     //repaint the canvas
                     Canvas.repaint();
+                    return;
                 }
                 else{
                     //decrease width of the edge
@@ -94,7 +95,7 @@ public class ClickEdge implements MouseListener, MouseMotionListener{
             }
         }
     }
-    
+
     @Override
     public void mouseDragged(MouseEvent e) {
     }

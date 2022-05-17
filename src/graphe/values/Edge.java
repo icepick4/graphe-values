@@ -77,8 +77,4 @@ public class Edge {
     public int getPos2Y() {
         return pos2[1];
     }
-
-
-
-
 }
