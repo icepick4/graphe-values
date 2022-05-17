@@ -58,6 +58,7 @@ public class GUI extends javax.swing.JFrame {
         this.twoNode = new ClickNode(this.app, this);
         this.addMouseMotionListener(click);
         this.addMouseListener(click);
+
         jFrame1 = new javax.swing.JFrame();
         jFileChooser1 = new javax.swing.JFileChooser();
         jToolBar1 = new javax.swing.JToolBar();
@@ -86,6 +87,7 @@ public class GUI extends javax.swing.JFrame {
         plusCourteDistance = new javax.swing.JRadioButton();
         plusCourtChemin = new javax.swing.JRadioButton();
         est2Distance = new javax.swing.JRadioButton();
+        selectEdge = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
         Canvas = new GrapheDraw(this);
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -292,6 +294,12 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
+        selectEdge.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                selectEdgeActionPerformed(e);
+            }
+        });
+
         nbVille.setText("Nombre : 0");
         nbRestaurant.setText("Nombre : 0");
         nbLoisir.setText("Nombre : 0");
@@ -310,6 +318,7 @@ public class GUI extends javax.swing.JFrame {
         group.add(plusCourteDistance);
         group.add(plusCourtChemin);
         group.add(est2Distance);
+        group.add(selectEdge);
 
         labelAction.setFont(new java.awt.Font("Arial", Font.BOLD, 20));
         labelAction.setText("Actions :");
@@ -323,6 +332,7 @@ public class GUI extends javax.swing.JFrame {
         plusCourteDistance.setText("Plus Courte Distance (valeur)");
         plusCourtChemin.setText("Plus Court Chemin");
         est2Distance.setText("Est 2 Distance ?");
+        selectEdge.setText("Infos arête");
 
         javax.swing.GroupLayout toolBarPanLayout = new javax.swing.GroupLayout(toolBarPan);
         toolBarPan.setLayout(toolBarPanLayout);
@@ -356,6 +366,7 @@ public class GUI extends javax.swing.JFrame {
                         .addComponent(plusCourteDistance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(plusCourtChemin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(est2Distance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(selectEdge, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         toolBarPanLayout.setVerticalGroup(
             toolBarPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -408,6 +419,8 @@ public class GUI extends javax.swing.JFrame {
                 .addComponent(plusCourtChemin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap( javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(est2Distance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap( javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(selectEdge, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap(421, Short.MAX_VALUE))
                 
         );
@@ -624,6 +637,12 @@ public class GUI extends javax.swing.JFrame {
     }
 
     private void est2DistanceActionPerformed(java.awt.event.ActionEvent evt){
+        this.removeListeners();
+        this.addMouseListener(twoNode);
+        this.addMouseMotionListener(twoNode);
+    }
+
+    private void selectEdgeActionPerformed(java.awt.event.ActionEvent evt){
         this.removeListeners();
         this.addMouseListener(twoNode);
         this.addMouseMotionListener(twoNode);
@@ -855,6 +874,10 @@ public class GUI extends javax.swing.JFrame {
         return Canvas;
     }
 
+    public JRadioButton getRb_selectEdge(){
+        return selectEdge;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private GrapheDraw Canvas;
     private javax.swing.JCheckBox cb_loisirs;
@@ -896,6 +919,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JRadioButton plusCulturel;
     private javax.swing.JRadioButton plusCourteDistance;
     private javax.swing.JRadioButton plusCourtChemin;
+    private javax.swing.JRadioButton selectEdge;
     /**
      * Menu Item pour choisir la couleur de fond
      */

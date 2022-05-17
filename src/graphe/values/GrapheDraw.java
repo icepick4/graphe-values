@@ -40,6 +40,14 @@ public class GrapheDraw extends JPanel {
 		return nodes;
 	}
 
+	public int getNbEdges() {
+		return edges.size();
+	}
+
+	public ArrayList<Edge> getEdges() {
+		return edges;
+	}
+
 	/**
 	 * Permet de modifier la liste des noeuds
 	 * @param nodes
@@ -88,7 +96,7 @@ public class GrapheDraw extends JPanel {
 	 */
     public void addEdge(String type, double val, int i, int j) {
 		//add an edge between nodes i and j
-		edges.add(new Edge(type, val, i,j));
+		edges.add(new Edge(type, val, i, j, nodes.get(i).x-nodes.get(i).width/2, nodes.get(i).y-nodes.get(i).width/2, nodes.get(j).x-nodes.get(j).width/2, nodes.get(j).y-nodes.get(j).width/2));
 		this.repaint();
     }
     
@@ -120,10 +128,13 @@ public class GrapheDraw extends JPanel {
 			int x = 100;
 			int y = 100;
 			//increase the width of the line
-			g2d.drawLine(nodes.get(e.i).x, nodes.get(e.i).y, nodes.get(e.j).x, nodes.get(e.j).y);
+			g2d.setStroke(new java.awt.BasicStroke(e.getWidth(), java.awt.BasicStroke.CAP_ROUND, java.awt.BasicStroke.JOIN_ROUND));
+			g2d.drawLine(nodes.get(e.getNodeI()).x, nodes.get(e.getNodeI()).y, nodes.get(e.getNodeJ()).x, nodes.get(e.getNodeJ()).y);
+			e.setPos(nodes.get(e.getNodeI()).x, nodes.get(e.getNodeI()).y, nodes.get(e.getNodeJ()).x, nodes.get(e.getNodeJ()).y);
+
 			//get middle of edge with pos of nodes
-			x = (nodes.get(e.i).x + nodes.get(e.j).x)/2;
-			y = (nodes.get(e.i).y + nodes.get(e.j).y)/2;
+			x = (nodes.get(e.getNodeI()).x + nodes.get(e.getNodeJ()).x)/2;
+			y = (nodes.get(e.getNodeI()).y + nodes.get(e.getNodeJ()).y)/2;
 			g2d.setColor(Color.BLACK);
 			//convert e.val to string
 			String val = Double.toString(e.val);
