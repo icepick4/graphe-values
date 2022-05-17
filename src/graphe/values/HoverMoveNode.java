@@ -61,32 +61,32 @@ public class HoverMoveNode implements MouseListener, MouseMotionListener{
         for(int i = 0; i < Canvas.getNbNodes(); i++){
             if(x >= Canvas.getNodes().get(i).getPosX() - 50 && x <= Canvas.getNodes().get(i).getPosX() + 50 && y >= Canvas.getNodes().get(i).getPosY() + 10 && y <= Canvas.getNodes().get(i).getPosY() + 50){
                 try{
-                    if(Canvas.getNodes().get(this.node).height < 75){
-                        Canvas.getNodes().get(this.node).height = Canvas.getNodes().get(this.node).height + 5;
+                    if(Canvas.getNodes().get(this.node).getHeight() < 75){
+                        Canvas.getNodes().get(i).setHeight(Canvas.getNodes().get(i).getHeight() + 5);
                     }
-                    if (Canvas.getNodes().get(this.node).width < 90){
-                        Canvas.getNodes().get(this.node).width = Canvas.getNodes().get(this.node).width + 5;
+                    if (Canvas.getNodes().get(this.node).getWidth() < 90){
+                        Canvas.getNodes().get(i).setWidth(Canvas.getNodes().get(i).getWidth() + 5);
                     }   
                 }
                 catch(IndexOutOfBoundsException ee){
                     //pas de noeud selectionné
                 }
                 if(!this.clicked || this.node == -1){
-                    if(Canvas.getNodes().get(i).height < 75){
-                        Canvas.getNodes().get(i).height = Canvas.getNodes().get(i).height + 5;
+                    if(Canvas.getNodes().get(i).getHeight() < 75){
+                        Canvas.getNodes().get(i).setHeight(Canvas.getNodes().get(i).getHeight() + 5);
                     }
-                    if (Canvas.getNodes().get(i).width < 90){
-                        Canvas.getNodes().get(i).width = Canvas.getNodes().get(i).width + 5;
+                    if (Canvas.getNodes().get(i).getWidth() < 90){
+                        Canvas.getNodes().get(i).setWidth(Canvas.getNodes().get(i).getWidth() + 5);
                     }
                 } 
             }
             else if (this.clicked){
                 try{
-                    if(Canvas.getNodes().get(this.node).height < 75){
-                        Canvas.getNodes().get(this.node).height = 75;
+                    if(Canvas.getNodes().get(this.node).getHeight() < 75){
+                        Canvas.getNodes().get(i).setHeight(75);
                     }
-                    if (Canvas.getNodes().get(this.node).width < 90){
-                        Canvas.getNodes().get(this.node).width = 90;
+                    if (Canvas.getNodes().get(this.node).getWidth() < 90){
+                        Canvas.getNodes().get(i).setWidth(90);
                     }
                 }
                 catch(IndexOutOfBoundsException ee){

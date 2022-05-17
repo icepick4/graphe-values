@@ -44,7 +44,11 @@ public class ClickEdge implements MouseListener, MouseMotionListener{
                     String nameI = Canvas.getNodes().get(I).getName();
                     String nameJ = Canvas.getNodes().get(J).getName();
                     //display the JOptionPanel
-                    JOptionPane.showMessageDialog(null, "Noeud I : " + nameI + "\nNoeud J : " + nameJ);
+                    JOptionPane.showMessageDialog(null, "Noeud I : " + nameI + 
+                                                "\nNoeud J : " + nameJ + 
+                                                "\nPoids : " + Canvas.getEdges().get(i).getVal() +
+                                                "\nType: " + Canvas.getEdges().get(i).getType()                                            
+                                                );
                     //repaint the canvas
                     Canvas.repaint();
                     return;

@@ -80,7 +80,7 @@ public class GrapheDraw extends JPanel {
 	 */
 	public boolean isValid(int x, int y) {
 		for (Node n : this.nodes) {
-			if (Math.sqrt(Math.pow(n.x - x, 2) + Math.pow(n.y - y, 2)) < 100) {
+			if (Math.sqrt(Math.pow(n.getX() - x, 2) + Math.pow(n.getY() - y, 2)) < 100) {
 				return false;
 			}
 		}
@@ -96,7 +96,7 @@ public class GrapheDraw extends JPanel {
 	 */
     public void addEdge(String type, double val, int i, int j) {
 		//add an edge between nodes i and j
-		edges.add(new Edge(type, val, i, j, nodes.get(i).x-nodes.get(i).width/2, nodes.get(i).y-nodes.get(i).width/2, nodes.get(j).x-nodes.get(j).width/2, nodes.get(j).y-nodes.get(j).width/2));
+		edges.add(new Edge(type, val, i, j, nodes.get(i).getX()-nodes.get(i).getWidth()/2, nodes.get(i).getY()-nodes.get(i).getWidth()/2, nodes.get(j).getX()-nodes.get(j).getWidth()/2, nodes.get(j).getY()-nodes.get(j).getWidth()/2));
 		this.repaint();
     }
     
@@ -116,10 +116,10 @@ public class GrapheDraw extends JPanel {
 		g2d.setFont(new Font("Arial", Font.BOLD, 20));
 		FontMetrics f = g2d.getFontMetrics();
 		for (Edge e : this.edges) {
-			if (e.type.equals("A")){
+			if (e.getType().equals("A")){
 				g2d.setColor(Color.MAGENTA);
 			}
-			else if (e.type.equals("N")){
+			else if (e.getType().equals("N")){
 				g2d.setColor(Color.cyan);
 			}
 			else{
@@ -127,17 +127,18 @@ public class GrapheDraw extends JPanel {
 			}
 			int x = 100;
 			int y = 100;
+			
 			//increase the width of the line
 			g2d.setStroke(new java.awt.BasicStroke(e.getWidth(), java.awt.BasicStroke.CAP_ROUND, java.awt.BasicStroke.JOIN_ROUND));
-			g2d.drawLine(nodes.get(e.getNodeI()).x, nodes.get(e.getNodeI()).y, nodes.get(e.getNodeJ()).x, nodes.get(e.getNodeJ()).y);
-			e.setPos(nodes.get(e.getNodeI()).x, nodes.get(e.getNodeI()).y, nodes.get(e.getNodeJ()).x, nodes.get(e.getNodeJ()).y);
+			g2d.drawLine(nodes.get(e.getNodeI()).getX(), nodes.get(e.getNodeI()).getY(), nodes.get(e.getNodeJ()).getX(), nodes.get(e.getNodeJ()).getY());
+			e.setPos(nodes.get(e.getNodeI()).getX(), nodes.get(e.getNodeI()).getY(), nodes.get(e.getNodeJ()).getX(), nodes.get(e.getNodeJ()).getY());
 
 			//get middle of edge with pos of nodes
-			x = (nodes.get(e.getNodeI()).x + nodes.get(e.getNodeJ()).x)/2;
-			y = (nodes.get(e.getNodeI()).y + nodes.get(e.getNodeJ()).y)/2;
+			x = (nodes.get(e.getNodeI()).getX() + nodes.get(e.getNodeJ()).getX())/2;
+			y = (nodes.get(e.getNodeI()).getY() + nodes.get(e.getNodeJ()).getY())/2;
 			g2d.setColor(Color.BLACK);
 			//convert e.val to string
-			String val = Double.toString(e.val);
+			String val = Double.toString(e.getVal());
 			//if val ends with .0 remove it
 			if (val.endsWith(".0")) {
 				val = val.substring(0, val.length() - 2);
@@ -148,31 +149,31 @@ public class GrapheDraw extends JPanel {
 		g2d.setFont(new Font("Arial", Font.BOLD, 10));
 		f = g2d.getFontMetrics();
 		for (Node n : this.nodes) {
-			// int nodeWidth = Math.max(width, f.stringWidth(n.name)+width/2);
+			// int nodeWidth = Math.max(width, f.stringWidth(n.getName())+width/2);
 			//normal font
-			if (n.type.equals("V")){
+			if (n.getType().equals("V")){
 				g2d.setColor(Color.GREEN);
 			}
-			else if (n.type.equals("R")){
+			else if (n.getType().equals("R")){
 				g2d.setColor(Color.RED);
 			}
 			else{
 				g2d.setColor(Color.YELLOW);
 			}
 
-			g2d.fillOval(n.x-n.width/2, n.y-n.height/2, 
-				n.width, n.height);
+			g2d.fillOval(n.getX()-n.getWidth()/2, n.getY()-n.getHeight()/2, 
+				n.getWidth(), n.getHeight());
 			g2d.setColor(Color.black);
-			if(n.selected){
+			if(n.isSelected()){
 				((Graphics2D) g2d).setStroke(new java.awt.BasicStroke(3));
 			}
 			else{
 				((Graphics2D) g2d).setStroke(new java.awt.BasicStroke(1));
 			}
-			g2d.drawOval(n.x-n.width/2, n.y-n.height/2, 
-				n.width, n.height);
-			g2d.drawString(n.name, n.x-f.stringWidth(n.name)/2,
-				n.y+f.getHeight()/2);
+			g2d.drawOval(n.getX()-n.getWidth()/2, n.getY()-n.getHeight()/2, 
+				n.getWidth(), n.getHeight());
+			g2d.drawString(n.getName(), n.getX()-f.stringWidth(n.getName())/2,
+				n.getY()+f.getHeight()/2);
 		}
 	}
 
@@ -186,8 +187,8 @@ public class GrapheDraw extends JPanel {
 				x = getRandomNumber(50, this.gui.getCanvas().getWidth() - 50);
 				y = getRandomNumber(50, this.gui.getCanvas().getHeight() - 50);
 			}
-			this.nodes.get(i).x = x;
-			this.nodes.get(i).y = y;
+			this.nodes.get(i).setX(x);
+			this.nodes.get(i).setY(y);
 		}
 	}
 
@@ -254,15 +255,15 @@ public class GrapheDraw extends JPanel {
 	public int[] indexOfEdge(Graphe graphe, int i, int j){
 		//create String[] with type of node and name of this.nodes.get(i) and this.nodes.get(j)
 		String[] node1 = new String[2];
-		node1[0] = this.nodes.get(i).type;
-		node1[1] = this.nodes.get(i).name;
+		node1[0] = this.nodes.get(i).getType();
+		node1[1] = this.nodes.get(i).getName();
 		String[] node2 = new String[2];
-		node2[0] = this.nodes.get(j).type;
-		node2[1] = this.nodes.get(j).name;
+		node2[0] = this.nodes.get(j).getType();
+		node2[1] = this.nodes.get(j).getName();
 		//browse graphe.getNoeuds() when node1 is found x is the index
 		int x = 0;
 		for(int k = 0; k < graphe.getNoeuds().size(); k++){
-			//check is node1.name and node1.type is equal to graphe.getNoeuds().get(k)[0] and graphe.getNoeuds().get(k)[1]
+			//check is node1.getName() and node1.getType() is equal to graphe.getNoeuds().get(k)[0] and graphe.getNoeuds().get(k)[1]
 			if(node1[0].equals(graphe.getNoeuds().get(k)[0]) && node1[1].equals(graphe.getNoeuds().get(k)[1])){
 				x = k;
 				break;

@@ -10,8 +10,8 @@ public class Edge {
     private int i,j, width;
     private int[] pos1;
     private int[] pos2;
-    double val;
-    String type;
+    private double val;
+    private String type;
     
     /**
      * Constructeur de la classe Edge
@@ -77,4 +77,13 @@ public class Edge {
     public int getPos2Y() {
         return pos2[1];
     }
+
+    public double getVal() {
+        return val;
+    }
+
+    public String getType() {
+        return type;
+    }
+    
 }

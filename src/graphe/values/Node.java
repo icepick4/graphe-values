@@ -9,11 +9,11 @@ import java.awt.Graphics;
  * @version 1.0
  */
 public class Node {
-    int x, y, height, width;
-    String name;
-    String type;
-    boolean selected;
-    GUI gui;
+    private int x, y, height, width;
+    private String name;
+    private String type;
+    private boolean selected;
+    private GUI gui;
     
     /**
      * Constructeur de la classe Node
@@ -72,4 +72,55 @@ public class Node {
         this.height = 50;
         this.width = f.stringWidth(this.name)+50/2;
     }
+    
+    //get type
+    public String getType() {
+        return type;
+    }
+
+    //isselected
+    public boolean isSelected() {
+        return selected;
+    }
+
+    //get height
+    public int getHeight() {
+        return height;
+    }
+
+    //set height
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    //get width
+    public int getWidth() {
+        return width;
+    }
+
+    //set width
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    //get x
+    public int getX() {
+        return x;
+    }
+
+    //get y
+    public int getY() {
+        return y;
+    }
+
+    //set x
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    //set y
+    public void setY(int y) {
+        this.y = y;
+    }
+
 }
