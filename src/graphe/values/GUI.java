@@ -5,11 +5,10 @@ import java.io.File;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBox;
+import javax.swing.JColorChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JRadioButton;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import java.awt.Dimension;
 import java.awt.Font;
@@ -102,8 +101,6 @@ public class GUI extends javax.swing.JFrame {
         affichage_menu = new javax.swing.JMenu();
         options_menu = new javax.swing.JCheckBoxMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        couleur_fond_jframe = new javax.swing.JFrame();
-        couleur_fond_chooser = new javax.swing.JColorChooser();
         couleur_fond = new javax.swing.JMenuItem();
         
         jFileChooser1.setCurrentDirectory(new java.io.File("./inputFiles"));
@@ -134,36 +131,6 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-        );
-
-        couleur_fond_jframe.setTitle("Choisir une couleur de fond");
-        couleur_fond_chooser.setColor(Color.BLACK);
-        couleur_fond_chooser.getSelectionModel().addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                couleur_chooser_fondActionPerformed(e);
-            }
-        });
-
-        javax.swing.GroupLayout couleur_fond_jframeLayout = new javax.swing.GroupLayout(couleur_fond_jframe.getContentPane());
-        couleur_fond_jframe.getContentPane().setLayout(couleur_fond_jframeLayout);
-        couleur_fond_jframeLayout.setHorizontalGroup(
-            couleur_fond_jframeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 640, Short.MAX_VALUE)
-            .addGroup(couleur_fond_jframeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(couleur_fond_jframeLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(couleur_fond_chooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        couleur_fond_jframeLayout.setVerticalGroup(
-            couleur_fond_jframeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 324, Short.MAX_VALUE)
-            .addGroup(couleur_fond_jframeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(couleur_fond_jframeLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(couleur_fond_chooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -244,61 +211,61 @@ public class GUI extends javax.swing.JFrame {
 
         plusCulturel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent e) {
-                plusCulturelActionPerformed(e);
+                twoNodeListener();
             }
         });
 
         plusGastro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent e) {
-                plusGastroActionPerformed(e);
+                twoNodeListener();
             }
         });
 
         plusOuvert.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent e) {
-                plusOuvertActionPerformed(e);
+                twoNodeListener();
             }
         });
 
         resto1Distance.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent e) {
-                resto1DistanceActionPerformed(e);
+                twoNodeListener();
             }
         });
 
         ville1Distance.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent e) {
-                ville1DistanceActionPerformed(e);
+                twoNodeListener();
             }
         });
 
         loisir1Distance.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                loisir1DistanceActionPerformed(e);
+            public void actionPerformed(java.awt.event.ActionEvent e) {                
+                twoNodeListener();
             }
         });
 
         plusCourteDistance.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent e) {
-                plusCourteDistanceActionPerformed(e);
+                twoNodeListener();
             }
         });
 
         plusCourtChemin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent e) {
-                plusCourtCheminActionPerformed(e);
+                twoNodeListener();
             }
         });
 
         est2Distance.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent e) {
-                est2DistanceActionPerformed(e);
+                twoNodeListener();
             }
         });
 
         selectEdge.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent e) {
-                selectEdgeActionPerformed(e);
+                clickEdgeListeners();
             }
         });
 
@@ -574,14 +541,10 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_formComponentResized
 
     private void couleur_fondActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choisir_fontActionPerformed
-        couleur_fond_jframe.pack();
-        couleur_fond_jframe.setLocationRelativeTo(null);
-        couleur_fond_jframe.setVisible(true);
-    }
-
-    private void couleur_chooser_fondActionPerformed(ChangeEvent evt) {//GEN-FIRST:event_couleur_chooserActionPerformed
-        //set the font color
-        this.Canvas.setBackground(couleur_fond_chooser.getColor());
+        //open jColorChooser and get the color
+        Color color = JColorChooser.showDialog(this, "Choisir une couleur pour le fond", this.Canvas.getBackground());
+        //set the color
+        this.Canvas.setBackground(color);
     }
 
     private void selectNoeudActionPerformed(java.awt.event.ActionEvent evt){
@@ -590,64 +553,16 @@ public class GUI extends javax.swing.JFrame {
         this.addMouseMotionListener(click);
     }
 
-    private void plusCulturelActionPerformed(java.awt.event.ActionEvent evt){
-        this.removeListeners();
-        this.addMouseListener(twoNode);
-        this.addMouseMotionListener(twoNode);
-    }
-
-    private void plusGastroActionPerformed(java.awt.event.ActionEvent evt){
-        this.removeListeners();
-        this.addMouseListener(twoNode);
-        this.addMouseMotionListener(twoNode);
-    }
-
-    private void plusOuvertActionPerformed(java.awt.event.ActionEvent evt){
-        this.removeListeners();
-        this.addMouseListener(twoNode);
-        this.addMouseMotionListener(twoNode);
-    }
-
-    private void resto1DistanceActionPerformed(java.awt.event.ActionEvent evt){
-        this.removeListeners();
-        this.addMouseListener(twoNode);
-        this.addMouseMotionListener(twoNode);
-    }
-
-    private void ville1DistanceActionPerformed(java.awt.event.ActionEvent evt){
-        this.removeListeners();
-        this.addMouseListener(twoNode);
-        this.addMouseMotionListener(twoNode);
-    }
-
-    private void loisir1DistanceActionPerformed(java.awt.event.ActionEvent evt){
-        this.removeListeners();
-        this.addMouseListener(twoNode);
-        this.addMouseMotionListener(twoNode);
-    }
-
-    private void plusCourteDistanceActionPerformed(java.awt.event.ActionEvent evt){
-        this.removeListeners();
-        this.addMouseListener(twoNode);
-        this.addMouseMotionListener(twoNode);
-    }
-
-    private void plusCourtCheminActionPerformed(java.awt.event.ActionEvent evt){
-        this.removeListeners();
-        this.addMouseListener(twoNode);
-        this.addMouseMotionListener(twoNode);
-    }
-
-    private void est2DistanceActionPerformed(java.awt.event.ActionEvent evt){
-        this.removeListeners();
-        this.addMouseListener(twoNode);
-        this.addMouseMotionListener(twoNode);
-    }
-
-    private void selectEdgeActionPerformed(java.awt.event.ActionEvent evt){
+    private void clickEdgeListeners(){
         this.removeListeners();
         this.addMouseListener(clickEdge);
         this.addMouseMotionListener(clickEdge);
+    }
+
+    private void twoNodeListener(){
+        this.removeListeners();
+        this.addMouseListener(twoNode);
+        this.addMouseMotionListener(twoNode);
     }
 
     private void removeListeners(){
@@ -659,15 +574,15 @@ public class GUI extends javax.swing.JFrame {
         this.removeMouseMotionListener(clickEdge);
         this.twoNode.resetNodes();
         this.twoNode.resetSelections(Canvas);
-        Canvas.repaint();
+        this.Canvas.repaint();
     }
 
 
     private void cb_villeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_villeActionPerformed
         try{
-            Canvas.clear();
+            this.Canvas.clear();
             this.graphe = this.app.getGraphe();
-            Canvas.drawGraph(graphe);
+            this.Canvas.drawGraph(graphe);
         }
         catch(NullPointerException e){
             //open new message dialog
@@ -678,9 +593,9 @@ public class GUI extends javax.swing.JFrame {
 
     private void cb_restaurantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_restaurantActionPerformed
         try{
-            Canvas.clear();
+            this.Canvas.clear();
             graphe = this.app.getGraphe();
-            Canvas.drawGraph(graphe);
+            this.Canvas.drawGraph(graphe);
         }
         catch(NullPointerException e){
             //open new message dialog
@@ -928,14 +843,6 @@ public class GUI extends javax.swing.JFrame {
      * Menu Item pour choisir la couleur de fond
      */
     private javax.swing.JMenuItem couleur_fond;
-    /**
-     * JFrame du Color Chooser pour choisir la couleur de fond
-     */
-    private javax.swing.JFrame couleur_fond_jframe;
-    /**
-     * Color Chooser pour choisir la couleur de fond
-     */
-    private javax.swing.JColorChooser couleur_fond_chooser;
 
     // End of variables declaration//GEN-END:variables
 }

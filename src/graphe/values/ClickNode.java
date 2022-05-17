@@ -288,26 +288,6 @@ public class ClickNode implements MouseListener, MouseMotionListener {
     }
 
     @Override
-    public void mousePressed(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent e) {
-    }
-
-    @Override
     public void mouseMoved(MouseEvent e) {
         GrapheDraw Canvas = this.gui.getCanvas();
         int x = e.getX();
@@ -329,5 +309,21 @@ public class ClickNode implements MouseListener, MouseMotionListener {
                 Canvas.repaint();
             }
         }
+    }
+    
+    @Override
+    public void mousePressed(MouseEvent e) {
+    }
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    }
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+    @Override
+    public void mouseExited(MouseEvent e) {
+    }
+    @Override
+    public void mouseDragged(MouseEvent e) {
     }
 }
