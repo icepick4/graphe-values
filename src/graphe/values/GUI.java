@@ -10,6 +10,8 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
 
 import java.awt.Dimension;
 import java.awt.Font;
@@ -143,6 +145,7 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         jToolBar1.setRollover(true);
+
 
         lbl_affichage.setFont(new java.awt.Font("Arial", Font.BOLD, 20));
         lbl_affichage.setText("Noeuds :");
@@ -314,8 +317,8 @@ public class GUI extends javax.swing.JFrame {
         selectEdge.setText("Infos arêtes");
         selectNoeudInfos.setText("Infos noeuds");
 
-
-
+  
+        jScrollPane1.setViewportView(jToolBar1);
         javax.swing.GroupLayout toolBarPanLayout = new javax.swing.GroupLayout(toolBarPan);
         toolBarPan.setLayout(toolBarPanLayout);
         toolBarPanLayout.setHorizontalGroup(
@@ -506,13 +509,21 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(Canvas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
+                //add jscrollpane1
+
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(Canvas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, this.getHeight(), javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
+
+        jToolBar1.revalidate();
 
         this.pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -868,8 +879,6 @@ public class GUI extends javax.swing.JFrame {
 
     // End of variables declaration//GEN-END:variables
 }
-
-
 
 
 
