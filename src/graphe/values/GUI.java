@@ -319,6 +319,7 @@ public class GUI extends javax.swing.JFrame {
 
   
         jScrollPane1.setViewportView(jToolBar1);
+        jScrollPane1.getVerticalScrollBar().setUnitIncrement(16);
         javax.swing.GroupLayout toolBarPanLayout = new javax.swing.GroupLayout(toolBarPan);
         toolBarPan.setLayout(toolBarPanLayout);
         toolBarPanLayout.setHorizontalGroup(
