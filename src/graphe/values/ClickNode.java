@@ -318,17 +318,16 @@ public class ClickNode implements MouseListener, MouseMotionListener {
                     && y >= Canvas.getNodes().get(i).getPosY() + 10 && y <= Canvas.getNodes().get(i).getPosY() + 50) {
                 //this node is selected
                 Canvas.getNodes().get(i).setSelected(true);
-                Canvas.repaint();
+                
             }
             else{
                 //if the node is not clicked
                 if(Canvas.getNodes().get(i).isSelected() && (this.nodesSelected[0] == -1 || i != this.nodesSelected[0])){
                     //if the node is not selected
                     Canvas.getNodes().get(i).setSelected(false);
-                    Canvas.repaint();
                 }
-                Canvas.repaint();
             }
+            Canvas.repaint();
         }
     }
 

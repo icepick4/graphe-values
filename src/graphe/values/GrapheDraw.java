@@ -33,19 +33,19 @@ public class GrapheDraw extends JPanel {
     }
     
 	public int getNbNodes() {
-		return nodes.size();
+		return this.nodes.size();
 	}
 
 	public ArrayList<Node> getNodes() {
-		return nodes;
+		return this.nodes;
 	}
 
 	public int getNbEdges() {
-		return edges.size();
+		return this.edges.size();
 	}
 
 	public ArrayList<Edge> getEdges() {
-		return edges;
+		return this.edges;
 	}
 
 	/**
@@ -68,7 +68,7 @@ public class GrapheDraw extends JPanel {
 			x = getRandomNumber(50, this.gui.getCanvas().getWidth() - 50);
 			y = getRandomNumber(50, this.gui.getCanvas().getHeight() - 50);
 		}
-		nodes.add(new Node(this.gui, name,type, x,y));
+		this.nodes.add(new Node(this.gui, name,type, x,y));
 		this.repaint();
     }
 
@@ -96,7 +96,7 @@ public class GrapheDraw extends JPanel {
 	 */
     public void addEdge(String type, double val, int i, int j) {
 		//add an edge between nodes i and j
-		edges.add(new Edge(type, val, i, j, nodes.get(i).getX()-nodes.get(i).getWidth()/2, nodes.get(i).getY()-nodes.get(i).getWidth()/2, nodes.get(j).getX()-nodes.get(j).getWidth()/2, nodes.get(j).getY()-nodes.get(j).getWidth()/2));
+		this.edges.add(new Edge(type, val, i, j, nodes.get(i).getX()-nodes.get(i).getWidth()/2, nodes.get(i).getY()-nodes.get(i).getWidth()/2, nodes.get(j).getX()-nodes.get(j).getWidth()/2, nodes.get(j).getY()-nodes.get(j).getWidth()/2));
 		this.repaint();
     }
     

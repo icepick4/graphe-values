@@ -9,9 +9,6 @@ import javax.swing.JColorChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
 
 import java.awt.Dimension;
 import java.awt.Font;
@@ -605,7 +602,6 @@ public class GUI extends javax.swing.JFrame {
         this.Canvas.repaint();
     }
 
-
     private void cb_villeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_villeActionPerformed
         try{
             this.Canvas.clear();
@@ -873,9 +869,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JRadioButton selectEdge;
     private javax.swing.JRadioButton selectNoeudInfos;
     private javax.swing.JScrollPane jScrollPane1;
-    /**
-     * Menu Item pour choisir la couleur de fond
-     */
     private javax.swing.JMenuItem couleur_fond;
 
     // End of variables declaration//GEN-END:variables

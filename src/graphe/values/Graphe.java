@@ -19,7 +19,6 @@ public class Graphe{
     private final MatriceDouble matVal;
     private final MatriceString matLiens;
     private final ArrayList<String[]> noeuds;
-    public Object values;
     /**
      * Constructeur de la classe Graphe
      * @param matriceBool Matrice de booléens
@@ -27,7 +26,7 @@ public class Graphe{
      * @param matriceLiens Matrice de liens
      * @param noeuds Liste des noeuds
      */
-    Graphe(Matrice matriceBool, MatriceDouble matriceValuations, MatriceString matriceLiens, ArrayList<String[]> noeuds){
+    public Graphe(Matrice matriceBool, MatriceDouble matriceValuations, MatriceString matriceLiens, ArrayList<String[]> noeuds){
         this.matVal = matriceValuations;
         this.matBool = matriceBool;
         this.matLiens = matriceLiens;
@@ -38,7 +37,6 @@ public class Graphe{
                 this.aretes+=colonne;
             }
         }
-
         if(this.matBool.estSymetrique()){
             this.aretes /= 2;
         }

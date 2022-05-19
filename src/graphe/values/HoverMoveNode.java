@@ -15,6 +15,7 @@ public class HoverMoveNode implements MouseListener, MouseMotionListener{
     public HoverMoveNode(GUI gui){
         this.gui = gui;
     }
+    
     @Override
     public void mousePressed(MouseEvent e) {
         int x = e.getX();

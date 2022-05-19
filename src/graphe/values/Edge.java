@@ -2,7 +2,7 @@ package graphe.values;
 
 
 /**
- * La Classe qui permet de dé2ir une arête dans le graphe
+ * La Classe qui permet de définir une arête dans le graphe
  * @author Remi
  * @version 1.0
  */
