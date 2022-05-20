@@ -77,7 +77,11 @@ public class GrapheApp {
         while ((strLine = br.readLine()) != null) {
             if(checkCsv){
                 //remove the " at the beginning
-                strLine = strLine.substring(1, strLine.length()-1);
+                //create a char "
+                char c = '"';
+                if(strLine.charAt(0) == c && strLine.charAt(strLine.length()) == c){
+                    strLine = strLine.substring(1, strLine.length()-1);
+                }                
                 //remove all spaces
                 strLine = strLine.replaceAll(" ", "");
             }
