@@ -53,6 +53,13 @@ public class GrapheApp {
         }
         gui.opened = false;
         file = gui.getFileName();
+        //if file ends with .csv
+        boolean checkCsv = false;
+        if (file.endsWith(".csv")) {
+            checkCsv = true;
+        }
+
+
         // get only the title of the file
         String filename = file.substring(file.lastIndexOf("\\") + 1, file.length());
         gui.setTitle(filename);
@@ -68,6 +75,12 @@ public class GrapheApp {
         String lines = "";
         // reading the txt file
         while ((strLine = br.readLine()) != null) {
+            if(checkCsv){
+                //remove the " at the beginning
+                strLine = strLine.substring(1, strLine.length()-1);
+                //remove all spaces
+                strLine = strLine.replaceAll(" ", "");
+            }
             lines = lines + strLine;
             nbLines++;
         }

@@ -108,6 +108,7 @@ public class GUI extends javax.swing.JFrame {
         jFileChooser1.setCurrentDirectory(new java.io.File("./inputFiles"));
         jFileChooser1.setDialogTitle("Choisissez un fichier de Graphe");
         jFileChooser1.setFileFilter(new FileNameExtensionFilter("TXT File","txt"));
+        jFileChooser1.setFileFilter(new FileNameExtensionFilter("CSV File","csv"));
         jFileChooser1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 try {
