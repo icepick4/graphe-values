@@ -62,41 +62,26 @@ public class HoverMoveNode implements MouseListener, MouseMotionListener{
         for(int i = 0; i < Canvas.getNbNodes(); i++){
             if(x >= Canvas.getNodes().get(i).getPosX() - 50 && x <= Canvas.getNodes().get(i).getPosX() + 50 && y >= Canvas.getNodes().get(i).getPosY() + 10 && y <= Canvas.getNodes().get(i).getPosY() + 50){
                 try{
-                    if(Canvas.getNodes().get(this.node).getHeight() < 75){
-                        Canvas.getNodes().get(i).setHeight(Canvas.getNodes().get(i).getHeight() + 5);
-                    }
-                    if (Canvas.getNodes().get(this.node).getWidth() < 90){
-                        Canvas.getNodes().get(i).setWidth(Canvas.getNodes().get(i).getWidth() + 5);
-                    }   
+                    Canvas.getNodes().get(i).setSelected(true); 
                 }
                 catch(IndexOutOfBoundsException ee){
                     //pas de noeud selectionné
                 }
                 if(!this.clicked || this.node == -1){
-                    if(Canvas.getNodes().get(i).getHeight() < 75){
-                        Canvas.getNodes().get(i).setHeight(Canvas.getNodes().get(i).getHeight() + 5);
-                    }
-                    if (Canvas.getNodes().get(i).getWidth() < 90){
-                        Canvas.getNodes().get(i).setWidth(Canvas.getNodes().get(i).getWidth() + 5);
-                    }
+                    Canvas.getNodes().get(i).setSelected(true); 
                 } 
             }
             else if (this.clicked){
                 try{
-                    if(Canvas.getNodes().get(this.node).getHeight() < 75){
-                        Canvas.getNodes().get(i).setHeight(75);
-                    }
-                    if (Canvas.getNodes().get(this.node).getWidth() < 90){
-                        Canvas.getNodes().get(i).setWidth(90);
-                    }
+                    Canvas.getNodes().get(i).setSelected(true); 
                 }
                 catch(IndexOutOfBoundsException ee){
                     //pas de noeud selectionné
                 }
-                Canvas.getNodes().get(i).resetSize();
+                Canvas.getNodes().get(i).setSelected(false);
             }
             else{
-                Canvas.getNodes().get(i).resetSize();
+                Canvas.getNodes().get(i).setSelected(false);
             }
         }
         if(clicked){

@@ -79,7 +79,7 @@ public class GrapheApp {
                 //remove the " at the beginning
                 //create a char "
                 char c = '"';
-                if(strLine.charAt(0) == c && strLine.charAt(strLine.length()) == c){
+                if(strLine.charAt(0) == c && strLine.charAt(strLine.length()-1) == c){
                     strLine = strLine.substring(1, strLine.length()-1);
                 }                
                 //remove all spaces
