@@ -6,6 +6,7 @@ package graphe.values;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.Collections;
 
 /**
  * La Classe qui permet de définir un Graphe Valués
@@ -379,16 +380,6 @@ public class Graphe{
     }
 
     /**
-     * Méthode qui appel la méthode {@link #floydWarshallDistance()}
-     * @param a Indice du noeud A
-     * @param b Indice du noeud B
-     * @return la valeur de la plus courte distance entre deux noeuds
-     */
-    public double plusCourtChemin(int a, int b){
-        return this.floydWarshallDistance().matrice[a][b];
-    }
-
-    /**
      * Méthode qui appel la méthode {@link #floydWarshallPredesseceurs()}
      * @param a Indice du noeud A
      * @param b Indice du noeud B
@@ -408,6 +399,17 @@ public class Graphe{
         chemin.add(b);
         return chemin;
     }
+
+    /**
+     * Méthode qui appel la méthode {@link #floydWarshallDistance()}
+     * @param a Indice du noeud A
+     * @param b Indice du noeud B
+     * @return la valeur de la plus courte distance entre deux noeuds
+     */
+    public double plusCourtChemin(int a, int b){
+        return this.floydWarshallDistance().matrice[a][b];
+    }
+
     /**
      *  
      * @param sommet Nom du sommet de départ
