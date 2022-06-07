@@ -1,26 +1,27 @@
-package graphe.values;
-
+package graphe.values.model;
 
 /**
  * La Classe qui permet de définir une arête dans le graphe
+ * 
  * @author Remi
  * @version 1.0
  */
 public class Edge {
-    private int i,j, width;
+    private int i, j, width;
     private int[] pos1;
     private int[] pos2;
     private double val;
     private String type;
-    
+
     /**
      * Constructeur de la classe Edge
+     * 
      * @param myType Type de l'arête
-     * @param MyVal Valeur de l'arête
-     * @param i Numéro du premier sommet
-     * @param j Numéro du second sommet
+     * @param MyVal  Valeur de l'arête
+     * @param i      Numéro du premier sommet
+     * @param j      Numéro du second sommet
      */
-    public Edge(String myType, double MyVal, int i, int j, int pos1x, int pos1y, int pos2x, int pos2y){ 
+    public Edge(String myType, double MyVal, int i, int j, int pos1x, int pos1y, int pos2x, int pos2y) {
         this.i = i;
         this.j = j;
         this.pos1 = new int[2];
@@ -33,6 +34,7 @@ public class Edge {
 
     /**
      * Retourne le numéro du premier sommet
+     * 
      * @return Numéro du premier sommet
      */
     public int getNodeI() {
@@ -41,17 +43,18 @@ public class Edge {
 
     /**
      * Retourne le numéro du second sommet
+     * 
      * @return Numéro du second sommet
      */
     public int getNodeJ() {
         return j;
     }
 
-    public int getWidth(){
+    public int getWidth() {
         return this.width;
     }
 
-    public void setWidth(int width){
+    public void setWidth(int width) {
         this.width = width;
     }
 
@@ -85,5 +88,5 @@ public class Edge {
     public String getType() {
         return type;
     }
-    
+
 }

@@ -1,4 +1,4 @@
-package graphe.values;
+package graphe.values.model;
 
 import java.util.Arrays;
 
@@ -18,7 +18,7 @@ public class MatriceDouble {
      * 
      * @param matrice Matrice à initialiser
      */
-    MatriceDouble(double[][] matrice) {
+    public MatriceDouble(double[][] matrice) {
         this.matrice = matrice;
         this.colonnes = matrice[0].length;
         this.lignes = matrice.length;

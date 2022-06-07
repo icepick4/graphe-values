@@ -5,6 +5,14 @@
 package graphe.values;
 
 import com.formdev.flatlaf.FlatDarkLaf;
+
+import graphe.values.model.Graphe;
+import graphe.values.model.Matrice;
+import graphe.values.model.MatriceDouble;
+import graphe.values.model.MatriceString;
+import graphe.values.view.GUI;
+import graphe.values.view.GrapheDraw;
+
 import java.util.ArrayList;
 import java.nio.charset.StandardCharsets;
 import java.io.IOException;
@@ -14,7 +22,9 @@ import java.io.BufferedReader;
 import java.io.DataInputStream;
 
 /**
- * Classe principale de l'application qui permet d'ouvrir un fichier et de l'afficher (.txt)
+ * Classe principale de l'application qui permet d'ouvrir un fichier et de
+ * l'afficher (.txt)
+ * 
  * @author Remi
  * @version 1.0
  */
@@ -30,10 +40,10 @@ public class GrapheApp {
      * @throws IOException
      */
     public static void main(String[] args) throws IOException {
-       new GrapheApp();
+        new GrapheApp();
     }
 
-    public GrapheApp(){
+    public GrapheApp() {
         FlatDarkLaf.setup();
         gui = new GUI(this);
         gui.setVisible(true);
@@ -53,12 +63,11 @@ public class GrapheApp {
         }
         gui.opened = false;
         file = gui.getFileName();
-        //if file ends with .csv
+        // if file ends with .csv
         boolean checkCsv = false;
         if (file.endsWith(".csv")) {
             checkCsv = true;
         }
-
 
         // get only the title of the file
         String filename = file.substring(file.lastIndexOf("\\") + 1, file.length());
@@ -75,14 +84,14 @@ public class GrapheApp {
         String lines = "";
         // reading the txt file
         while ((strLine = br.readLine()) != null) {
-            if(checkCsv){
-                //remove the " at the beginning
-                //create a char "
+            if (checkCsv) {
+                // remove the " at the beginning
+                // create a char "
                 char c = '"';
-                if(strLine.charAt(0) == c && strLine.charAt(strLine.length()-1) == c){
-                    strLine = strLine.substring(1, strLine.length()-1);
-                }                
-                //remove all spaces
+                if (strLine.charAt(0) == c && strLine.charAt(strLine.length() - 1) == c) {
+                    strLine = strLine.substring(1, strLine.length() - 1);
+                }
+                // remove all spaces
                 strLine = strLine.replaceAll(" ", "");
             }
             lines = lines + strLine;
@@ -189,7 +198,9 @@ public class GrapheApp {
     }
 
     /**
-     * Permet de récupérer le caractère à l'index passé en argument à partir d'une chaine de caractère
+     * Permet de récupérer le caractère à l'index passé en argument à partir d'une
+     * chaine de caractère
+     * 
      * @param str
      * @param index
      * @return le caractère à l'index passé en argument

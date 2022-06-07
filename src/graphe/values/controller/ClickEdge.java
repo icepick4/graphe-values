@@ -1,10 +1,13 @@
-package graphe.values;
+package graphe.values.controller;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import javax.swing.JOptionPane;
+
+import graphe.values.view.GUI;
+import graphe.values.view.GrapheDraw;
 
 public class ClickEdge implements MouseListener, MouseMotionListener {
     private GUI gui;
@@ -43,8 +46,10 @@ public class ClickEdge implements MouseListener, MouseMotionListener {
                     posDebY = Canvas.getEdges().get(i).getPos2Y() + 25;
                     posFinY = Canvas.getEdges().get(i).getPos1Y() + 25;
                 }
-                double largeur = Math.abs((posFinY - posDebY) * x - (posFinX - posDebX) * y + posFinX * posDebY - posFinY * posDebX);
-                double longueur = Math.sqrt((posFinX - posDebX) * (posFinX - posDebX) + (posFinY - posDebY) * (posFinY - posDebY));
+                double largeur = Math
+                        .abs((posFinY - posDebY) * x - (posFinX - posDebX) * y + posFinX * posDebY - posFinY * posDebX);
+                double longueur = Math
+                        .sqrt((posFinX - posDebX) * (posFinX - posDebX) + (posFinY - posDebY) * (posFinY - posDebY));
                 if (largeur / longueur < 7 && x > posDebX && x < posFinX) {
                     Canvas.getEdges().get(i).setWidth(7);
                     if (click) {

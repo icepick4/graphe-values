@@ -1,10 +1,13 @@
-package graphe.values;
+package graphe.values.model;
 
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 
+import graphe.values.view.GUI;
+
 /**
  * La Classe qui permet de définir un sommet dans le graphe
+ * 
  * @author Remi
  * @version 1.0
  */
@@ -14,13 +17,14 @@ public class Node {
     private String type;
     private boolean selected;
     private GUI gui;
-    
+
     /**
      * Constructeur de la classe Node
+     * 
      * @param name Nom du sommet
      * @param type Type du sommet
-     * @param x Abscisse du sommet
-     * @param y Ordonnée du sommet
+     * @param x    Abscisse du sommet
+     * @param y    Ordonnée du sommet
      */
     public Node(GUI gui, String name, String type, int x, int y) {
         this.x = x;
@@ -32,7 +36,7 @@ public class Node {
         Graphics g = this.gui.getCanvas().getGraphics();
         FontMetrics f = g.getFontMetrics();
         this.height = 50;
-        this.width = f.stringWidth(this.name)+50/2;
+        this.width = f.stringWidth(this.name) + 50 / 2;
     }
 
     public String getName() {
@@ -66,59 +70,59 @@ public class Node {
     /**
      * Reset la taille du noeud
      */
-    public void resetSize(){
+    public void resetSize() {
         Graphics g = this.gui.getCanvas().getGraphics();
         FontMetrics f = g.getFontMetrics();
         this.height = 50;
-        this.width = f.stringWidth(this.name)+50/2;
+        this.width = f.stringWidth(this.name) + 50 / 2;
     }
-    
-    //get type
+
+    // get type
     public String getType() {
         return type;
     }
 
-    //isselected
+    // isselected
     public boolean isSelected() {
         return selected;
     }
 
-    //get height
+    // get height
     public int getHeight() {
         return height;
     }
 
-    //set height
+    // set height
     public void setHeight(int height) {
         this.height = height;
     }
 
-    //get width
+    // get width
     public int getWidth() {
         return width;
     }
 
-    //set width
+    // set width
     public void setWidth(int width) {
         this.width = width;
     }
 
-    //get x
+    // get x
     public int getX() {
         return x;
     }
 
-    //get y
+    // get y
     public int getY() {
         return y;
     }
 
-    //set x
+    // set x
     public void setX(int x) {
         this.x = x;
     }
 
-    //set y
+    // set y
     public void setY(int y) {
         this.y = y;
     }
