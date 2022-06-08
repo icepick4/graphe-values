@@ -72,8 +72,8 @@ public class GrapheDraw extends JPanel {
 		// add a node at pixel (x,y)
 		int x = 500, y = 500;
 		while (!this.isValid(x, y)) {
-			x = getRandomNumber(50, this.gui.getCanvas().getWidth() - 50);
-			y = getRandomNumber(50, this.gui.getCanvas().getHeight() - 50);
+			x = getRandomNumber(50, this.gui.getCanvas().getWidth() - 100);
+			y = getRandomNumber(50, this.gui.getCanvas().getHeight() - 100);
 		}
 		this.nodes.add(new Node(this.gui, name, type, x, y));
 		this.repaint();
