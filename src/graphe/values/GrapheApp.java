@@ -23,7 +23,7 @@ import java.io.DataInputStream;
 
 /**
  * Classe principale de l'application qui permet d'ouvrir un fichier et de
- * l'afficher (.txt)
+ * l'afficher (.txt) (.csv)
  * 
  * @author Remi
  * @version 1.0
@@ -72,6 +72,7 @@ public class GrapheApp {
         // get only the title of the file
         String filename = file.substring(file.lastIndexOf("\\") + 1, file.length());
         gui.setTitle(filename);
+
         FileInputStream fstream = new FileInputStream(file);
         DataInputStream in = new DataInputStream(fstream);
         BufferedReader br = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8));
@@ -98,6 +99,7 @@ public class GrapheApp {
             nbLines++;
         }
 
+        // get the nodes names
         text = lines.split(";;");
         for (int i = 0; i < nbLines; i++) {
             int n = 0;
@@ -116,8 +118,8 @@ public class GrapheApp {
             noeud.add(sommet);
             text[i] = text[i].substring(n);
         }
+
         // init matricebool matricevaluations matriceliens to put them in graphe
-        // constructor
         int[][] matricebool = new int[noeud.size()][noeud.size()];
         double[][] matricevaluations = new double[noeud.size()][noeud.size()];
         String[][] matriceliens = new String[noeud.size()][noeud.size()];

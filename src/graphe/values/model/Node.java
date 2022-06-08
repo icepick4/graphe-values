@@ -68,7 +68,7 @@ public class Node {
     }
 
     /**
-     * Reset la taille du noeud
+     * Reset la taille du noeud visuellement
      */
     public void resetSize() {
         Graphics g = this.gui.getCanvas().getGraphics();

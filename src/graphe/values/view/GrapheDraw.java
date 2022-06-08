@@ -112,7 +112,9 @@ public class GrapheDraw extends JPanel {
 	}
 
 	/**
-	 * Permet de peindre tous les composants du graphe
+	 * It draws the nodes and edges
+	 * 
+	 * @param g Graphics object
 	 */
 	public void paint(Graphics g) { // draw the nodes and edges
 		// clear g
@@ -259,6 +261,10 @@ public class GrapheDraw extends JPanel {
 		}
 	}
 
+	/**
+	 * Renvoie la position de l'arête dans le graphe qui relie les noeuds i et j
+	 * 
+	 */
 	public int[] indexOfEdge(Graphe graphe, int i, int j) {
 		// create String[] with type of node and name of this.nodes.get(i) and
 		// this.nodes.get(j)
@@ -289,10 +295,23 @@ public class GrapheDraw extends JPanel {
 		return new int[] { x, y };
 	}
 
+	/**
+	 * It returns a random number between min and max.
+	 * 
+	 * @param min The minimum number that can be generated.
+	 * @param max The maximum number that can be generated.
+	 * @return The random number between the min and max.
+	 */
 	public static int getRandomNumber(int min, int max) {
 		return (int) ((Math.random() * (max - min)) + min);
 	}
 
+	/**
+	 * This function sets the background color of the panel to the color passed in
+	 * as a parameter
+	 * 
+	 * @param c The color to set the background to.
+	 */
 	public void setBackground(Color c) {
 		this.bgColor = c;
 		this.repaint();
